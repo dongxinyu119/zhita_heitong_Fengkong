@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhita.Dao.FengkMapper" >
+
+
+	<insert id="AddAnti_fraud" parameterType="com.zhita.Model.Usercheat">
+		INSERT INTO `usercheat`(
+			userId,
+			username,
+			phone,
+			idNumber,
+			fraudScore,
+			fraudReasonCode
+		)VALUES(#{userId},#{username},#{phone},#{idNumber},#{fraudScore},#{fraudReasonCode})
+	</insert>
+	
+	
+	<insert id="AddJointobligation" parameterType="com.zhita.Collection.jointobligation.Data">
+		INSERT INTO `jointobligation`(
+			userId,
+			username,
+			phone,
+			idNumber,
+			L7D_714_DEBT_PCNT,
+			L7D_714_DEBT_TOTAMT,
+			L7D_ONLINE_DEBT_PCNT,
+			L7D_ONLINE_DEBT_TOTAMT,
+			L7D_CUSTOMER_DEBT_PCNT,
+			L7D_CUSTOMER_DEBT_TOTAMT,
+			L7D_UNBANK_DEBT_PCNT,
+			L7D_UNBANK_DEBT_TOTAMT,
+			L30D_714_DEBT_PCNT,
+			L30D_714_DEBT_TOTAMT,
+			L30D_ONLINE_DEBT_PCNT,
+			L30D_ONLINE_DEBT_TOTAMT,
+			L30D_CUSTOMER_DEBT_PCNT,
+			L30D_CUSTOMER_DEBT_TOTAMT,
+			L30D_UNBANK_DEBT_PCNT,
+			L30D_UNBANK_DEBT_TOTAMT,
+			L3M_714_DEBT_PCNT,
+			L3M_714_DEBT_TOTAMT,
+			L3M_ONLINE_DEBT_PCNT,
+			L3M_ONLINE_DEBT_TOTAMT,
+			L3M_CUSTOMER_DEBT_PCNT,
+			L3M_CUSTOMER_DEBT_TOTAMT,
+			L3M_UNBANK_DEBT_PCNT,
+			L3M_UNBANK_DEBT_TOTAMT
+		)VALUES(
+			#{userId},
+			#{username},
+			#{phone},
+			#{idNumber},
+			#{L7D_714_DEBT_PCNT},
+			#{L7D_714_DEBT_TOTAMT},
+			#{L7D_ONLINE_DEBT_PCNT},
+			#{L7D_ONLINE_DEBT_TOTAMT},
+			#{L7D_CUSTOMER_DEBT_PCNT},
+			#{L7D_CUSTOMER_DEBT_TOTAMT},
+			#{L7D_UNBANK_DEBT_PCNT},
+			#{L7D_UNBANK_DEBT_TOTAMT},
+			#{L30D_714_DEBT_PCNT},
+			#{L30D_714_DEBT_TOTAMT},
+			#{L30D_ONLINE_DEBT_PCNT},
+			#{L30D_ONLINE_DEBT_TOTAMT},
+			#{L30D_CUSTOMER_DEBT_PCNT},
+			#{L30D_CUSTOMER_DEBT_TOTAMT},
+			#{L30D_UNBANK_DEBT_PCNT},
+			#{L30D_UNBANK_DEBT_TOTAMT},
+			#{L3M_714_DEBT_PCNT},
+			#{L3M_714_DEBT_TOTAMT},
+			#{L3M_ONLINE_DEBT_PCNT},
+			#{L3M_ONLINE_DEBT_TOTAMT},
+			#{L3M_CUSTOMER_DEBT_PCNT},
+			#{L3M_CUSTOMER_DEBT_TOTAMT},
+			#{L3M_UNBANK_DEBT_PCNT},
+			#{L3M_UNBANK_DEBT_TOTAMT}
+		)
+	</insert>
+	
+	
+	<insert id="AddUserportrait" parameterType="com.zhita.Model.Userportrait">
+		INSERT INTO `userportrait`(
+			username,
+			userId,
+			idnumber,
+			phone,
+			orgcombination,
+			responselevel,
+			risklevel
+		)VALUES(#{username},#{userId},#{idnumber},#{phone},#{orgcombination},#{responselevel},#{risklevel})
+	</insert>
+
+
+
+	<select id="SelectAnti_fraudtotalCount" parameterType="com.zhita.Model.Usercheat" resultType="java.lang.Integer">
+		select count(*) from usercheat 
+		<where>
+			<if test="username != null and username != ''">
+				username like CONCAT('%',#{username},'%') 
+			</if>
+			<if test="phone != null and phone != ''">
+				phone like CONCAT('%',#{phone},'%') 
+			</if>
+			<if test="idNumber != null and idNumber != ''">
+				idNumber = #{idNumber} 
+			</if>
+		</where>
+	</select>
+	
+	
+	<select id="SelectAnti_fraud" parameterType="com.zhita.Model.Usercheat" resultType="com.zhita.Model.Usercheat">
+		select * from usercheat 
+		<where>
+			<if test="username != null and username != ''">
+				username like CONCAT('%',#{username},'%') 
+			</if>
+			<if test="phone != null and phone != ''">
+				phone like CONCAT('%',#{phone},'%') 
+			</if>
+			<if test="idNumber != null and idNumber != ''">
+				idNumber = #{idNumber} 
+			</if>
+		</where>
+		ORDER BY id DESC
+		limit #{page},#{pagesize}
+	</select>
+	
+	
+	
+	<select id="SelectUserportraittotalCount" parameterType="com.zhita.Model.Userportrait" resultType="java.lang.Integer">
+		select count(*) from userportrait 
+		<where>
+			<if test="username != null and username != ''">
+				username like CONCAT('%',#{username},'%') 
+			</if>
+			<if test="phone != null and phone != ''">
+				phone like CONCAT('%',#{phone},'%') 
+			</if>
+			<if test="idNumber != null and idNumber != ''">
+				idNumber = #{idNumber} 
+			</if>
+		</where>
+	</select>
+	
+	
+	<select id="SelectUserportrait" parameterType="com.zhita.Model.Userportrait" resultType="com.zhita.Model.Userportrait">
+		select * from userportrait 
+		<where>
+			<if test="username != null and username != ''">
+				username like CONCAT('%',#{username},'%') 
+			</if>
+			<if test="phone != null and phone != ''">
+				phone like CONCAT('%',#{phone},'%') 
+			</if>
+			<if test="idNumber != null and idNumber != ''">
+				idNumber = #{idNumber} 
+			</if>
+		</where>
+		ORDER BY id DESC
+		limit #{page},#{pagesize}
+	</select>
+	
+	
+	
+	<select id="SelectBeoverduetotalCount" parameterType="com.zhita.Model.Beoverdue" resultType="java.lang.Integer">
+		select count(*) from beoverdue 
+		<where>
+			<if test="username != null and username != ''">
+				username like CONCAT('%',#{username},'%') 
+			</if>
+			<if test="phone != null and phone != ''">
+				phone like CONCAT('%',#{phone},'%') 
+			</if>
+			<if test="idNumber != null and idNumber != ''">
+				idNumber = #{idNumber} 
+			</if>
+		</where>
+	</select>
+	
+	
+	<select id="SelectBeoverdue" parameterType="com.zhita.Model.Beoverdue" resultType="com.zhita.Model.Beoverdue">
+		select * from beoverdue 
+		<where>
+			<if test="username != null and username != ''">
+				username like CONCAT('%',#{username},'%') 
+			</if>
+			<if test="phone != null and phone != ''">
+				phone like CONCAT('%',#{phone},'%') 
+			</if>
+			<if test="idNumber != null and idNumber != ''">
+				idNumber = #{idNumber} 
+			</if>
+		</where>
+		ORDER BY id DESC
+		limit #{page},#{pagesize}
+	</select>
+	
+	
+	
+	<select id="SelectJointobligationtotalCount" parameterType="com.zhita.Model.Jointobligation" resultType="java.lang.Integer">
+		select count(*) from jointobligation 
+		<where>
+			<if test="username != null and username != ''">
+				username like CONCAT('%',#{username},'%') 
+			</if>
+			<if test="phone != null and phone != ''">
+				phone like CONCAT('%',#{phone},'%') 
+			</if>
+			<if test="idNumber != null and idNumber != ''">
+				idNumber = #{idNumber} 
+			</if>
+		</where>
+	</select>
+	
+	
+	<select id="SelectJointobligation" parameterType="com.zhita.Model.Jointobligation" resultType="com.zhita.Model.Jointobligation">
+		select * from jointobligation 
+		<where>
+			<if test="username != null and username != ''">
+				username like CONCAT('%',#{username},'%') 
+			</if>
+			<if test="phone != null and phone != ''">
+				phone like CONCAT('%',#{phone},'%') 
+			</if>
+			<if test="idNumber != null and idNumber != ''">
+				idNumber = #{idNumber} 
+			</if>
+		</where>
+		ORDER BY id DESC
+		limit #{page},#{pagesize}
+	</select>
+	
+	
+	
+	<insert id="addUserPhone" parameterType="com.zhita.Model.Configuration">
+		INSERT INTO configuration (
+			idNumber,
+			name,
+			phone,
+			wifiName,
+			wifiIP,
+			wifiMac,
+			phoneMarket,
+			phoneModel,
+			phoneRes,
+			lac,
+			loc,
+			wrapName,
+			uuid,
+			send_time,
+			app_name
+		)VALUES
+		(#{idNumber},#{name},#{phone},#{wifiName},#{wifiIP},#{wifiMac},#{phoneMarket},#{phoneModel},#{phoneRes},#{lac},#{loc},#{wrapName},#{uuid},#{send_time},#{app_name})
+	</insert>
+	
+	
+	
+	<select id="AllUserPhone" resultType="com.zhita.Model.Configuration">
+		select * from configuration
+	</select>
+	
+	
+	
+	<select id="SelectUserId" parameterType="java.lang.String" resultType="java.lang.Integer">
+		select id from configuration where phone = #{phone}
+	</select>
+	
+	
+	
+	<insert id="addMaillst" parameterType="com.zhita.Model.Maillist">
+		INSERT INTO maillist(
+		name,
+		phone,
+		userId
+		)VALUES(#{name},#{phone},#{userId})
+	</insert>
+	
+	
+	<select id="SelectMaillUserCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		select count(id) from maillist where userId = #{userId}
+	</select>
+	
+	
+	<insert id="AddUserApp" parameterType="com.zhita.Model.UserApp">
+		INSERT INTO userApp(
+			userId,
+			name,
+			time
+		)VALUES(#{userId},#{name},#{time})
+	</insert>
+	
+	
+	
+	<update id="updateconfiguration" parameterType="java.util.Map">
+		update configuration
+		set phoneMarket = #{phoneMarket},
+		phoneModel = #{phoneModel},
+		phoneRes = #{phoneRes},
+		lac = #{lac},
+		loc = #{loc},
+		uuid = #{uuid},
+		wifiIP = #{wifiIP},
+		wifiMac = #{wifiMac},
+		wifiName = #{wifiName},
+		wrapName = #{wrapName}
+		where phone = #{phone}
+	</update>
+	
+	
+	
+	<delete id="DeleteAppName" parameterType="java.lang.Integer">
+		delete from userapp where userId = #{uid}
+	</delete>
+	
+</mapper>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhita.Dao.RiskDao" >
+
+
+	<select id="UserPhoneCount" parameterType="java.lang.String" resultType="java.lang.Integer">
+		select count(id) from maillist where userId = #{userId}
+	</select>
+	
+	<!-- 查询同一天设备登陆数 -->
+	<select id="UserLoginNum" parameterType="com.zhita.Model.Configuration" resultType="java.lang.Integer">
+		select count(id) from configuration where uuid = #{uuid} and send_time BETWEEN #{statu_time} and #{end_time}
+	</select>
+	
+	<!-- 查询同一天WifiIP关联数 -->
+	<select id="UserWifiIPNum" parameterType="com.zhita.Model.Configuration" resultType="java.lang.Integer">
+		select count(id) from configuration where wifiIP = #{wifiIP} and send_time BETWEEN #{statu_time} and #{end_time}
+	</select>
+	
+	<select id="UserUUID" parameterType="java.lang.String" resultType="com.zhita.Model.Configuration">
+		select uuid,wifiIP,wifiMac from configuration where phone = #{phone}
+	</select>
+	
+	
+	<!-- 查询WIFImac 相关联数 -->
+	<select id="UserWifiMacNum" parameterType="com.zhita.Model.Configuration" resultType="java.lang.Integer">
+		select count(id) from configuration where wifiMac = #{wifiMac}
+	</select>
+	
+	
+	<!-- 查询用户通讯录手机号 -->
+	<select id="SelectUserMaillist" parameterType="java.lang.Integer" resultType="java.lang.String">
+		select phone from maillist where userId = #{userId}
+	</select>
+	
+	
+	
+	<!-- 查询通讯录名称 -->
+	<select id="NameMaillist" parameterType="java.lang.String" resultType="java.lang.Integer">
+		select count(id) from maillist where `name` LIKE  "%"#{name}"%" and userId = #{id}
+	</select>
+	
+	
+	<!-- 查询APP名称 -->
+	<select id="AppNum" parameterType="java.lang.String" resultType="java.lang.Integer">
+		select count(id) from userApp where `name` LIKE  "%"#{name}"%" and `name` not LIKE  "%小米%" and userId = #{id}
+	</select>
+	
+</mapper>

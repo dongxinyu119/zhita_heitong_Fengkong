@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:tx="http://www.springframework.org/schema/tx" 
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+						http://www.springframework.org/schema/context
+						http://www.springframework.org/schema/context/spring-context-3.0.xsd
+						http://www.springframework.org/schema/mvc
+						http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
+						
+	<!-- 加入引用springdao.xml交给 springmvc.xml管理 -->	
+	<import resource="classpath:springdao.xml"></import>
+	
+	<!-- 加入引用spring-redis.xml交给 springmvc.xml管理 -->	
+	<import resource="classpath:spring-redis.xml"></import>
+	
+	<!--启用spring mvc注解  相当于注解了defaultannotationHandlerMapping和annotationmethod HandlerAdapter-->	
+	<mvc:annotation-driven/>
+	 
+	 <!--  设置使用注解过的所有的包进行扫描，无论任何类有注解都会被扫描,凡是注解过的实体都是首字母小写-->
+	 <context:component-scan base-package="com.zhita"></context:component-scan>
+	 
+	 <!-- 访问静态资源，例：图片文件夹，或JS文件夹 -->
+	 <mvc:default-servlet-handler/>
+	 
+
+	<!--  配置渲染器-->
+		<!-- <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+			<property name="prefix" value="/view/" />
+			<property name="suffix" value=".html" />
+		</bean>
+		 -->
+	<!--  渲染器结束-->
+	
+	<!-- 上传下载-->
+		<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+			<property name="defaultEncoding" value="UTF-8"></property>
+			<property name="maxUploadSize" value="104857600"></property>
+		</bean>
+	<!-- end-->
+	
+			 <!-- 
+    <bean id="transactionManager"
+        class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+   
+    <tx:annotation-driven transaction-manager="transactionManager" />
+	
+	-->
+	
+</beans>

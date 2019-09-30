@@ -4,16 +4,99 @@
   <resultMap id="BaseResultMap" type="com.zhita.Model.SensitiveInfoNew" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="xiaodai_userid" property="xiaodaiUserid" jdbcType="INTEGER" />
-    <result column="risk_level" property="riskLevel" jdbcType="VARCHAR" />
-    <result column="item_id" property="itemId" jdbcType="INTEGER" />
-    <result column="item_name" property="itemName" jdbcType="VARCHAR" />
-    <result column="check_result" property="checkResult" jdbcType="VARCHAR" />
-    <result column="idcard_matching" property="idcardMatching" jdbcType="VARCHAR" />
-    <result column="name_matching" property="nameMatching" jdbcType="VARCHAR" />
+    <result column="key_information_risk_level" property="keyInformationRiskLevel" jdbcType="VARCHAR" />
+    <result column="key_information_item_id" property="keyInformationItemId" jdbcType="INTEGER" />
+    <result column="key_information_item_name" property="keyInformationItemName" jdbcType="VARCHAR" />
+    <result column="key_information_check_result" property="keyInformationCheckResult" jdbcType="VARCHAR" />
+    <result column="key_information_idcard_matching" property="keyInformationIdcardMatching" jdbcType="VARCHAR" />
+    <result column="key_information_name_matching" property="keyInformationNameMatching" jdbcType="VARCHAR" />
+    <result column="net_time_risk_level" property="netTimeRiskLevel" jdbcType="VARCHAR" />
+    <result column="net_time_item_id" property="netTimeItemId" jdbcType="INTEGER" />
+    <result column="net_time_item_name" property="netTimeItemName" jdbcType="VARCHAR" />
+    <result column="net_time_check_result" property="netTimeCheckResult" jdbcType="VARCHAR" />
+    <result column="network_length_check" property="networkLengthCheck" jdbcType="VARCHAR" />
+    <result column="applicant_blacklist_risk_level" property="applicantBlacklistRiskLevel" jdbcType="VARCHAR" />
+    <result column="applicant_blacklist_item_id" property="applicantBlacklistItemId" jdbcType="INTEGER" />
+    <result column="applicant_blacklist_item_name" property="applicantBlacklistItemName" jdbcType="VARCHAR" />
+    <result column="applicant_blacklist_check_result" property="applicantBlacklistCheckResult" jdbcType="VARCHAR" />
+    <result column="applicant_blacklist_idcard" property="applicantBlacklistIdcard" jdbcType="VARCHAR" />
+    <result column="applicant_blacklist_phone_number" property="applicantBlacklistPhoneNumber" jdbcType="VARCHAR" />
+    <result column="emergency_blacklist_blacklist_risk_level" property="emergencyBlacklistBlacklistRiskLevel" jdbcType="VARCHAR" />
+    <result column="emergency_blacklist_blacklist_item_id" property="emergencyBlacklistBlacklistItemId" jdbcType="INTEGER" />
+    <result column="emergency_blacklist_blacklist_item_name" property="emergencyBlacklistBlacklistItemName" jdbcType="VARCHAR" />
+    <result column="emergency_blacklist_check_result" property="emergencyBlacklistCheckResult" jdbcType="VARCHAR" />
+    <result column="blacklist_communication_blacklist_risk_level" property="blacklistCommunicationBlacklistRiskLevel" jdbcType="VARCHAR" />
+    <result column="blacklist_communication_blacklist_item_id" property="blacklistCommunicationBlacklistItemId" jdbcType="INTEGER" />
+    <result column="blacklist_communication_blacklist_item_name" property="blacklistCommunicationBlacklistItemName" jdbcType="VARCHAR" />
+    <result column="blacklist_communication_check_result" property="blacklistCommunicationCheckResult" jdbcType="VARCHAR" />
+    <result column="id_card_blacklist_risk_level" property="idCardBlacklistRiskLevel" jdbcType="VARCHAR" />
+    <result column="id_card_blacklist_item_id" property="idCardBlacklistItemId" jdbcType="INTEGER" />
+    <result column="id_card_blacklist_item_name" property="idCardBlacklistItemName" jdbcType="VARCHAR" />
+    <result column="id_card_check_result" property="idCardCheckResult" jdbcType="VARCHAR" />
+    <result column="result" property="result" jdbcType="VARCHAR" />
+    <result column="private_lending_risk_level" property="privateLendingRiskLevel" jdbcType="VARCHAR" />
+    <result column="private_lending_item_id" property="privateLendingItemId" jdbcType="INTEGER" />
+    <result column="private_lending_item_name" property="privateLendingItemName" jdbcType="VARCHAR" />
+    <result column="private_lending_check_result" property="privateLendingCheckResult" jdbcType="VARCHAR" />
+    <result column="financial_institutions_risk_level" property="financialInstitutionsRiskLevel" jdbcType="VARCHAR" />
+    <result column="financial_institutions_item_id" property="financialInstitutionsItemId" jdbcType="INTEGER" />
+    <result column="financial_institutions_item_name" property="financialInstitutionsItemName" jdbcType="VARCHAR" />
+    <result column="financial_institutions_check_result" property="financialInstitutionsCheckResult" jdbcType="VARCHAR" />
+    <result column="credit_card_risk_level" property="creditCardRiskLevel" jdbcType="VARCHAR" />
+    <result column="credit_card_item_id" property="creditCardItemId" jdbcType="INTEGER" />
+    <result column="credit_card_item_name" property="creditCardItemName" jdbcType="VARCHAR" />
+    <result column="credit_card_check_result" property="creditCardCheckResult" jdbcType="VARCHAR" />
+    <result column="lending_platform_risk_level" property="lendingPlatformRiskLevel" jdbcType="VARCHAR" />
+    <result column="lending_platform_item_id" property="lendingPlatformItemId" jdbcType="INTEGER" />
+    <result column="lending_platform_item_name" property="lendingPlatformItemName" jdbcType="VARCHAR" />
+    <result column="lending_platform_check_result" property="lendingPlatformCheckResult" jdbcType="VARCHAR" />
+    <result column="internet_loan_risk_level" property="internetLoanRiskLevel" jdbcType="VARCHAR" />
+    <result column="internet_loan_item_id" property="internetLoanItemId" jdbcType="INTEGER" />
+    <result column="internet_loan_item_name" property="internetLoanItemName" jdbcType="VARCHAR" />
+    <result column="internet_loan_check_result" property="internetLoanCheckResult" jdbcType="VARCHAR" />
+    <result column="court_risk_level" property="courtRiskLevel" jdbcType="VARCHAR" />
+    <result column="court_item_id" property="courtItemId" jdbcType="INTEGER" />
+    <result column="court_item_name" property="courtItemName" jdbcType="VARCHAR" />
+    <result column="court_check_result" property="courtCheckResult" jdbcType="VARCHAR" />
+    <result column="risk_level_110" property="riskLevel110" jdbcType="VARCHAR" />
+    <result column="item_id_110" property="itemId110" jdbcType="INTEGER" />
+    <result column="item_name_110" property="itemName110" jdbcType="VARCHAR" />
+    <result column="check_result_110" property="checkResult110" jdbcType="VARCHAR" />
+    <result column="lawyer_risk_level" property="lawyerRiskLevel" jdbcType="VARCHAR" />
+    <result column="lawyer_item_id" property="lawyerItemId" jdbcType="INTEGER" />
+    <result column="lawyer_item_name" property="lawyerItemName" jdbcType="VARCHAR" />
+    <result column="lawyer_check_result" property="lawyerCheckResult" jdbcType="VARCHAR" />
+    <result column="risk_level_120" property="riskLevel120" jdbcType="VARCHAR" />
+    <result column="item_id_120" property="itemId120" jdbcType="INTEGER" />
+    <result column="item_name_120" property="itemName120" jdbcType="VARCHAR" />
+    <result column="check_result_120" property="checkResult120" jdbcType="VARCHAR" />
+    <result column="macao_communication_risk_level" property="macaoCommunicationRiskLevel" jdbcType="VARCHAR" />
+    <result column="macao_communication_item_id" property="macaoCommunicationItemId" jdbcType="INTEGER" />
+    <result column="macao_communication_item_name" property="macaoCommunicationItemName" jdbcType="VARCHAR" />
+    <result column="macao_communication_check_result" property="macaoCommunicationCheckResult" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, xiaodai_userid, risk_level, item_id, item_name, check_result, idcard_matching, 
-    name_matching
+    id, xiaodai_userid, key_information_risk_level, key_information_item_id, key_information_item_name, 
+    key_information_check_result, key_information_idcard_matching, key_information_name_matching, 
+    net_time_risk_level, net_time_item_id, net_time_item_name, net_time_check_result, 
+    network_length_check, applicant_blacklist_risk_level, applicant_blacklist_item_id, 
+    applicant_blacklist_item_name, applicant_blacklist_check_result, applicant_blacklist_idcard, 
+    applicant_blacklist_phone_number, emergency_blacklist_blacklist_risk_level, emergency_blacklist_blacklist_item_id, 
+    emergency_blacklist_blacklist_item_name, emergency_blacklist_check_result, blacklist_communication_blacklist_risk_level, 
+    blacklist_communication_blacklist_item_id, blacklist_communication_blacklist_item_name, 
+    blacklist_communication_check_result, id_card_blacklist_risk_level, id_card_blacklist_item_id, 
+    id_card_blacklist_item_name, id_card_check_result, result, private_lending_risk_level, 
+    private_lending_item_id, private_lending_item_name, private_lending_check_result, 
+    financial_institutions_risk_level, financial_institutions_item_id, financial_institutions_item_name, 
+    financial_institutions_check_result, credit_card_risk_level, credit_card_item_id, 
+    credit_card_item_name, credit_card_check_result, lending_platform_risk_level, lending_platform_item_id, 
+    lending_platform_item_name, lending_platform_check_result, internet_loan_risk_level, 
+    internet_loan_item_id, internet_loan_item_name, internet_loan_check_result, court_risk_level, 
+    court_item_id, court_item_name, court_check_result, risk_level_110, item_id_110, 
+    item_name_110, check_result_110, lawyer_risk_level, lawyer_item_id, lawyer_item_name, 
+    lawyer_check_result, risk_level_120, item_id_120, item_name_120, check_result_120, 
+    macao_communication_risk_level, macao_communication_item_id, macao_communication_item_name, 
+    macao_communication_check_result
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -21,27 +104,4 @@
     from sensitive_info_new
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from sensitive_info_new
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.zhita.Model.SensitiveInfoNew" >
-    insert into sensitive_info_new (id, xiaodai_userid, risk_level, 
-      item_id, item_name, check_result, 
-      idcard_matching, name_matching)
-    values (#{id,jdbcType=INTEGER}, #{xiaodaiUserid,jdbcType=INTEGER}, #{riskLevel,jdbcType=VARCHAR}, 
-      #{itemId,jdbcType=INTEGER}, #{itemName,jdbcType=VARCHAR}, #{checkResult,jdbcType=VARCHAR}, 
-      #{idcardMatching,jdbcType=VARCHAR}, #{nameMatching,jdbcType=VARCHAR})
-  </insert>
-  <update id="updateByPrimaryKey" parameterType="com.zhita.Model.SensitiveInfoNew" >
-    update sensitive_info_new
-    set xiaodai_userid = #{xiaodaiUserid,jdbcType=INTEGER},
-      risk_level = #{riskLevel,jdbcType=VARCHAR},
-      item_id = #{itemId,jdbcType=INTEGER},
-      item_name = #{itemName,jdbcType=VARCHAR},
-      check_result = #{checkResult,jdbcType=VARCHAR},
-      idcard_matching = #{idcardMatching,jdbcType=VARCHAR},
-      name_matching = #{nameMatching,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
 </mapper>

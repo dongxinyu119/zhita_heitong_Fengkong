@@ -8,6 +8,8 @@
     <result column="interflow_call_phone_count" property="interflowCallPhoneCount" jdbcType="INTEGER" />
     <result column="compactness_call_count" property="compactnessCallCount" jdbcType="INTEGER" />
     <result column="ephemeral_call_count" property="ephemeralCallCount" jdbcType="INTEGER" />
+    <result column="location" property="location" jdbcType="VARCHAR" />
+    <result column="percent" property="percent" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, xiaodai_userid, phone_count, interflow_call_phone_count, compactness_call_count, 
@@ -42,9 +44,8 @@
   </update>
   <!-- 列表查询           社交关系 -->
   <select id="queryAll" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-  	select 
-    <include refid="Base_Column_List" />
-    from social_connectionsinfo
-    where xiaodai_userid=#{arg0}
+    select soc.*,GROUP_CONCAT(cir.location) location,GROUP_CONCAT(cir.percent) percent from 
+    social_connectionsinfo soc inner join circle_of_friends_locations cir on soc.id=cir.socid  
+	where soc.xiaodai_userid=#{arg0} group by soc.id;
   </select>
 </mapper>

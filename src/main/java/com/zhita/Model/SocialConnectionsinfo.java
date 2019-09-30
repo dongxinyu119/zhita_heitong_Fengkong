@@ -1,7 +1,5 @@
 package com.zhita.Model;
 
-import java.util.List;
-
 //社交关系表
 public class SocialConnectionsinfo {
     private Integer id;
@@ -16,8 +14,10 @@ public class SocialConnectionsinfo {
 
     private Integer ephemeralCallCount;//疑是骚扰电话个数
     
-    private List<CircleOfFriendsLocations> listcir;//朋友圈区域集合
-
+    private String location;//朋友圈区域
+    
+    private String percent;//朋友圈区域占比
+    
     public Integer getId() {
         return id;
     }
@@ -66,12 +66,20 @@ public class SocialConnectionsinfo {
         this.ephemeralCallCount = ephemeralCallCount;
     }
 
-	public List<CircleOfFriendsLocations> getListcir() {
-		return listcir;
+	public String getLocation() {
+		return location;
 	}
 
-	public void setListcir(List<CircleOfFriendsLocations> listcir) {
-		this.listcir = listcir;
+	public void setLocation(String location) {
+		this.location = location;
 	}
-    
+
+	public String getPercent() {
+		return percent;
+	}
+
+	public void setPercent(String percent) {
+		this.percent = percent;
+	}
+
 }

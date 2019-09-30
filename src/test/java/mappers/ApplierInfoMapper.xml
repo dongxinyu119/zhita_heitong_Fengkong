@@ -85,4 +85,30 @@
     from applier_info
     where xiaodai_userid = #{arg0}
   </select>
+  
+  
+ <insert id="setApplierInfo" parameterType="java.util.Map"> 
+ insert into applier_info (xiaodai_userid,name,gender,age,phone_number,idcard,idcard_location,home_telephone_number,home_address,home_formatted_address,home_level,home_latitude,
+ home_longitude,company_telephone_number,company_address,company_formatted_address,company_level,company_latitude,company_longitude)
+ values(#{userId},
+        #{name},
+        #{gender},
+        #{age},
+        #{phone_number},
+        #{idcard},
+        #{idcard_location},
+        #{home_telephone_number},
+        #{home_address},
+        #{home_formatted_address},
+        #{home_level},
+        #{home_latitude},
+        #{home_longitude},
+        #{company_telephone_number},
+        #{company_address},
+        #{company_formatted_address},
+        #{company_level},
+        #{company_latitude},
+        #{company_longitude})
+ </insert>
+  
 </mapper>

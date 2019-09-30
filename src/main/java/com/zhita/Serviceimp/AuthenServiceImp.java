@@ -109,13 +109,13 @@ public class AuthenServiceImp implements IntAuthenService{
     	
     	List<ReportInfo> listrepo=reportInfoMapper.queryAll(userid);//报告基本信息OK
     	
-    	List<SocialConnectionsinfo> listsoc=socialConnectionsinfoMapper.queryAll(userid);//社交关系
+    	List<SocialConnectionsinfo> listsoc=socialConnectionsinfoMapper.queryAll(userid);//社交关系OK
     	
-    	List<Top10CallCount> top10call=top10CallCountMapper.queryAll(userid);//通话次数前10 表
+    	List<Top10CallCount> top10call=top10CallCountMapper.queryAll(userid);//通话次数前10 表OK
     	
-    	List<Top10CallTime> top10time=top10CallTimeMapper.queryAll(userid);//通话总时长前10 表
+    	List<Top10CallTime> top10time=top10CallTimeMapper.queryAll(userid);//通话总时长前10 表OK
     	
-    	List<Top10SingleCallTime> top10sing=top10SingleCallTimeMapper.queryAll(userid);//单次通话时长前10 表
+    	List<Top10SingleCallTime> top10sing=top10SingleCallTimeMapper.queryAll(userid);//单次通话时长前10 表OK
     	
 		Map<String,Object> map=new HashMap<String, Object>();
 		map.put("listapplier", listapplier);//申请人基本信息
@@ -189,7 +189,7 @@ public class AuthenServiceImp implements IntAuthenService{
 	}
 	
 	public Map<String,Object> queryauthenave(Integer userid,Integer page){
-    	List<TravelInfo> listave=new ArrayList<>();//出行分析表----7
+    	List<TravelInfo> listave=new ArrayList<>();//出行分析表----7OK
 		PageUtil2 pageUtil=null;
 		int totalCount=travelInfoMapper.queryAllCount(userid);;//查询总数量
 		pageUtil=new PageUtil2(page,totalCount);
@@ -205,8 +205,8 @@ public class AuthenServiceImp implements IntAuthenService{
     		}
     		pageUtil.setPage(page);
     	}
-    	int pages2=(page-1)*pageUtil.getPageSize();
-    	listave=travelInfoMapper.queryAll(userid,pages2,pageUtil.getPageSize());
+    	int pages=(page-1)*pageUtil.getPageSize();
+    	listave=travelInfoMapper.queryAll(userid,pages,pageUtil.getPageSize());
     	
     	Map<String,Object> map=new HashMap<String, Object>();
 		map.put("listave", listave);

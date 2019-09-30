@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhita.Dao.CircleOfFriendsLocationsMapper" >
+  <resultMap id="BaseResultMap" type="com.zhita.Model.CircleOfFriendsLocations" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="ofid" property="ofid" jdbcType="INTEGER" />
+    <result column="socid" property="socid" jdbcType="INTEGER" />
+    <result column="location" property="location" jdbcType="VARCHAR" />
+    <result column="percent" property="percent" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, ofid, socid, location, percent
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from circle_of_friends_locations
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from circle_of_friends_locations
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zhita.Model.CircleOfFriendsLocations" >
+    insert into circle_of_friends_locations (id, ofid, socid, 
+      location, percent)
+    values (#{id,jdbcType=INTEGER}, #{ofid,jdbcType=INTEGER}, #{socid,jdbcType=INTEGER}, 
+      #{location,jdbcType=VARCHAR}, #{percent,jdbcType=DECIMAL})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.zhita.Model.CircleOfFriendsLocations" >
+    update circle_of_friends_locations
+    set ofid = #{ofid,jdbcType=INTEGER},
+      socid = #{socid,jdbcType=INTEGER},
+      location = #{location,jdbcType=VARCHAR},
+      percent = #{percent,jdbcType=DECIMAL}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

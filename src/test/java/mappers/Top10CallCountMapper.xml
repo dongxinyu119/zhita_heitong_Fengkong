@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhita.Dao.Top10CallCountMapper" >
+  <resultMap id="BaseResultMap" type="com.zhita.Model.Top10CallCount" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="xiaodai_userid" property="xiaodaiUserid" jdbcType="INTEGER" />
+    <result column="phone_number" property="phoneNumber" jdbcType="VARCHAR" />
+    <result column="call_count" property="callCount" jdbcType="INTEGER" />
+    <result column="calling_count" property="callingCount" jdbcType="INTEGER" />
+    <result column="called_count" property="calledCount" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, xiaodai_userid, phone_number, call_count, calling_count, called_count
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from top10_call_count
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from top10_call_count
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zhita.Model.Top10CallCount" >
+    insert into top10_call_count (id, xiaodai_userid, phone_number, 
+      call_count, calling_count, called_count
+      )
+    values (#{id,jdbcType=INTEGER}, #{xiaodaiUserid,jdbcType=INTEGER}, #{phoneNumber,jdbcType=VARCHAR}, 
+      #{callCount,jdbcType=INTEGER}, #{callingCount,jdbcType=INTEGER}, #{calledCount,jdbcType=INTEGER}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.zhita.Model.Top10CallCount" >
+    update top10_call_count
+    set xiaodai_userid = #{xiaodaiUserid,jdbcType=INTEGER},
+      phone_number = #{phoneNumber,jdbcType=VARCHAR},
+      call_count = #{callCount,jdbcType=INTEGER},
+      calling_count = #{callingCount,jdbcType=INTEGER},
+      called_count = #{calledCount,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <!-- 列表查询            通话次数前10 表 -->
+  <select id="queryAll" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from top10_call_count
+    where xiaodai_userid=#{arg0}
+  </select>
+</mapper>

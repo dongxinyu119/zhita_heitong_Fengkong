@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhita.Dao.OperatorInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.zhita.Model.OperatorInfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="xiaodai_userid" property="xiaodaiUserid" jdbcType="INTEGER" />
+    <result column="phone_number" property="phoneNumber" jdbcType="VARCHAR" />
+    <result column="operator_type" property="operatorType" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="idcard" property="idcard" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="vip_level" property="vipLevel" jdbcType="VARCHAR" />
+    <result column="accumulate_points" property="accumulatePoints" jdbcType="VARCHAR" />
+    <result column="registration_history" property="registrationHistory" jdbcType="VARCHAR" />
+    <result column="order_description" property="orderDescription" jdbcType="VARCHAR" />
+    <result column="available_amount" property="availableAmount" jdbcType="DECIMAL" />
+    <result column="phone_number_location" property="phoneNumberLocation" jdbcType="VARCHAR" />
+    <result column="main_active_location" property="mainActiveLocation" jdbcType="VARCHAR" />
+    <result column="main_location_percent" property="mainLocationPercent" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, xiaodai_userid, phone_number, operator_type, name, idcard, email, address, vip_level, 
+    accumulate_points, registration_history, order_description, available_amount, phone_number_location, 
+    main_active_location, main_location_percent
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from operator_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from operator_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zhita.Model.OperatorInfo" >
+    insert into operator_info (id, xiaodai_userid, phone_number, 
+      operator_type, name, idcard, 
+      email, address, vip_level, 
+      accumulate_points, registration_history, 
+      order_description, available_amount, phone_number_location, 
+      main_active_location, main_location_percent
+      )
+    values (#{id,jdbcType=INTEGER}, #{xiaodaiUserid,jdbcType=INTEGER}, #{phoneNumber,jdbcType=VARCHAR}, 
+      #{operatorType,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{idcard,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{vipLevel,jdbcType=VARCHAR}, 
+      #{accumulatePoints,jdbcType=VARCHAR}, #{registrationHistory,jdbcType=VARCHAR}, 
+      #{orderDescription,jdbcType=VARCHAR}, #{availableAmount,jdbcType=DECIMAL}, #{phoneNumberLocation,jdbcType=VARCHAR}, 
+      #{mainActiveLocation,jdbcType=VARCHAR}, #{mainLocationPercent,jdbcType=DECIMAL}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.zhita.Model.OperatorInfo" >
+    update operator_info
+    set xiaodai_userid = #{xiaodaiUserid,jdbcType=INTEGER},
+      phone_number = #{phoneNumber,jdbcType=VARCHAR},
+      operator_type = #{operatorType,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      idcard = #{idcard,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      vip_level = #{vipLevel,jdbcType=VARCHAR},
+      accumulate_points = #{accumulatePoints,jdbcType=VARCHAR},
+      registration_history = #{registrationHistory,jdbcType=VARCHAR},
+      order_description = #{orderDescription,jdbcType=VARCHAR},
+      available_amount = #{availableAmount,jdbcType=DECIMAL},
+      phone_number_location = #{phoneNumberLocation,jdbcType=VARCHAR},
+      main_active_location = #{mainActiveLocation,jdbcType=VARCHAR},
+      main_location_percent = #{mainLocationPercent,jdbcType=DECIMAL}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <!-- 查询列表           运营商基本信息 -->
+  <select id="queryAll" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  	select o.*,GROUP_CONCAT(m.location) mainActiveLocation,GROUP_CONCAT(m.percent) mainLocationPercent
+  	from operator_info o inner join main_locations m on o.id=m.ofid where o.xiaodai_userid=#{arg0} group by o.id;
+  </select>
+</mapper>

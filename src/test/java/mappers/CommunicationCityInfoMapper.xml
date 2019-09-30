@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhita.Dao.CommunicationCityInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.zhita.Model.CommunicationCityInfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="xiaodai_userid" property="xiaodaiUserid" jdbcType="INTEGER" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="call_count" property="callCount" jdbcType="INTEGER" />
+    <result column="calling_count" property="callingCount" jdbcType="INTEGER" />
+    <result column="calling_duration_time" property="callingDurationTime" jdbcType="VARCHAR" />
+    <result column="called_count" property="calledCount" jdbcType="INTEGER" />
+    <result column="called_duration_time" property="calledDurationTime" jdbcType="VARCHAR" />
+    <result column="calling_count_per" property="callingCountPer" jdbcType="DECIMAL" />
+    <result column="calling_duration_time_per" property="callingDurationTimePer" jdbcType="DECIMAL" />
+    <result column="called_count_per" property="calledCountPer" jdbcType="DECIMAL" />
+    <result column="called_duration_time_per" property="calledDurationTimePer" jdbcType="DECIMAL" />
+  </resultMap>
+   <sql id="Base_Column_List" >
+    id, xiaodai_userid, city, call_count, calling_count, calling_duration_time, called_count, 
+    called_duration_time, calling_count_per, calling_duration_time_per, called_count_per, 
+    called_duration_time_per
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from communication_city_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from communication_city_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zhita.Model.CommunicationCityInfo" >
+    insert into communication_city_info (id, xiaodai_userid, city, 
+      call_count, calling_count, calling_duration_time, 
+      called_count, called_duration_time, calling_count_per, 
+      calling_duration_time_per, called_count_per, 
+      called_duration_time_per)
+    values (#{id,jdbcType=INTEGER}, #{xiaodaiUserid,jdbcType=INTEGER}, #{city,jdbcType=VARCHAR}, 
+      #{callCount,jdbcType=INTEGER}, #{callingCount,jdbcType=INTEGER}, #{callingDurationTime,jdbcType=VARCHAR}, 
+      #{calledCount,jdbcType=INTEGER}, #{calledDurationTime,jdbcType=VARCHAR}, #{callingCountPer,jdbcType=DECIMAL}, 
+      #{callingDurationTimePer,jdbcType=DECIMAL}, #{calledCountPer,jdbcType=DECIMAL}, 
+      #{calledDurationTimePer,jdbcType=DECIMAL})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.zhita.Model.CommunicationCityInfo" >
+    update communication_city_info
+    set xiaodai_userid = #{xiaodaiUserid,jdbcType=INTEGER},
+      city = #{city,jdbcType=VARCHAR},
+      call_count = #{callCount,jdbcType=INTEGER},
+      calling_count = #{callingCount,jdbcType=INTEGER},
+      calling_duration_time = #{callingDurationTime,jdbcType=VARCHAR},
+      called_count = #{calledCount,jdbcType=INTEGER},
+      called_duration_time = #{calledDurationTime,jdbcType=VARCHAR},
+      calling_count_per = #{callingCountPer,jdbcType=DECIMAL},
+      calling_duration_time_per = #{callingDurationTimePer,jdbcType=DECIMAL},
+      called_count_per = #{calledCountPer,jdbcType=DECIMAL},
+      called_duration_time_per = #{calledDurationTimePer,jdbcType=DECIMAL}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <!-- 列表查询——通话区域分布(省级)表 -->
+  <select id="queryAll" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  	 select 
+    <include refid="Base_Column_List" />
+    from communication_city_info
+    where xiaodai_userid=#{arg0}
+  </select>
+</mapper>

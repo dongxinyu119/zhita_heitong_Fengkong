@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhita.Dao.SensitiveInfoNewMapper" >
+  <resultMap id="BaseResultMap" type="com.zhita.Model.SensitiveInfoNew" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="xiaodai_userid" property="xiaodaiUserid" jdbcType="INTEGER" />
+    <result column="risk_level" property="riskLevel" jdbcType="VARCHAR" />
+    <result column="item_id" property="itemId" jdbcType="INTEGER" />
+    <result column="item_name" property="itemName" jdbcType="VARCHAR" />
+    <result column="check_result" property="checkResult" jdbcType="VARCHAR" />
+    <result column="idcard_matching" property="idcardMatching" jdbcType="VARCHAR" />
+    <result column="name_matching" property="nameMatching" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, xiaodai_userid, risk_level, item_id, item_name, check_result, idcard_matching, 
+    name_matching
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sensitive_info_new
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sensitive_info_new
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zhita.Model.SensitiveInfoNew" >
+    insert into sensitive_info_new (id, xiaodai_userid, risk_level, 
+      item_id, item_name, check_result, 
+      idcard_matching, name_matching)
+    values (#{id,jdbcType=INTEGER}, #{xiaodaiUserid,jdbcType=INTEGER}, #{riskLevel,jdbcType=VARCHAR}, 
+      #{itemId,jdbcType=INTEGER}, #{itemName,jdbcType=VARCHAR}, #{checkResult,jdbcType=VARCHAR}, 
+      #{idcardMatching,jdbcType=VARCHAR}, #{nameMatching,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.zhita.Model.SensitiveInfoNew" >
+    update sensitive_info_new
+    set xiaodai_userid = #{xiaodaiUserid,jdbcType=INTEGER},
+      risk_level = #{riskLevel,jdbcType=VARCHAR},
+      item_id = #{itemId,jdbcType=INTEGER},
+      item_name = #{itemName,jdbcType=VARCHAR},
+      check_result = #{checkResult,jdbcType=VARCHAR},
+      idcard_matching = #{idcardMatching,jdbcType=VARCHAR},
+      name_matching = #{nameMatching,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

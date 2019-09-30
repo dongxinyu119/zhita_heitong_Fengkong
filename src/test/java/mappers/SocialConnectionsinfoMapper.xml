@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhita.Dao.SocialConnectionsinfoMapper" >
+  <resultMap id="BaseResultMap" type="com.zhita.Model.SocialConnectionsinfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="xiaodai_userid" property="xiaodaiUserid" jdbcType="INTEGER" />
+    <result column="phone_count" property="phoneCount" jdbcType="INTEGER" />
+    <result column="interflow_call_phone_count" property="interflowCallPhoneCount" jdbcType="INTEGER" />
+    <result column="compactness_call_count" property="compactnessCallCount" jdbcType="INTEGER" />
+    <result column="ephemeral_call_count" property="ephemeralCallCount" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, xiaodai_userid, phone_count, interflow_call_phone_count, compactness_call_count, 
+    ephemeral_call_count
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from social_connectionsinfo
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from social_connectionsinfo
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zhita.Model.SocialConnectionsinfo" >
+    insert into social_connectionsinfo (id, xiaodai_userid, phone_count, 
+      interflow_call_phone_count, compactness_call_count, 
+      ephemeral_call_count)
+    values (#{id,jdbcType=INTEGER}, #{xiaodaiUserid,jdbcType=INTEGER}, #{phoneCount,jdbcType=INTEGER}, 
+      #{interflowCallPhoneCount,jdbcType=INTEGER}, #{compactnessCallCount,jdbcType=INTEGER}, 
+      #{ephemeralCallCount,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.zhita.Model.SocialConnectionsinfo" >
+    update social_connectionsinfo
+    set xiaodai_userid = #{xiaodaiUserid,jdbcType=INTEGER},
+      phone_count = #{phoneCount,jdbcType=INTEGER},
+      interflow_call_phone_count = #{interflowCallPhoneCount,jdbcType=INTEGER},
+      compactness_call_count = #{compactnessCallCount,jdbcType=INTEGER},
+      ephemeral_call_count = #{ephemeralCallCount,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <!-- 列表查询           社交关系 -->
+  <select id="queryAll" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from social_connectionsinfo
+    where xiaodai_userid=#{arg0}
+  </select>
+</mapper>

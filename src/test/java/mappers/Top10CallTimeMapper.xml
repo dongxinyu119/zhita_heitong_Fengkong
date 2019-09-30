@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhita.Dao.Top10CallTimeMapper" >
+  <resultMap id="BaseResultMap" type="com.zhita.Model.Top10CallTime" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="xiaodai_userid" property="xiaodaiUserid" jdbcType="INTEGER" />
+    <result column="phone_number" property="phoneNumber" jdbcType="VARCHAR" />
+    <result column="call_duration_time" property="callDurationTime" jdbcType="VARCHAR" />
+    <result column="calling_duration_time" property="callingDurationTime" jdbcType="VARCHAR" />
+    <result column="called_duration_time" property="calledDurationTime" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, xiaodai_userid, phone_number, call_duration_time, calling_duration_time, called_duration_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from top10_call_time
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from top10_call_time
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zhita.Model.Top10CallTime" >
+    insert into top10_call_time (id, xiaodai_userid, phone_number, 
+      call_duration_time, calling_duration_time, 
+      called_duration_time)
+    values (#{id,jdbcType=INTEGER}, #{xiaodaiUserid,jdbcType=INTEGER}, #{phoneNumber,jdbcType=VARCHAR}, 
+      #{callDurationTime,jdbcType=VARCHAR}, #{callingDurationTime,jdbcType=VARCHAR}, 
+      #{calledDurationTime,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.zhita.Model.Top10CallTime" >
+    update top10_call_time
+    set xiaodai_userid = #{xiaodaiUserid,jdbcType=INTEGER},
+      phone_number = #{phoneNumber,jdbcType=VARCHAR},
+      call_duration_time = #{callDurationTime,jdbcType=VARCHAR},
+      calling_duration_time = #{callingDurationTime,jdbcType=VARCHAR},
+      called_duration_time = #{calledDurationTime,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <!--列表查询             通话总时长前10 表  -->
+  <select id="queryAll" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  	 select 
+    <include refid="Base_Column_List" />
+    from top10_call_time
+    where xiaodai_userid=#{arg0}
+  </select>
+</mapper>

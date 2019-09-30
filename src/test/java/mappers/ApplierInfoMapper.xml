@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhita.Dao.ApplierInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.zhita.Model.ApplierInfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="xiaodai_userid" property="xiaodaiUserid" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="gender" property="gender" jdbcType="VARCHAR" />
+    <result column="age" property="age" jdbcType="INTEGER" />
+    <result column="phone_number" property="phoneNumber" jdbcType="VARCHAR" />
+    <result column="phone_mark" property="phoneMark" jdbcType="VARCHAR" />
+    <result column="idcard" property="idcard" jdbcType="VARCHAR" />
+    <result column="idcard_location" property="idcardLocation" jdbcType="VARCHAR" />
+    <result column="home_telephone_number" property="homeTelephoneNumber" jdbcType="VARCHAR" />
+    <result column="home_address" property="homeAddress" jdbcType="VARCHAR" />
+    <result column="home_formatted_address" property="homeFormattedAddress" jdbcType="VARCHAR" />
+    <result column="home_level" property="homeLevel" jdbcType="VARCHAR" />
+    <result column="home_latitude" property="homeLatitude" jdbcType="VARCHAR" />
+    <result column="home_longitude" property="homeLongitude" jdbcType="VARCHAR" />
+    <result column="company_telephone_number" property="companyTelephoneNumber" jdbcType="VARCHAR" />
+    <result column="company_address" property="companyAddress" jdbcType="VARCHAR" />
+    <result column="company_formatted_address" property="companyFormattedAddress" jdbcType="VARCHAR" />
+    <result column="company_level" property="companyLevel" jdbcType="VARCHAR" />
+    <result column="company_latitude" property="companyLatitude" jdbcType="VARCHAR" />
+    <result column="company_longitude" property="companyLongitude" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, xiaodai_userid, name, gender, age, phone_number, phone_mark, idcard, idcard_location, 
+    home_telephone_number, home_address, home_formatted_address, home_level, home_latitude, 
+    home_longitude, company_telephone_number, company_address, company_formatted_address, 
+    company_level, company_latitude, company_longitude
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from applier_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <insert id="insert" parameterType="com.zhita.Model.ApplierInfo" >
+    insert into applier_info (id, xiaodai_userid, name, 
+      gender, age, phone_number, 
+      phone_mark, idcard, idcard_location, 
+      home_telephone_number, home_address, home_formatted_address, 
+      home_level, home_latitude, home_longitude, 
+      company_telephone_number, company_address, 
+      company_formatted_address, company_level, 
+      company_latitude, company_longitude)
+    values (#{id,jdbcType=INTEGER}, #{xiaodaiUserid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{gender,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, #{phoneNumber,jdbcType=VARCHAR}, 
+      #{phoneMark,jdbcType=VARCHAR}, #{idcard,jdbcType=VARCHAR}, #{idcardLocation,jdbcType=VARCHAR}, 
+      #{homeTelephoneNumber,jdbcType=VARCHAR}, #{homeAddress,jdbcType=VARCHAR}, #{homeFormattedAddress,jdbcType=VARCHAR}, 
+      #{homeLevel,jdbcType=VARCHAR}, #{homeLatitude,jdbcType=VARCHAR}, #{homeLongitude,jdbcType=VARCHAR}, 
+      #{companyTelephoneNumber,jdbcType=VARCHAR}, #{companyAddress,jdbcType=VARCHAR}, 
+      #{companyFormattedAddress,jdbcType=VARCHAR}, #{companyLevel,jdbcType=VARCHAR}, 
+      #{companyLatitude,jdbcType=VARCHAR}, #{companyLongitude,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.zhita.Model.ApplierInfo" >
+    update applier_info
+    set xiaodai_userid = #{xiaodaiUserid,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=VARCHAR},
+      age = #{age,jdbcType=INTEGER},
+      phone_number = #{phoneNumber,jdbcType=VARCHAR},
+      phone_mark = #{phoneMark,jdbcType=VARCHAR},
+      idcard = #{idcard,jdbcType=VARCHAR},
+      idcard_location = #{idcardLocation,jdbcType=VARCHAR},
+      home_telephone_number = #{homeTelephoneNumber,jdbcType=VARCHAR},
+      home_address = #{homeAddress,jdbcType=VARCHAR},
+      home_formatted_address = #{homeFormattedAddress,jdbcType=VARCHAR},
+      home_level = #{homeLevel,jdbcType=VARCHAR},
+      home_latitude = #{homeLatitude,jdbcType=VARCHAR},
+      home_longitude = #{homeLongitude,jdbcType=VARCHAR},
+      company_telephone_number = #{companyTelephoneNumber,jdbcType=VARCHAR},
+      company_address = #{companyAddress,jdbcType=VARCHAR},
+      company_formatted_address = #{companyFormattedAddress,jdbcType=VARCHAR},
+      company_level = #{companyLevel,jdbcType=VARCHAR},
+      company_latitude = #{companyLatitude,jdbcType=VARCHAR},
+      company_longitude = #{companyLongitude,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <!-- 列表查询   申请人基本信息-->
+  <select id="queryAll" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from applier_info
+    where xiaodai_userid = #{arg0}
+  </select>
+</mapper>

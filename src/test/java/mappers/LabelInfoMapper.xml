@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhita.Dao.LabelInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.zhita.Model.LabelInfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="xiaodai_userid" property="xiaodaiUserid" jdbcType="INTEGER" />
+    <result column="sort_index" property="sortIndex" jdbcType="INTEGER" />
+    <result column="contact_count" property="contactCount" jdbcType="INTEGER" />
+    <result column="phone_number" property="phoneNumber" jdbcType="VARCHAR" />
+    <result column="label_name" property="labelName" jdbcType="VARCHAR" />
+    <result column="label_type" property="labelType" jdbcType="VARCHAR" />
+    <result column="phone_location" property="phoneLocation" jdbcType="VARCHAR" />
+    <result column="contact_duration" property="contactDuration" jdbcType="VARCHAR" />
+    <result column="calling_count" property="callingCount" jdbcType="INTEGER" />
+    <result column="called_count" property="calledCount" jdbcType="INTEGER" />
+    <result column="earliest_time" property="earliestTime" jdbcType="VARCHAR" />
+    <result column="latest_time" property="latestTime" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, xiaodai_userid, sort_index, contact_count, phone_number, label_name, label_type, 
+    phone_location, contact_duration, calling_count, called_count, earliest_time, latest_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from label_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from label_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zhita.Model.LabelInfo" >
+    insert into label_info (id, xiaodai_userid, sort_index, 
+      contact_count, phone_number, label_name, 
+      label_type, phone_location, contact_duration, 
+      calling_count, called_count, earliest_time, 
+      latest_time)
+    values (#{id,jdbcType=INTEGER}, #{xiaodaiUserid,jdbcType=INTEGER}, #{sortIndex,jdbcType=INTEGER}, 
+      #{contactCount,jdbcType=INTEGER}, #{phoneNumber,jdbcType=VARCHAR}, #{labelName,jdbcType=VARCHAR}, 
+      #{labelType,jdbcType=VARCHAR}, #{phoneLocation,jdbcType=VARCHAR}, #{contactDuration,jdbcType=VARCHAR}, 
+      #{callingCount,jdbcType=INTEGER}, #{calledCount,jdbcType=INTEGER}, #{earliestTime,jdbcType=VARCHAR}, 
+      #{latestTime,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.zhita.Model.LabelInfo" >
+    update label_info
+    set xiaodai_userid = #{xiaodaiUserid,jdbcType=INTEGER},
+      sort_index = #{sortIndex,jdbcType=INTEGER},
+      contact_count = #{contactCount,jdbcType=INTEGER},
+      phone_number = #{phoneNumber,jdbcType=VARCHAR},
+      label_name = #{labelName,jdbcType=VARCHAR},
+      label_type = #{labelType,jdbcType=VARCHAR},
+      phone_location = #{phoneLocation,jdbcType=VARCHAR},
+      contact_duration = #{contactDuration,jdbcType=VARCHAR},
+      calling_count = #{callingCount,jdbcType=INTEGER},
+      called_count = #{calledCount,jdbcType=INTEGER},
+      earliest_time = #{earliestTime,jdbcType=VARCHAR},
+      latest_time = #{latestTime,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <!-- 列表查询 数量        通话数据分析 -->
+  <select id="queryAllCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+  	select count(*) from label_info
+    where xiaodai_userid=#{arg0}
+  </select>
+  <!-- 列表查询         通话数据分析 -->
+  <select id="queryAll" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from label_info
+    where xiaodai_userid=#{userid,jdbcType=INTEGER} limit #{page,jdbcType=INTEGER},#{pagesize,jdbcType=INTEGER}
+  </select>
+</mapper>

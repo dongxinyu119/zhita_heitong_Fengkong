@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhita.Dao.RechargeInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.zhita.Model.RechargeInfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="xiaodai_userid" property="xiaodaiUserid" jdbcType="INTEGER" />
+    <result column="recharge_time" property="rechargeTime" jdbcType="VARCHAR" />
+    <result column="recharge_count" property="rechargeCount" jdbcType="INTEGER" />
+    <result column="recharge_amount" property="rechargeAmount" jdbcType="DECIMAL" />
+    <result column="recharge_max" property="rechargeMax" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, xiaodai_userid, recharge_time, recharge_count, recharge_amount, recharge_max
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from recharge_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from recharge_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zhita.Model.RechargeInfo" >
+    insert into recharge_info (id, xiaodai_userid, recharge_time, 
+      recharge_count, recharge_amount, recharge_max
+      )
+    values (#{id,jdbcType=INTEGER}, #{xiaodaiUserid,jdbcType=INTEGER}, #{rechargeTime,jdbcType=VARCHAR}, 
+      #{rechargeCount,jdbcType=INTEGER}, #{rechargeAmount,jdbcType=DECIMAL}, #{rechargeMax,jdbcType=DECIMAL}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.zhita.Model.RechargeInfo" >
+    update recharge_info
+    set xiaodai_userid = #{xiaodaiUserid,jdbcType=INTEGER},
+      recharge_time = #{rechargeTime,jdbcType=VARCHAR},
+      recharge_count = #{rechargeCount,jdbcType=INTEGER},
+      recharge_amount = #{rechargeAmount,jdbcType=DECIMAL},
+      recharge_max = #{rechargeMax,jdbcType=DECIMAL}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <!-- 列表查询      充值记录 -->
+  <select id="queryAll" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from recharge_info
+    where xiaodai_userid=#{arg0}
+  </select>
+</mapper>

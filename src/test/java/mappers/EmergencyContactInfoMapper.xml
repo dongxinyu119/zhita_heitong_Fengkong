@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhita.Dao.EmergencyContactInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.zhita.Model.EmergencyContactInfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="xiaodai_userid" property="xiaodaiUserid" jdbcType="INTEGER" />
+    <result column="relation" property="relation" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="phone_number" property="phoneNumber" jdbcType="VARCHAR" />
+    <result column="id_number" property="idNumber" jdbcType="VARCHAR" />
+    <result column="label_name" property="labelName" jdbcType="VARCHAR" />
+    <result column="phone_location" property="phoneLocation" jdbcType="VARCHAR" />
+    <result column="one_calling_count" property="oneCallingCount" jdbcType="INTEGER" />
+    <result column="one_called_count" property="oneCalledCount" jdbcType="INTEGER" />
+    <result column="one_total_call_count" property="oneTotalCallCount" jdbcType="INTEGER" />
+    <result column="one_calling_duration_time" property="oneCallingDurationTime" jdbcType="VARCHAR" />
+    <result column="one_called_duration_time" property="oneCalledDurationTime" jdbcType="VARCHAR" />
+    <result column="one_total_call_duration_time" property="oneTotalCallDurationTime" jdbcType="VARCHAR" />
+    <result column="three_calling_count" property="threeCallingCount" jdbcType="INTEGER" />
+    <result column="three_called_count" property="threeCalledCount" jdbcType="INTEGER" />
+    <result column="three_total_call_count" property="threeTotalCallCount" jdbcType="INTEGER" />
+    <result column="three_calling_duration_time" property="threeCallingDurationTime" jdbcType="VARCHAR" />
+    <result column="three_called_duration_time" property="threeCalledDurationTime" jdbcType="VARCHAR" />
+    <result column="three_total_call_duration_time" property="threeTotalCallDurationTime" jdbcType="VARCHAR" />
+    <result column="six_calling_count" property="sixCallingCount" jdbcType="INTEGER" />
+    <result column="six_called_count" property="sixCalledCount" jdbcType="INTEGER" />
+    <result column="six_total_call_count" property="sixTotalCallCount" jdbcType="INTEGER" />
+    <result column="six_calling_duration_time" property="sixCallingDurationTime" jdbcType="VARCHAR" />
+    <result column="six_called_duration_time" property="sixCalledDurationTime" jdbcType="VARCHAR" />
+    <result column="six_total_call_duration_time" property="sixTotalCallDurationTime" jdbcType="VARCHAR" />
+    <result column="all_calling_count" property="allCallingCount" jdbcType="INTEGER" />
+    <result column="all_called_count" property="allCalledCount" jdbcType="INTEGER" />
+    <result column="all_total_call_count" property="allTotalCallCount" jdbcType="INTEGER" />
+    <result column="all_calling_duration_time" property="allCallingDurationTime" jdbcType="VARCHAR" />
+    <result column="all_called_duration_time" property="allCalledDurationTime" jdbcType="VARCHAR" />
+    <result column="all_total_call_duration_time" property="allTotalCallDurationTime" jdbcType="VARCHAR" />
+    <result column="workday_duration_time" property="workdayDurationTime" jdbcType="VARCHAR" />
+    <result column="offday_duration_time" property="offdayDurationTime" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, xiaodai_userid, relation, name, phone_number, id_number, label_name, phone_location, 
+    one_calling_count, one_called_count, one_total_call_count, one_calling_duration_time, 
+    one_called_duration_time, one_total_call_duration_time, three_calling_count, three_called_count, 
+    three_total_call_count, three_calling_duration_time, three_called_duration_time, 
+    three_total_call_duration_time, six_calling_count, six_called_count, six_total_call_count, 
+    six_calling_duration_time, six_called_duration_time, six_total_call_duration_time, 
+    all_calling_count, all_called_count, all_total_call_count, all_calling_duration_time, 
+    all_called_duration_time, all_total_call_duration_time, workday_duration_time, offday_duration_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from emergency_contact_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from emergency_contact_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zhita.Model.EmergencyContactInfo" >
+    insert into emergency_contact_info (id, xiaodai_userid, relation, 
+      name, phone_number, id_number, 
+      label_name, phone_location, one_calling_count, 
+      one_called_count, one_total_call_count, one_calling_duration_time, 
+      one_called_duration_time, one_total_call_duration_time, 
+      three_calling_count, three_called_count, three_total_call_count, 
+      three_calling_duration_time, three_called_duration_time, 
+      three_total_call_duration_time, six_calling_count, 
+      six_called_count, six_total_call_count, six_calling_duration_time, 
+      six_called_duration_time, six_total_call_duration_time, 
+      all_calling_count, all_called_count, all_total_call_count, 
+      all_calling_duration_time, all_called_duration_time, 
+      all_total_call_duration_time, workday_duration_time, 
+      offday_duration_time)
+    values (#{id,jdbcType=INTEGER}, #{xiaodaiUserid,jdbcType=INTEGER}, #{relation,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{phoneNumber,jdbcType=VARCHAR}, #{idNumber,jdbcType=VARCHAR}, 
+      #{labelName,jdbcType=VARCHAR}, #{phoneLocation,jdbcType=VARCHAR}, #{oneCallingCount,jdbcType=INTEGER}, 
+      #{oneCalledCount,jdbcType=INTEGER}, #{oneTotalCallCount,jdbcType=INTEGER}, #{oneCallingDurationTime,jdbcType=VARCHAR}, 
+      #{oneCalledDurationTime,jdbcType=VARCHAR}, #{oneTotalCallDurationTime,jdbcType=VARCHAR}, 
+      #{threeCallingCount,jdbcType=INTEGER}, #{threeCalledCount,jdbcType=INTEGER}, #{threeTotalCallCount,jdbcType=INTEGER}, 
+      #{threeCallingDurationTime,jdbcType=VARCHAR}, #{threeCalledDurationTime,jdbcType=VARCHAR}, 
+      #{threeTotalCallDurationTime,jdbcType=VARCHAR}, #{sixCallingCount,jdbcType=INTEGER}, 
+      #{sixCalledCount,jdbcType=INTEGER}, #{sixTotalCallCount,jdbcType=INTEGER}, #{sixCallingDurationTime,jdbcType=VARCHAR}, 
+      #{sixCalledDurationTime,jdbcType=VARCHAR}, #{sixTotalCallDurationTime,jdbcType=VARCHAR}, 
+      #{allCallingCount,jdbcType=INTEGER}, #{allCalledCount,jdbcType=INTEGER}, #{allTotalCallCount,jdbcType=INTEGER}, 
+      #{allCallingDurationTime,jdbcType=VARCHAR}, #{allCalledDurationTime,jdbcType=VARCHAR}, 
+      #{allTotalCallDurationTime,jdbcType=VARCHAR}, #{workdayDurationTime,jdbcType=VARCHAR}, 
+      #{offdayDurationTime,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.zhita.Model.EmergencyContactInfo" >
+    update emergency_contact_info
+    set xiaodai_userid = #{xiaodaiUserid,jdbcType=INTEGER},
+      relation = #{relation,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      phone_number = #{phoneNumber,jdbcType=VARCHAR},
+      id_number = #{idNumber,jdbcType=VARCHAR},
+      label_name = #{labelName,jdbcType=VARCHAR},
+      phone_location = #{phoneLocation,jdbcType=VARCHAR},
+      one_calling_count = #{oneCallingCount,jdbcType=INTEGER},
+      one_called_count = #{oneCalledCount,jdbcType=INTEGER},
+      one_total_call_count = #{oneTotalCallCount,jdbcType=INTEGER},
+      one_calling_duration_time = #{oneCallingDurationTime,jdbcType=VARCHAR},
+      one_called_duration_time = #{oneCalledDurationTime,jdbcType=VARCHAR},
+      one_total_call_duration_time = #{oneTotalCallDurationTime,jdbcType=VARCHAR},
+      three_calling_count = #{threeCallingCount,jdbcType=INTEGER},
+      three_called_count = #{threeCalledCount,jdbcType=INTEGER},
+      three_total_call_count = #{threeTotalCallCount,jdbcType=INTEGER},
+      three_calling_duration_time = #{threeCallingDurationTime,jdbcType=VARCHAR},
+      three_called_duration_time = #{threeCalledDurationTime,jdbcType=VARCHAR},
+      three_total_call_duration_time = #{threeTotalCallDurationTime,jdbcType=VARCHAR},
+      six_calling_count = #{sixCallingCount,jdbcType=INTEGER},
+      six_called_count = #{sixCalledCount,jdbcType=INTEGER},
+      six_total_call_count = #{sixTotalCallCount,jdbcType=INTEGER},
+      six_calling_duration_time = #{sixCallingDurationTime,jdbcType=VARCHAR},
+      six_called_duration_time = #{sixCalledDurationTime,jdbcType=VARCHAR},
+      six_total_call_duration_time = #{sixTotalCallDurationTime,jdbcType=VARCHAR},
+      all_calling_count = #{allCallingCount,jdbcType=INTEGER},
+      all_called_count = #{allCalledCount,jdbcType=INTEGER},
+      all_total_call_count = #{allTotalCallCount,jdbcType=INTEGER},
+      all_calling_duration_time = #{allCallingDurationTime,jdbcType=VARCHAR},
+      all_called_duration_time = #{allCalledDurationTime,jdbcType=VARCHAR},
+      all_total_call_duration_time = #{allTotalCallDurationTime,jdbcType=VARCHAR},
+      workday_duration_time = #{workdayDurationTime,jdbcType=VARCHAR},
+      offday_duration_time = #{offdayDurationTime,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <!--列表查询          紧急联系人  -->
+  <select id="queryAll" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from emergency_contact_info
+    where xiaodai_userid=#{arg0}
+  </select>
+</mapper>

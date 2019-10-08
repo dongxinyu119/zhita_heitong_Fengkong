@@ -70,4 +70,21 @@
     from label_info
     where xiaodai_userid=#{userid,jdbcType=INTEGER} limit #{page,jdbcType=INTEGER},#{pagesize,jdbcType=INTEGER}
   </select>
+  
+                 <insert id="setlabelInfoMapper" parameterType="java.util.Map"> 
+ insert into label_info (xiaodai_userid,sort_index,contact_count,phone_number,label_name,label_type,phone_location,contact_duration,calling_count,called_count,earliest_time,latest_time)
+ values(#{userId},
+        #{sort_index},
+        #{contact_count},
+        #{phone_number},
+        #{label_name},
+        #{label_type},
+        #{phone_location},
+        #{contact_duration},
+        #{calling_count},
+        #{called_count},
+        #{earliest_time},
+        #{latest_time})
+ </insert>
+  
 </mapper>

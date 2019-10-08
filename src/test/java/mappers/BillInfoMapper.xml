@@ -40,4 +40,12 @@
     from bill_info
     where xiaodai_userid=#{arg0} order by month desc
   </select>
+  
+  
+   <insert id="setBillInfo" parameterType="java.util.Map"> 
+ insert into bill_info (xiaodai_userid,consumption_amount,month)
+ values(#{userId},
+        #{consumption_amount},
+        #{month})
+ </insert>
 </mapper>

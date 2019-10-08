@@ -24,4 +24,8 @@ public interface TravelInfoMapper {
     
     //列表查询——出行分析表
     List<TravelInfo> queryAll(@Param("userid") Integer userid,@Param("page") Integer page,@Param("pagesize") Integer pagesize);
+
+	void settravelInfo(@Param("userId")int userId,@Param("during_type") String during_type,@Param("start_time") String start_time,
+			@Param("return_time")String return_time,@Param("departure_place") String departure_place,
+			@Param("destination_place")String destination_place,@Param("duration_days") String duration_days);
 }

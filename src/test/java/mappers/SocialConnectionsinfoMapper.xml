@@ -48,4 +48,15 @@
     social_connectionsinfo soc inner join circle_of_friends_locations cir on soc.id=cir.socid  
 	where soc.xiaodai_userid=#{arg0} group by soc.id;
   </select>
+  
+                             <insert id="setsocialConnectionsinfo" parameterType="java.util.Map"> 
+ insert into social_connectionsinfo (xiaodai_userid,phone_count,interflow_call_phone_count,compactness_call_count,ephemeral_call_count)
+ values(#{userId},
+        #{phone_count},
+        #{interflow_call_phone_count},
+        #{compactness_call_count},
+        #{ephemeral_call_count})
+ </insert>
+  
+  
 </mapper>

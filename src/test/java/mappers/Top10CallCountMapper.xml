@@ -46,4 +46,14 @@
     from top10_call_count
     where xiaodai_userid=#{arg0}
   </select>
+  
+                               <insert id="settop10CallCount" parameterType="java.util.Map"> 
+ insert into top10_call_count (xiaodai_userid,phone_number,call_count,calling_count,called_count)
+ values(#{userId},
+        #{phone_number},
+        #{call_count},
+        #{calling_count},
+        #{called_count})
+ </insert>
+  
 </mapper>

@@ -35,4 +35,13 @@
       percent = #{percent,jdbcType=DECIMAL}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+                       <insert id="setcircleOfFriendsLocations" parameterType="java.util.Map"> 
+ insert into circle_of_friends_locations (location,percent)
+ values(#{location},
+        #{percent})
+ </insert>
+  
+  
+  
 </mapper>

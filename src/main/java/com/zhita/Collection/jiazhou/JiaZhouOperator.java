@@ -7,12 +7,33 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.zhita.Dao.ApplierInfoMapper;
+import com.zhita.Dao.BillInfoMapper;
+import com.zhita.Dao.CircleOfFriendsLocationsMapper;
+import com.zhita.Dao.CommunicationCityInfoMapper;
+import com.zhita.Dao.CommunicationDetectionMapper;
+import com.zhita.Dao.CommunicationMonthInfoMapper;
+import com.zhita.Dao.CommunicationTimeBucketInfoMapper;
+import com.zhita.Dao.CommunicationTimeDurationInfoMapper;
+import com.zhita.Dao.ContactsCityInfosMapper;
+import com.zhita.Dao.EmergencyContactInfoMapper;
+import com.zhita.Dao.LabelInfoMapper;
+import com.zhita.Dao.MainLocationsMapper;
+import com.zhita.Dao.OperatorInfoMapper;
+import com.zhita.Dao.RechargeInfoMapper;
+import com.zhita.Dao.ReportInfoMapper;
+import com.zhita.Dao.SensitiveInfoNewMapper;
+import com.zhita.Dao.SocialConnectionsinfoMapper;
+import com.zhita.Dao.Top10CallCountMapper;
+import com.zhita.Dao.Top10CallTimeMapper;
+import com.zhita.Dao.Top10SingleCallTimeMapper;
+import com.zhita.Dao.TravelInfoMapper;
 
 @Controller
 @RequestMapping("/jiaZhouOperator")
@@ -20,14 +41,78 @@ public class JiaZhouOperator {
 	@Autowired
 	ApplierInfoMapper applierInfoMapper;
 	
+	@Autowired
+	BillInfoMapper billInfoMapper;
+	
+	@Autowired
+	CommunicationCityInfoMapper communicationCityInfoMapper;
+	
+	@Autowired
+	CommunicationDetectionMapper communicationDetectionMapper;
+	
+	@Autowired 
+	CommunicationMonthInfoMapper communicationMonthInfoMapper;
+	
+	@Autowired
+	CommunicationTimeBucketInfoMapper communicationTimeBucketInfoMapper;
+	
+	@Autowired
+	CommunicationTimeDurationInfoMapper communicationTimeDurationInfoMapper;
+	
+	@Autowired
+	ContactsCityInfosMapper contactsCityInfosMapper;
+	
+	@Autowired
+	EmergencyContactInfoMapper emergencyContactInfoMapper;
+	
+	@Autowired
+	LabelInfoMapper labelInfoMapper;
+	
+	@Autowired
+	OperatorInfoMapper operatorInfoMapper;
+	
+	@Autowired
+	MainLocationsMapper mainLocationsMapper;
+	
+	@Autowired
+	CircleOfFriendsLocationsMapper circleOfFriendsLocationsMapper;
+	
+	
+	@Autowired
+	RechargeInfoMapper rechargeInfoMapper;
+	
+	@Autowired
+	ReportInfoMapper reportInfoMapper;
+	
+	
+	@Autowired
+	SensitiveInfoNewMapper sensitiveInfoNewMapper;
+	
+	
+	@Autowired
+	SocialConnectionsinfoMapper socialConnectionsinfoMapper;
+	
+	@Autowired
+	Top10CallCountMapper top10CallCountMapper;
+	
+	@Autowired
+	Top10CallTimeMapper top10CallTimeMapper;
+	
+	@Autowired
+	Top10SingleCallTimeMapper top10SingleCallTimeMapper;
+	
+	@Autowired
+	TravelInfoMapper travelInfoMapper;
 
 	@RequestMapping("/setOperator")
 	@ResponseBody
 	@Transactional
-	public String setOperator(int userId,String jsonString){
-
-		JSONObject jsonObject = JSONObject.parseObject(jsonString);
-		JSONObject data = (JSONObject) jsonObject.get("data");
+	public String setOperator(@RequestBody()String jString ){
+		JSONObject jsonObject = JSONObject.parseObject(jString);
+		String jsonString = (String) jsonObject.get("jsonString");
+		JSONObject jObject = JSONObject.parseObject(jsonString);
+		int userId = (int) jsonObject.get("userId");
+		JSONObject data = (JSONObject) jObject.get("data");
 		
 		JSONObject jsonObject2 = null;
 		// applier_info
@@ -62,6 +147,7 @@ public class JiaZhouOperator {
 				jsonObject2 = (JSONObject) bill_info.get(i);
 				BigDecimal consumption_amount = jsonObject2.getBigDecimal("consumption_amount");// 消费金额
 				String month = jsonObject2.getString("month");// 月份
+				billInfoMapper.setBillInfo(userId,consumption_amount,month);
 			}
 		}
 
@@ -80,6 +166,7 @@ public class JiaZhouOperator {
 				String calling_duration_time = jsonObject2.getString("calling_duration_time");// 主叫时间(分钟)
 				BigDecimal calling_duration_time_per = jsonObject2.getBigDecimal("calling_duration_time_per");// 主叫时间百分比
 				String city = jsonObject2.getString("city");// 省份
+				communicationCityInfoMapper.setCommunicationCityInfo(userId,city,call_count,calling_count,calling_duration_time,called_count,called_duration_time,calling_count_per,calling_duration_time_per,called_count_per,called_duration_time_per);
 			}
 		}
 
@@ -99,6 +186,7 @@ public class JiaZhouOperator {
 		String the_long_silent_duration_time = communication_detection.getString("the_long_silent_duration_time");// 最长一次静默时间
 																													// +
 																													// 时长
+		communicationDetectionMapper.setcommunicationDetection(userId,the_last_call_time,silent_count,silent_duration_time,average_silent_duration_time,the_last_silent_duration_time,night_activities,long_silent_time,long_silent_duration_time,the_long_silent_duration_time);
 
 		// communication_month_info
 		JSONArray communication_month_info = (JSONArray) data.get("communication_month_info");// 通话月份分布
@@ -114,6 +202,7 @@ public class JiaZhouOperator {
 				String month = jsonObject2.getString("month");// 月份
 				int sms_count = jsonObject2.getInteger("sms_count");// 短信数量：计算当月短信数量
 				BigDecimal two_way_phone_number_per = jsonObject2.getBigDecimal("two_way_phone_number_per");// 互相打电话的号码数占总通话号码数
+				communicationMonthInfoMapper.setcommunicationMonthInfo(userId,month,call_phone_number_count,two_way_phone_number_per,call_count,calling_count,calling_duration_time,called_count,called_duration_time,sms_count);
 			}
 		}
 
@@ -130,6 +219,7 @@ public class JiaZhouOperator {
 				int phone_count = jsonObject2.getInteger("phone_count");// 号码个数
 				String phone_times = jsonObject2.getString("phone_times");// 最常联系号码及次数
 				String time_bucket = jsonObject2.getString("time_bucket");// 时间段
+				communicationTimeBucketInfoMapper.setcommunicationTimeBucketInfo(userId,time_bucket,call_count,phone_count,phone_times,calling_count,calling_duration_time,called_count,called_duration_time);
 			}
 
 		}
@@ -144,7 +234,7 @@ public class JiaZhouOperator {
 				int calling_count = jsonObject2.getInteger("calling_count");// 主叫次数
 				String calling_duration_time = jsonObject2.getString("calling_duration_time");// 主叫时长
 				String time_duration = jsonObject2.getString("time_duration");// 通话时长
-
+				communicationTimeDurationInfoMapper.setcommunicationTimeDurationInfo(userId,time_duration,calling_count,calling_duration_time,called_count,called_duration_time);
 			}
 		}
 
@@ -165,7 +255,7 @@ public class JiaZhouOperator {
 				BigDecimal calling_duration_time_per = jsonObject2.getBigDecimal("calling_duration_time_per");// 主叫时间百分比：某城市主叫时间/总主叫时间
 				BigDecimal called_duration_time_per = jsonObject2.getBigDecimal("called_duration_time_per");// 被叫时间百分比：某城市被叫时间/总被叫时间
 				BigDecimal called_count_per = jsonObject2.getBigDecimal("called_count_per");// 被叫次数百分比：某城市被叫次数/总被叫次数
-
+				contactsCityInfosMapper.setContactsCityInfos(userId,city,call_count,calling_count,calling_duration_time,called_count,called_duration_time,calling_count_per,calling_duration_time_per,called_count_per,called_duration_time_per);
 			}
 		}
 
@@ -210,7 +300,11 @@ public class JiaZhouOperator {
 				String all_total_call_duration_time = all_call_statistics.getString("total_call_duration_time");// 总共通话时长
 				String workday_duration_time = jsonObject2.getString("workday_duration_time");// 工作日通话时长
 				String offday_duration_time = jsonObject2.getString("offday_duration_time");// 非工作日通话时长
-
+				emergencyContactInfoMapper.setemergencyContactInfo(userId,relation,name,phone_number,id_number,label_name,phone_location,one_calling_count,one_called_count,
+						one_total_call_count,one_calling_duration_time,one_called_duration_time,one_total_call_duration_time,three_calling_count,three_called_count,three_total_call_count,
+						three_calling_duration_time,three_called_duration_time,three_total_call_duration_time,six_calling_count,six_called_count,six_total_call_count,six_calling_duration_time,
+						six_called_duration_time,six_total_call_duration_time,all_calling_count,all_called_count,all_total_call_count,all_calling_duration_time,all_called_duration_time,all_total_call_duration_time,
+						workday_duration_time,offday_duration_time);
 			}
 		}
 
@@ -230,7 +324,7 @@ public class JiaZhouOperator {
 				int called_count = jsonObject2.getInteger("called_count");//被叫次数
 				String earliest_time = jsonObject2.getString("earliest_time");//最早一次通话时间
 				String latest_time = jsonObject2.getString("latest_time");//最后一次通话时间
-								
+				labelInfoMapper.setlabelInfoMapper(userId,sort_index,contact_count,phone_number,label_name,label_type,phone_location,contact_duration,calling_count,called_count,earliest_time,latest_time);		
 			}
 		}
 		
@@ -248,12 +342,15 @@ public class JiaZhouOperator {
 		String main_active_location = operator_info.getString("main_active_location");//主要活动区域
 		BigDecimal main_location_percent = operator_info.getBigDecimal("main_location_percent");//主要活动区域时间 占比
 		String available_amount1 = operator_info.getString("available_amount");//当前可用的余额
+		operatorInfoMapper.setoperatorInfo(userId,phone_number,operator_type,name,idcard,email,address,vip_level,registration_history,available_amount,phone_number_location,main_active_location,main_location_percent);
+		
 		JSONArray main_locations = (JSONArray) operator_info.get("main_locations");// 通话区域分布(城市)
 		if (main_locations.size() > 0) {
 			for (int i = 0; i < main_locations.size(); i++) {
 				jsonObject2 = (JSONObject) main_locations.get(i);
 				String location = jsonObject2.getString("location");//主要活动区域
 				BigDecimal percent = jsonObject2.getBigDecimal("percent");//主要活动区域占比
+				mainLocationsMapper.setmainLocations(location,percent);
 	}
 		}
 		
@@ -263,6 +360,7 @@ public class JiaZhouOperator {
 				jsonObject2 = (JSONObject) circle_of_friends_locations.get(i);
 				String location = jsonObject2.getString("location");//主要活动区域
 				BigDecimal percent = jsonObject2.getBigDecimal("percent");//主要活动区域占比
+				circleOfFriendsLocationsMapper.setcircleOfFriendsLocations(location,percent);
 	}
 		}
 		
@@ -276,6 +374,7 @@ public class JiaZhouOperator {
 				int recharge_count = jsonObject2.getInteger("recharge_count");//充值次数
 				BigDecimal recharge_amount = jsonObject2.getBigDecimal("recharge_amount");//充值总金额
 				BigDecimal recharge_max = jsonObject2.getBigDecimal("recharge_max");//最大单笔充值金额
+				rechargeInfoMapper.setrechargeInfo(userId,recharge_time,recharge_count,recharge_amount,recharge_max);
 	}
 		}
 		
@@ -286,6 +385,9 @@ public class JiaZhouOperator {
 		String report_no = report_info.getString("report_no");//报告编号
 		String risk_level = report_info.getString("risk_level");//欺诈评估风险(旧)
 		int score = report_info.getInteger("score");//运营商量化评分
+		
+		reportInfoMapper.setreportInfo(userId,time,report_no,risk_level,score);
+		
 		
 		//sensitive_info_new
 		JSONArray sensitive_info = (JSONArray) data.get("sensitive_info_new");//风险信息检查
@@ -402,6 +504,16 @@ public class JiaZhouOperator {
 				int macao_communication_item_id = jsonObject15.getInteger("item_id");//澳门通信风险项id
 				String macao_communication_item_name = jsonObject15.getString("item_name");//澳门通信风险项名称
 				String macao_communication_check_result = jsonObject15.getString("check_result");//澳门通信检测结果（结果有"未发现"、"result_detail_info"两种）
+				
+				sensitiveInfoNewMapper.setsensitiveInfoNew(userId,key_information_risk_level,key_information_item_id,key_information_item_name,key_information_check_result,key_information_idcard_matching,key_information_name_matching,
+						net_time_risk_level,net_time_item_id,net_time_item_name,net_time_check_result,network_length_check,applicant_blacklist_risk_level,applicant_blacklist_item_id,applicant_blacklist_item_name,applicant_blacklist_check_result,
+						applicant_blacklist_idcard,applicant_blacklist_phone_number,emergency_blacklist_blacklist_risk_level,emergency_blacklist_blacklist_item_id,emergency_blacklist_blacklist_item_name,emergency_blacklist_check_result,
+						blacklist_communication_blacklist_risk_level,blacklist_communication_blacklist_item_id,blacklist_communication_blacklist_item_name,blacklist_communication_check_result,id_card_blacklist_risk_level,id_card_blacklist_item_id,
+						id_card_blacklist_item_name,id_card_check_result,result,private_lending_risk_level,private_lending_item_id,private_lending_item_name,private_lending_check_result,financial_institutions_risk_level,financial_institutions_item_id,
+						financial_institutions_item_name,financial_institutions_check_result,credit_card_risk_level,credit_card_item_id,credit_card_item_name,credit_card_check_result,lending_platform_risk_level,lending_platform_item_id,lending_platform_item_name,
+						lending_platform_check_result,internet_loan_risk_level,internet_loan_item_id,internet_loan_item_name,internet_loan_check_result,court_risk_level,court_item_id,court_item_name,court_check_result,risk_level_110,item_id_110,item_name_110,
+						check_result_110,lawyer_risk_level,lawyer_item_id,lawyer_item_name,lawyer_check_result,risk_level_120,item_id_120,item_name_120,check_result_120,macao_communication_risk_level,macao_communication_item_id,macao_communication_item_name,macao_communication_check_result);
+				
 	}
 
 			
@@ -413,11 +525,13 @@ public class JiaZhouOperator {
 		String compactness_call_count = social_connectionsInfo.getString("compactness_call_count");//朋友圈紧密联系人数
 		String ephemeral_call_count = social_connectionsInfo.getString("ephemeral_call_count");//疑似骚扰电话个数
 		JSONArray circle_of_friends_locations1 = (JSONArray) social_connectionsInfo.get("circle_of_friends_locations");//朋友圈区域分布
+		socialConnectionsinfoMapper.setsocialConnectionsinfo(userId,phone_count,interflow_call_phone_count,compactness_call_count,ephemeral_call_count);
 		if (circle_of_friends_locations.size() > 0) {
 			for (int i = 0; i < circle_of_friends_locations.size(); i++) {
 				jsonObject2 = (JSONObject) circle_of_friends_locations.get(i);
 				String location = jsonObject2.getString("location");//地点
 				String percent = jsonObject2.getString("percent");//百分比
+
 	}
 		
 		}
@@ -432,6 +546,7 @@ public class JiaZhouOperator {
 		String call_count = jsonObject0.getString("call_count");//通话次数
 		String calling_count = jsonObject0.getString("calling_count");//主叫次数
 		String called_count = jsonObject0.getString("called_count");//被叫次数
+		top10CallCountMapper.settop10CallCount(userId,phone_number,call_count,calling_count,called_count);
 			}
 		}
 		
@@ -440,10 +555,12 @@ public class JiaZhouOperator {
 		if (top10_call_time.size() > 0) {
 			for (int i = 0; i < top10_call_time.size(); i++) {
 			JSONObject	jsonObject0 = (JSONObject) top10_call_time.get(i);
-		String phone_number3 = jsonObject0.getString("phone_number");//通话号码
+		phone_number = jsonObject0.getString("phone_number");//通话号码
 		String call_duration_time = jsonObject0.getString("call_count");//通话时长
 		String calling_duration_time = jsonObject0.getString("calling_duration_time");//主叫时长
 		String called_duration_time = jsonObject0.getString("called_duration_time");//被叫时长
+		top10CallTimeMapper.settop10CallTime(userId,phone_number,call_duration_time,calling_duration_time,called_duration_time);
+		
 			}
 		}
 		
@@ -454,7 +571,8 @@ public class JiaZhouOperator {
 			for (int i = 0; i < top10_single_call_time.size(); i++) {
 			JSONObject	jsonObject0 = (JSONObject) top10_single_call_time.get(i);
 		String phone_number4 = jsonObject0.getString("phone_number");//通话号码
-		String call_duration_time1 = jsonObject0.getString("call_duration_time");//通话时长
+		String call_duration_time = jsonObject0.getString("call_duration_time");//通话时长
+		top10SingleCallTimeMapper.settop10SingleCallTime(userId,phone_number,call_duration_time);
 			}
 		}
 		
@@ -469,6 +587,7 @@ public class JiaZhouOperator {
 		String departure_place = jsonObject0.getString("departure_place");//出行地
 		String destination_place = jsonObject0.getString("destination_place");//目的地
 		String duration_days = jsonObject0.getString("duration_days");//行程时间（天）
+		travelInfoMapper.settravelInfo(userId,during_type,start_time,return_time,departure_place,destination_place,duration_days);
 			}
 		}
 

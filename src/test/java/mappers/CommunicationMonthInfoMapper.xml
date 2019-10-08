@@ -61,4 +61,19 @@
     from communication_month_info
     where xiaodai_userid=#{arg0} order by month desc
   </select>
+  
+         <insert id="setcommunicationMonthInfo" parameterType="java.util.Map"> 
+ insert into communication_month_info (xiaodai_userid,month,call_phone_number_count,two_way_phone_number_per,call_count,calling_count,calling_duration_time,called_count,called_duration_time,sms_count)
+ values(#{userId},
+        #{month},
+        #{call_phone_number_count},
+        #{two_way_phone_number_per},
+        #{call_count},
+        #{calling_count},
+        #{calling_duration_time},
+        #{called_count},
+        #{called_duration_time},
+        #{sms_count})
+ </insert>
+  
 </mapper>

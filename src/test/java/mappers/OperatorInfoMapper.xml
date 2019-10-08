@@ -74,4 +74,22 @@
   	select o.*,GROUP_CONCAT(m.location) mainActiveLocation,GROUP_CONCAT(m.percent) mainLocationPercent
   	from operator_info o inner join main_locations m on o.id=m.ofid where o.xiaodai_userid=#{arg0} group by o.id;
   </select>
+  
+                   <insert id="setoperatorInfo" parameterType="java.util.Map"> 
+ insert into operator_info (xiaodai_userid,phone_number,operator_type,name,idcard,email,address,vip_level,registration_history,available_amount,phone_number_location,main_active_location,main_location_percent)
+ values(#{userId},
+        #{phone_number},
+        #{operator_type},
+        #{name},
+        #{idcard},
+        #{email},
+        #{address},
+        #{vip_level},
+        #{registration_history},
+        #{available_amount},
+        #{phone_number_location},
+        #{main_active_location},
+        #{main_location_percent})
+ </insert>
+  
 </mapper>

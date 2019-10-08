@@ -62,4 +62,20 @@
     from communication_detection
     where xiaodai_userid=#{arg0}
   </select>
+  
+  
+       <insert id="setcommunicationDetection" parameterType="java.util.Map"> 
+ insert into communication_detection (xiaodai_userid,the_last_call_time,silent_count,silent_duration_time,average_silent_duration_time,the_last_silent_duration_time,night_activities,long_silent_time,long_silent_duration_time,the_long_silent_duration_time)
+ values(#{userId},
+        #{the_last_call_time},
+        #{silent_count},
+        #{silent_duration_time},
+        #{average_silent_duration_time},
+        #{the_last_silent_duration_time},
+        #{night_activities},
+        #{long_silent_time},
+        #{long_silent_duration_time},
+        #{the_long_silent_duration_time})
+ </insert>
+  
 </mapper>

@@ -131,4 +131,45 @@
     from emergency_contact_info
     where xiaodai_userid=#{arg0}
   </select>
+                 <insert id="setContactsCityInfos" parameterType="java.util.Map"> 
+ insert into contacts_city_infos (xiaodai_userid,relation,name,phone_number,id_number,label_name,phone_location,one_calling_count,one_called_count,one_total_call_count,one_calling_duration_time,
+ one_called_duration_time,one_total_call_duration_time,three_calling_count,three_called_count,three_total_call_count,three_calling_duration_time,three_called_duration_time,three_total_call_duration_time,
+ six_calling_count,six_called_count,six_total_call_count,six_calling_duration_time,six_called_duration_time,six_total_call_duration_time,all_calling_count,all_called_count,all_total_call_count,all_calling_duration_time,
+ all_called_duration_time,all_total_call_duration_time,workday_duration_time,offday_duration_time)
+ values(#{userId},
+        #{relation},
+        #{name},
+        #{phone_number},
+        #{id_number},
+        #{label_name},
+        #{phone_location},
+        #{one_calling_count},
+        #{one_called_count},
+        #{one_total_call_count},
+        #{one_calling_duration_time},
+        #{one_called_duration_time},
+        #{one_total_call_duration_time},
+        #{three_calling_count},
+        #{three_called_count},
+        #{three_total_call_count},
+        #{three_calling_duration_time},
+        #{three_called_duration_time},
+        #{three_total_call_duration_time},
+        #{six_calling_count},
+        #{six_called_count},
+        #{six_total_call_count},
+        #{six_calling_duration_time},
+        #{six_called_duration_time},
+        #{six_total_call_duration_time},
+        #{all_calling_count},
+        #{all_called_count},
+        #{all_total_call_count},
+        #{all_calling_duration_time},
+        #{all_called_duration_time},
+        #{all_total_call_duration_time},
+        #{workday_duration_time},
+        #{offday_duration_time}
+        )
+ </insert>
+  
 </mapper>

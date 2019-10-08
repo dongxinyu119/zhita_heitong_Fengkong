@@ -64,4 +64,20 @@
     from communication_city_info
     where xiaodai_userid=#{arg0}
   </select>
+  
+     <insert id="setCommunicationCityInfo" parameterType="java.util.Map"> 
+ insert into communication_city_info (xiaodai_userid,city,call_count,calling_count,calling_duration_time,called_count,called_duration_time,calling_count_per,calling_duration_time_per,called_count_per,called_duration_time_per)
+ values(#{userId},
+        #{city},
+        #{call_count},
+        #{calling_count},
+        #{calling_duration_time},
+        #{called_count},
+        #{called_duration_time},
+        #{calling_count_per},
+        #{calling_duration_time_per},
+        #{called_count_per},
+        #{called_duration_time_per})
+ </insert>
+  
 </mapper>

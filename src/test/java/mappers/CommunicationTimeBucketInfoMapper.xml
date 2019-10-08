@@ -34,4 +34,18 @@
   	from communication_time_bucket_info
   	where xiaodai_userid=#{arg0} order by time_bucket desc
   </select>
+  
+           <insert id="setcommunicationTimeBucketInfo" parameterType="java.util.Map"> 
+ insert into communication_time_bucket_info (xiaodai_userid,time_bucket,call_count,phone_count,phone_times,calling_count,calling_duration_time,called_count,called_duration_time)
+ values(#{userId},
+        #{time_bucket},
+        #{call_count},
+        #{phone_count},
+        #{phone_times},
+        #{calling_count},
+        #{calling_duration_time},
+        #{called_count},
+        #{called_duration_time})
+ </insert>
+
 </mapper>

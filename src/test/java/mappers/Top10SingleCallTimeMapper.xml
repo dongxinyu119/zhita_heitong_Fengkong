@@ -40,4 +40,12 @@
     from top10_single_call_time
     where xiaodai_userid=#{arg0}
   </select>
+  
+                                   <insert id="settop10SingleCallTime" parameterType="java.util.Map"> 
+ insert into top10_single_call_time (xiaodai_userid,phone_number,call_duration_time)
+ values(#{userId},
+        #{phone_number},
+        #{call_duration_time})
+ </insert>
+  
 </mapper>

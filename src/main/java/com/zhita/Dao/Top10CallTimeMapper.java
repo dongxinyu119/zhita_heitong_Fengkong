@@ -2,6 +2,11 @@ package com.zhita.Dao;
 
 import java.util.List;
 
+
+
+
+import org.apache.ibatis.annotations.Param;
+
 import com.zhita.Model.Top10CallTime;
 
 public interface Top10CallTimeMapper {
@@ -19,4 +24,8 @@ public interface Top10CallTimeMapper {
     
     //列表查询——通话总时长前10 表
     List<Top10CallTime> queryAll(Integer userid);
+
+	void settop10CallTime(@Param("userId")int userId,@Param("phone_number") String phone_number,
+			@Param("call_duration_time")String call_duration_time,@Param("calling_duration_time") String calling_duration_time,
+			@Param("called_duration_time")String called_duration_time);
 }

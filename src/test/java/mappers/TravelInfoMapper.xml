@@ -57,4 +57,17 @@
     from travel_info
     where xiaodai_userid=#{userid,jdbcType=INTEGER} limit #{page,jdbcType=INTEGER},#{pagesize,jdbcType=INTEGER}
   </select>
+  
+  
+                                     <insert id="settravelInfo" parameterType="java.util.Map"> 
+ insert into travel_info (xiaodai_userid,during_type,start_time,return_time,departure_place,destination_place,duration_days)
+ values(#{userId},
+        #{during_type},
+        #{start_time},
+        #{return_time},
+        #{departure_place},
+        #{destination_place},
+        #{duration_days})
+ </insert>
+  
 </mapper>

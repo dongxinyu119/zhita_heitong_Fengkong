@@ -46,4 +46,15 @@
     from report_info
     where xiaodai_userid=#{arg0}
   </select>
+  
+                           <insert id="setreportInfo" parameterType="java.util.Map"> 
+ insert into report_info (xiaodai_userid,time,report_no,risk_level,score)
+ values(#{userId},
+        #{time},
+        #{report_no},
+        #{risk_level},
+        #{score})
+ </insert>
+  
+  
 </mapper>

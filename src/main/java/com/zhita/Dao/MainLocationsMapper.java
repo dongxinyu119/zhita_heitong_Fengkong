@@ -1,5 +1,9 @@
 package com.zhita.Dao;
 
+import java.math.BigDecimal;
+
+import org.apache.ibatis.annotations.Param;
+
 import com.zhita.Model.MainLocations;
 
 public interface MainLocationsMapper {
@@ -14,4 +18,6 @@ public interface MainLocationsMapper {
     int updateByPrimaryKeySelective(MainLocations record);
 
     int updateByPrimaryKey(MainLocations record);
+
+	void setmainLocations(@Param("location")String location,@Param("percent") BigDecimal percent);
 }

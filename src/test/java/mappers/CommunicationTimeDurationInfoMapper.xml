@@ -49,4 +49,15 @@
     from communication_time_duration_info
     where xiaodai_userid=#{arg0} order by time_duration desc
   </select>
+  
+             <insert id="setcommunicationTimeDurationInfo" parameterType="java.util.Map"> 
+ insert into communication_time_duration_info (xiaodai_userid,time_duration,calling_count,calling_duration_time,called_count,called_duration_time)
+ values(#{userId},
+        #{time_duration},
+        #{calling_count},
+        #{calling_duration_time},
+        #{called_count},
+        #{called_duration_time})
+ </insert>
+  
 </mapper>

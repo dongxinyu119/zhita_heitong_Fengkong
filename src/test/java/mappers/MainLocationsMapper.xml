@@ -33,4 +33,12 @@
       percent = #{percent,jdbcType=DECIMAL}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+                     <insert id="setmainLocations" parameterType="java.util.Map"> 
+ insert into main_locations (location,percent)
+ values(#{location},
+        #{percent})
+ </insert>
+  
+  
 </mapper>

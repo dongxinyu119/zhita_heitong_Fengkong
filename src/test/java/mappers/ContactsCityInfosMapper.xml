@@ -70,4 +70,20 @@
     from contacts_city_infos
     where xiaodai_userid=#{userid,jdbcType=INTEGER} limit #{page,jdbcType=INTEGER},#{pagesize,jdbcType=INTEGER}
   </select>
+  
+               <insert id="setContactsCityInfos" parameterType="java.util.Map"> 
+ insert into contacts_city_infos (xiaodai_userid,city,call_count,calling_count,calling_duration_time,called_count,called_duration_time,calling_count_per,calling_duration_time_per,called_count_per,called_duration_time_per)
+ values(#{userId},
+        #{city},
+        #{call_count},
+        #{calling_count},
+        #{calling_duration_time},
+        #{called_count},
+        #{called_duration_time},
+        #{calling_count_per},
+        #{calling_duration_time_per},
+        #{called_count_per},
+        #{called_duration_time_per})
+ </insert>
+  
 </mapper>

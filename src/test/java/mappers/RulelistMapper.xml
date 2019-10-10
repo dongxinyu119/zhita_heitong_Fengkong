@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhita.Dao.RulelistMapper" >
+  <resultMap id="BaseResultMap" type="com.zhita.Model.Rulelist" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="typeid" property="typeid" jdbcType="INTEGER" />
+    <result column="rulelist" property="rulelist" jdbcType="VARCHAR" />
+    <result column="keyword" property="keyword" jdbcType="VARCHAR" />
+    <result column="symbol" property="symbol" jdbcType="VARCHAR" />
+    <result column="thresholdvalue" property="thresholdValue" jdbcType="VARCHAR" />
+    <result column="value_at_risk" property="valueAtRisk" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    r.id,  r.typeid,  r.rulelist,  r.keyword,  r.symbol,  r.thresholdvalue,  r.value_at_risk valueAtRisk,  r.tablename, r.deleted,
+    rt.id, rt.type
+  </sql>
+  <!-- 后台管理      根据id查询当前对象 -->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+   from rulelist r inner join rulelist_type rt on r.typeid=rt.id where r.deleted=0 and r.id=#{arg0}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from rulelist
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <!-- 后台管理     添加功能（先查询出规则分类表所有信息） -->
+  <select id="queryAllType" resultType="com.zhita.Model.RulelistType">
+  	 select id,type,deleted from rulelist_type where deleted=0
+  </select>
+  <!-- 后台管理    添加功能  -->
+  <insert id="insert" parameterType="com.zhita.Model.Rulelist" >
+    insert into rulelist (typeid, rulelist, 
+      keyword, symbol, thresholdvalue, value_at_risk,tablename)
+    values (#{typeid,jdbcType=INTEGER}, #{rulelist,jdbcType=VARCHAR}, 
+      #{keyword,jdbcType=VARCHAR}, #{symbol,jdbcType=VARCHAR}, #{thresholdValue,jdbcType=VARCHAR}, 
+      #{valueAtRisk,jdbcType=VARCHAR},#{tablename,jdbcType=VARCHAR})
+  </insert>
+  <!-- 后台管理     编辑功能 -->
+  <update id="updateByPrimaryKey" parameterType="com.zhita.Model.Rulelist" >
+    update rulelist
+    set typeid = #{typeid,jdbcType=INTEGER},
+      rulelist = #{rulelist,jdbcType=VARCHAR},
+      keyword = #{keyword,jdbcType=VARCHAR},
+      symbol = #{symbol,jdbcType=VARCHAR},
+      thresholdvalue = #{thresholdValue,jdbcType=VARCHAR},
+      value_at_risk = #{valueAtRisk,jdbcType=VARCHAR},
+      tablename = #{tablename,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <!--后台管理       列表查询 数量 -->
+  <select id="queryAllCount" resultType="java.lang.Integer">
+  	select count(*)
+    from rulelist r inner join rulelist_type rt on r.typeid=rt.id where r.deleted=0 
+  </select>
+  <!--后台管理       列表查询  -->
+  <select id="queryAll" parameterType="java.lang.Integer" resultType="com.zhita.Model.Rulelist">
+  	select 
+    <include refid="Base_Column_List" />
+    from rulelist r inner join rulelist_type rt on r.typeid=rt.id where r.deleted=0 limit #{page,jdbcType=INTEGER},#{pagesize,jdbcType=INTEGER}
+  </select>
+  <!-- 后台管理    更新假删除状态 -->
+  <update id="upaFalseDel" parameterType="java.lang.Integer">
+  	update rulelist set deleted=1 where id=#{arg0}
+  </update>
+</mapper>

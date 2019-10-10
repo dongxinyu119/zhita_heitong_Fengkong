@@ -139,7 +139,7 @@ public class AuthenServiceImp implements IntAuthenService{
 	public Map<String,Object> queryauthenconcity(Integer userid,Integer page){
 		List<ContactsCityInfos> listconcity=new ArrayList<>();//通话区域分布（城市）表OK
 		PageUtil2 pageUtil=null;
-		int totalCount=contactsCityInfosMapper.queryAllCount(userid);;//查询总数量
+		int totalCount=contactsCityInfosMapper.queryAllCount(userid);//查询总数量
 		pageUtil=new PageUtil2(page,totalCount);
     	if(page<1) {
     		page=1;

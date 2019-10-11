@@ -19,5 +19,5 @@ public interface MainLocationsMapper {
 
     int updateByPrimaryKey(MainLocations record);
 
-	void setmainLocations(@Param("location")String location,@Param("percent") BigDecimal percent);
+	void setmainLocations(@Param("location")String location,@Param("percent") BigDecimal percent,@Param("id") int id);
 }

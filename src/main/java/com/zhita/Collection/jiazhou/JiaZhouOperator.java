@@ -34,6 +34,7 @@ import com.zhita.Dao.Top10CallCountMapper;
 import com.zhita.Dao.Top10CallTimeMapper;
 import com.zhita.Dao.Top10SingleCallTimeMapper;
 import com.zhita.Dao.TravelInfoMapper;
+import com.zhita.Model.OperatorInfo;
 
 @Controller
 @RequestMapping("/jiaZhouOperator")
@@ -342,7 +343,28 @@ public class JiaZhouOperator {
 		String main_active_location = operator_info.getString("main_active_location");//主要活动区域
 		BigDecimal main_location_percent = operator_info.getBigDecimal("main_location_percent");//主要活动区域时间 占比
 		String available_amount1 = operator_info.getString("available_amount");//当前可用的余额
-		operatorInfoMapper.setoperatorInfo(userId,phone_number,operator_type,name,idcard,email,address,vip_level,registration_history,available_amount,phone_number_location,main_active_location,main_location_percent);
+		
+		OperatorInfo operatorInfo = new OperatorInfo();
+		operatorInfo.setXiaodaiUserid(userId);
+		operatorInfo.setPhoneNumber(phone_number);
+		operatorInfo.setOperatorType(operator_type);
+		operatorInfo.setName(name);
+		operatorInfo.setIdcard(idcard);
+		operatorInfo.setEmail(email);
+		operatorInfo.setAddress(address);
+		operatorInfo.setVipLevel(vip_level);
+		operatorInfo.setRegistrationHistory(registration_history);
+		operatorInfo.setAvailableAmount(available_amount);
+		operatorInfo.setPhoneNumberLocation(phone_number_location);
+		operatorInfo.setMainActiveLocation(main_active_location);
+		operatorInfo.setMainLocationPercent(main_location_percent);
+		
+		
+//		operatorInfoMapper.setoperatorInfo(userId,phone_number,operator_type,name,idcard,email,address,vip_level,registration_history,available_amount,
+//				phone_number_location,main_active_location,main_location_percent);
+		
+		operatorInfoMapper.setoperatorInfo(operatorInfo);
+		int id = operatorInfo.getId();
 		
 		JSONArray main_locations = (JSONArray) operator_info.get("main_locations");// 通话区域分布(城市)
 		if (main_locations.size() > 0) {
@@ -350,7 +372,7 @@ public class JiaZhouOperator {
 				jsonObject2 = (JSONObject) main_locations.get(i);
 				String location = jsonObject2.getString("location");//主要活动区域
 				BigDecimal percent = jsonObject2.getBigDecimal("percent");//主要活动区域占比
-				mainLocationsMapper.setmainLocations(location,percent);
+				mainLocationsMapper.setmainLocations(location,percent,id);
 	}
 		}
 		

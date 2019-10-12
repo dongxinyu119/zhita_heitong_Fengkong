@@ -118,17 +118,17 @@ public class AuthenServiceImp implements IntAuthenService{
     	List<Top10SingleCallTime> top10sing=top10SingleCallTimeMapper.queryAll(userid);//单次通话时长前10 表OK
     	
 		Map<String,Object> map=new HashMap<String, Object>();
-		map.put("listapplier", listapplier);//申请人基本信息
-		map.put("listbill", listbill);//消费记录
-		map.put("listcommonth", listcommonth);//通话月份分布
-		map.put("listcombuck", listcombuck);//通话时间段分布
-		map.put("listcomdur", listcomdur);//通话时长分布
-		map.put("listrech", listrech);//充值记录
-		map.put("listrepo", listrepo);//报告基本信息
-		map.put("listsoc", listsoc);//社交关系
-		map.put("top10call", top10call);//通话次数前10 表
-		map.put("top10time", top10time);//通话总时长前10表
-		map.put("top10sing", top10sing);//单次通话时长前10 表
+		//map.put("listapplier", listapplier);//申请人基本信息
+		//map.put("listbill", listbill);//消费记录
+		//map.put("listcommonth", listcommonth);//通话月份分布
+		//map.put("listcombuck", listcombuck);//通话时间段分布
+		//map.put("listcomdur", listcomdur);//通话时长分布
+		//map.put("listrech", listrech);//充值记录
+		//map.put("listrepo", listrepo);//报告基本信息
+		//map.put("listsoc", listsoc);//社交关系
+		//map.put("top10call", top10call);//通话次数前10 表
+		//map.put("top10time", top10time);//通话总时长前10表
+		//map.put("top10sing", top10sing);//单次通话时长前10 表
 		map.put("listopera", listopera);//运营商基本信息--2
 		map.put("listcomdet", listcomdet);//通信检测--3
 		map.put("listemecon", listemecon);//紧急联系人--4

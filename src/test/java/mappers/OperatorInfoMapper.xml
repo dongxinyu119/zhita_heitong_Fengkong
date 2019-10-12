@@ -75,21 +75,21 @@
   	from operator_info o inner join main_locations m on o.id=m.ofid where o.xiaodai_userid=#{arg0} group by o.id;
   </select>
   
-                   <insert id="setoperatorInfo" parameterType="java.util.Map"> 
+                   <insert id="setoperatorInfo" parameterType="com.zhita.Model.OperatorInfo" useGeneratedKeys="true" keyProperty="id"> 
  insert into operator_info (xiaodai_userid,phone_number,operator_type,name,idcard,email,address,vip_level,registration_history,available_amount,phone_number_location,main_active_location,main_location_percent)
- values(#{userId},
-        #{phone_number},
-        #{operator_type},
+ values(#{xiaodaiUserid},
+        #{phoneNumber},
+        #{operatorType},
         #{name},
         #{idcard},
         #{email},
         #{address},
-        #{vip_level},
-        #{registration_history},
-        #{available_amount},
-        #{phone_number_location},
-        #{main_active_location},
-        #{main_location_percent})
+        #{vipLevel},
+        #{registrationHistory},
+        #{availableAmount},
+        #{phoneNumberLocation},
+        #{mainActiveLocation},
+        #{mainLocationPercent})
  </insert>
   
 </mapper>

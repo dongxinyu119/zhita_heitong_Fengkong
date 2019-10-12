@@ -48,7 +48,7 @@
   </select>
   
                          <insert id="setrechargeInfo" parameterType="java.util.Map"> 
- insert into circle_of_friends_locations (xiaodai_userid,recharge_time,recharge_count,recharge_amount,recharge_max)
+ insert into recharge_info (xiaodai_userid,recharge_time,recharge_count,recharge_amount,recharge_max)
  values(#{userId},
         #{recharge_time},
         #{recharge_count},

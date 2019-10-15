@@ -21,6 +21,7 @@ import com.zhita.Dao.LabelInfoMapper;
 import com.zhita.Dao.OperatorInfoMapper;
 import com.zhita.Dao.RechargeInfoMapper;
 import com.zhita.Dao.ReportInfoMapper;
+import com.zhita.Dao.SensitiveInfoNewupaMapper;
 import com.zhita.Dao.SocialConnectionsinfoMapper;
 import com.zhita.Dao.Top10CallCountMapper;
 import com.zhita.Dao.Top10CallTimeMapper;
@@ -39,6 +40,7 @@ import com.zhita.Model.LabelInfo;
 import com.zhita.Model.OperatorInfo;
 import com.zhita.Model.RechargeInfo;
 import com.zhita.Model.ReportInfo;
+import com.zhita.Model.SensitiveInfoNewupa;
 import com.zhita.Model.SocialConnectionsinfo;
 import com.zhita.Model.Top10CallCount;
 import com.zhita.Model.Top10CallTime;
@@ -85,6 +87,8 @@ public class AuthenServiceImp implements IntAuthenService{
 	private Top10CallTimeMapper top10CallTimeMapper;
 	@Autowired
 	private Top10SingleCallTimeMapper top10SingleCallTimeMapper;
+	@Autowired
+	private SensitiveInfoNewupaMapper sensitiveInfoNewupaMapper;
 	
 	public Map<String,Object> queryauthen(Integer userid){
 		List<ApplierInfo> listapplier=applierInfoMapper.queryAll(userid);//申请人基本信息OK
@@ -213,4 +217,12 @@ public class AuthenServiceImp implements IntAuthenService{
 		map.put("pageUtil", pageUtil);
 		return map;
 	}
+	
+	//后台管理——查询列表(风险信息检查)
+    public Map<String,Object> queryAllsen(Integer userid){
+    	List<SensitiveInfoNewupa> listsen=sensitiveInfoNewupaMapper.queryAll(userid);
+    	Map<String,Object> map=new HashMap<>();
+    	map.put("listsen", listsen);
+        return map;
+    }
 }

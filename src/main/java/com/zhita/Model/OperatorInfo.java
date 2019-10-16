@@ -35,6 +35,8 @@ public class OperatorInfo {
     private String mainActiveLocation;//主要活动区域
 
     private BigDecimal mainLocationPercent;//主要活动区域占比
+    
+    private String mainLocationPercentStr;//主要活动区域占比（String类型）
 
     public Integer getId() {
         return id;
@@ -163,5 +165,14 @@ public class OperatorInfo {
 	public void setMainLocationPercent(BigDecimal mainLocationPercent) {
 		this.mainLocationPercent = mainLocationPercent;
 	}
+
+	public String getMainLocationPercentStr() {
+		return mainLocationPercentStr;
+	}
+
+	public void setMainLocationPercentStr(String mainLocationPercentStr) {
+		this.mainLocationPercentStr = mainLocationPercentStr;
+	}
+	
 
 }

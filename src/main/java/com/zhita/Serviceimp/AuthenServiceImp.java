@@ -21,6 +21,7 @@ import com.zhita.Dao.LabelInfoMapper;
 import com.zhita.Dao.OperatorInfoMapper;
 import com.zhita.Dao.RechargeInfoMapper;
 import com.zhita.Dao.ReportInfoMapper;
+import com.zhita.Dao.SensitiveInfoNewupaMapper;
 import com.zhita.Dao.SocialConnectionsinfoMapper;
 import com.zhita.Dao.Top10CallCountMapper;
 import com.zhita.Dao.Top10CallTimeMapper;
@@ -39,6 +40,7 @@ import com.zhita.Model.LabelInfo;
 import com.zhita.Model.OperatorInfo;
 import com.zhita.Model.RechargeInfo;
 import com.zhita.Model.ReportInfo;
+import com.zhita.Model.SensitiveInfoNewupa;
 import com.zhita.Model.SocialConnectionsinfo;
 import com.zhita.Model.Top10CallCount;
 import com.zhita.Model.Top10CallTime;
@@ -85,6 +87,8 @@ public class AuthenServiceImp implements IntAuthenService{
 	private Top10CallTimeMapper top10CallTimeMapper;
 	@Autowired
 	private Top10SingleCallTimeMapper top10SingleCallTimeMapper;
+	@Autowired
+	private SensitiveInfoNewupaMapper sensitiveInfoNewupaMapper;
 	
 	public Map<String,Object> queryauthen(Integer userid){
 		List<ApplierInfo> listapplier=applierInfoMapper.queryAll(userid);//申请人基本信息OK
@@ -118,17 +122,17 @@ public class AuthenServiceImp implements IntAuthenService{
     	List<Top10SingleCallTime> top10sing=top10SingleCallTimeMapper.queryAll(userid);//单次通话时长前10 表OK
     	
 		Map<String,Object> map=new HashMap<String, Object>();
-		map.put("listapplier", listapplier);//申请人基本信息
-		map.put("listbill", listbill);//消费记录
-		map.put("listcommonth", listcommonth);//通话月份分布
-		map.put("listcombuck", listcombuck);//通话时间段分布
-		map.put("listcomdur", listcomdur);//通话时长分布
-		map.put("listrech", listrech);//充值记录
-		map.put("listrepo", listrepo);//报告基本信息
-		map.put("listsoc", listsoc);//社交关系
-		map.put("top10call", top10call);//通话次数前10 表
-		map.put("top10time", top10time);//通话总时长前10表
-		map.put("top10sing", top10sing);//单次通话时长前10 表
+		//map.put("listapplier", listapplier);//申请人基本信息
+		//map.put("listbill", listbill);//消费记录
+		//map.put("listcommonth", listcommonth);//通话月份分布
+		//map.put("listcombuck", listcombuck);//通话时间段分布
+		//map.put("listcomdur", listcomdur);//通话时长分布
+		//map.put("listrech", listrech);//充值记录
+		//map.put("listrepo", listrepo);//报告基本信息
+		//map.put("listsoc", listsoc);//社交关系
+		//map.put("top10call", top10call);//通话次数前10 表
+		//map.put("top10time", top10time);//通话总时长前10表
+		//map.put("top10sing", top10sing);//单次通话时长前10 表
 		map.put("listopera", listopera);//运营商基本信息--2
 		map.put("listcomdet", listcomdet);//通信检测--3
 		map.put("listemecon", listemecon);//紧急联系人--4
@@ -213,4 +217,12 @@ public class AuthenServiceImp implements IntAuthenService{
 		map.put("pageUtil", pageUtil);
 		return map;
 	}
+	
+	//后台管理——查询列表(风险信息检查)
+    public Map<String,Object> queryAllsen(Integer userid){
+    	List<SensitiveInfoNewupa> listsen=sensitiveInfoNewupaMapper.queryAll(userid);
+    	Map<String,Object> map=new HashMap<>();
+    	map.put("listsen", listsen);
+        return map;
+    }
 }

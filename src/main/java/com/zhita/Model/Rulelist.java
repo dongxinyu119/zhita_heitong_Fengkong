@@ -17,6 +17,8 @@ public class Rulelist {
     private String value_at_risk;//风险分值
     
     private String tablename;//表名
+    
+    private String status;//状态 (1 开启 ;2 关闭)
 
     private String deleted;//假删除（1：删除；0：没删除）
     
@@ -86,6 +88,14 @@ public class Rulelist {
 
 	public void setValue_at_risk(String value_at_risk) {
 		this.value_at_risk = value_at_risk;
+	}
+	
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	public String getDeleted() {

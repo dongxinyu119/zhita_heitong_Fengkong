@@ -16,8 +16,8 @@
     <result column="order_description" property="orderDescription" jdbcType="VARCHAR" />
     <result column="available_amount" property="availableAmount" jdbcType="DECIMAL" />
     <result column="phone_number_location" property="phoneNumberLocation" jdbcType="VARCHAR" />
-    <result column="main_active_location" property="mainActiveLocation" jdbcType="VARCHAR" />
-    <result column="main_location_percent" property="mainLocationPercent" jdbcType="DECIMAL" />
+    <result column="mainActiveLocation" property="mainActiveLocation" jdbcType="VARCHAR" />
+    <result column="mainLocationPercentStr" property="mainLocationPercentStr" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, xiaodai_userid, phone_number, operator_type, name, idcard, email, address, vip_level, 
@@ -71,7 +71,7 @@
   </update>
   <!-- 查询列表           运营商基本信息 -->
   <select id="queryAll" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-  	select o.*,GROUP_CONCAT(m.location) mainActiveLocation,GROUP_CONCAT(m.percent) mainLocationPercent
+  	select o.*,GROUP_CONCAT(m.location) mainActiveLocation,GROUP_CONCAT(m.percent) mainLocationPercentStr
   	from operator_info o inner join main_locations m on o.id=m.ofid where o.xiaodai_userid=#{arg0} group by o.id;
   </select>
   

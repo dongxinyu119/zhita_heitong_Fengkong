@@ -9,17 +9,18 @@
     <result column="symbol" property="symbol" jdbcType="VARCHAR" />
     <result column="thresholdvalue" property="thresholdValue" jdbcType="VARCHAR" />
     <result column="value_at_risk" property="valueAtRisk" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
     <result column="deleted" property="deleted" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    r.id,  r.typeid,  r.rulelist,  r.keyword,  r.symbol,  r.thresholdvalue,  r.value_at_risk valueAtRisk,  r.tablename, r.deleted,
+    r.id,  r.typeid,  r.rulelist,  r.keyword,  r.symbol,  r.thresholdvalue,  r.value_at_risk valueAtRisk,  r.tablename, r.status, r.deleted,
     rt.id, rt.type
   </sql>
   <!-- 后台管理      根据id查询当前对象 -->
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-   from rulelist r inner join rulelist_type rt on r.typeid=rt.id where r.deleted=0 and r.id=#{arg0}
+    from rulelist r inner join rulelist_type rt on r.typeid=rt.id where r.deleted=0 and r.id=#{arg0}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from rulelist
@@ -43,10 +44,10 @@
     set typeid = #{typeid,jdbcType=INTEGER},
       rulelist = #{rulelist,jdbcType=VARCHAR},
       keyword = #{keyword,jdbcType=VARCHAR},
-      symbol = #{symbol,jdbcType=VARCHAR},
       thresholdvalue = #{thresholdValue,jdbcType=VARCHAR},
       value_at_risk = #{valueAtRisk,jdbcType=VARCHAR},
-      tablename = #{tablename,jdbcType=VARCHAR}
+      tablename = #{tablename,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <!--后台管理       列表查询 数量 -->

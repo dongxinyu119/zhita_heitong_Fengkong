@@ -28,16 +28,17 @@
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.zhita.Model.MainLocations" >
     update main_locations
-    set ofid = #{ofid,jdbcType=INTEGER},
+    set ofid = #{ofid,jdbcType=INTEGER},                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
       location = #{location,jdbcType=VARCHAR},
       percent = #{percent,jdbcType=DECIMAL}
     where id = #{id,jdbcType=INTEGER}
   </update>
   
                      <insert id="setmainLocations" parameterType="java.util.Map"> 
- insert into main_locations (location,percent)
+ insert into main_locations (location,percent,ofid)
  values(#{location},
-        #{percent})
+        #{percent},
+        #{id})
  </insert>
   
   

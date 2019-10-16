@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhita.Dao.FractionMapper" >
+
+	<select id="AppCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		select count(id) from userapp where userId = #{userId}
+	</select>
+	
+	
+	<select id="FractionUser" parameterType="java.lang.Integer" resultType="com.zhita.Model.Rulelist">
+		select * from rulelist where id = #{id}
+	</select>
+	
+	
+	<select id="Emergency_contact_infoPhone" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		select count(id) from emergency_contact_info where xiaodai_userid = #{xiaodai_userid} and left(phone_number,3) = "400" 
+	</select>
+	
+		
+	<select id="IpPhone" parameterType="java.lang.String" resultType="java.lang.Integer">
+		select count(id) from configuration where wifiIP =  (select wifiIP from configuration where phone = #{phone} )
+	</select>
+	
+	
+	<select id="PhoneCount" parameterType="com.zhita.Model.User" resultType="java.lang.Integer">
+		select count(id) from user 
+		<where>
+			<if test="phone != null and phone != ''">
+				and phone = #{phone} 
+			</if>
+			<if test="statu_time != null and statu_time != '' and end_time != '' and end_time != null">
+				and authentication_time between #{statu_time} and #{end_time}
+			</if>
+			<if test="idnumber != null and idnumber != ''">
+				and idnumber = #{idnumber}
+			</if>
+		</where>
+	</select>
+  
+  
+  	<select id="UserPhoneCount" parameterType="com.zhita.Model.User" resultType="java.lang.Integer">
+  		select count(id) from maillist 
+			<where>
+				userId = #{userId} 
+				<if test="phone != null and phone != ''">
+					and left(phone,3) = #{phone} 
+				</if> 
+				<if test="name != null and name != ''">
+					and `name` LIKE  "%"#{name}"%"
+				</if>
+			</where>
+  	</select>
+  	
+  	
+  	<insert id="AddUser" parameterType="com.zhita.Model.User">
+  		INSERT INTO `user`(
+  			userId,
+  			idnumber,
+  			username,
+  			phone,
+  			authentication_time,
+  			fraction,
+  			appId
+  		)VALUES(
+  		#{userId},#{idnumber},#{username},#{phone},#{authentication_time},#{fraction},#{appId}
+  		)
+  	</insert>
+  	
+  	
+  	<select id="UserZuc" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+  		select count(id) from user where phone = (select phone_number from emergency_contact_info where xiaodai_userid = #{userId})
+  	</select>
+  	
+  	
+  	<select id="UserAppnum" parameterType="com.zhita.Model.User" resultType="java.lang.Integer">
+  		select count(id) from userapp  
+  		<where>
+  			userId = #{userId}
+  			<if test="name != null and name != ''">
+  				and `name` LIKE  "%"#{name}"%"
+  			</if>
+  		</where>
+  	</select>
+  	
+  	
+  	<select id="getId" parameterType="java.lang.String" resultType="java.lang.Integer">
+  		select max(id) from user where phone = #{phone}
+  	</select>
+  	
+  	
+  	<select id="UserAppCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+  		select count(id) from userapp where `name` LIKE  "%"#{name}"%"
+  	</select>
+</mapper>

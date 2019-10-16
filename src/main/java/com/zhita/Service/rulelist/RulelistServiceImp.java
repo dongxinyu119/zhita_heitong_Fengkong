@@ -21,7 +21,6 @@ public class RulelistServiceImp implements IntRulelistService{
 	
 	//后台管理——列表查询
     public Map<String,Object> queryAll(Integer page){
-
 		List<Rulelist> listrulelist=new ArrayList<>();//规则集合
 		PageUtil2 pageUtil=null;
 		int totalCount=rulelistMapper.queryAllCount();//查询总数量

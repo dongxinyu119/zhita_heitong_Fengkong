@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhita.Dao.CallStatisticsMapper" >
+  <resultMap id="BaseResultMap" type="com.zhita.Model.CallStatistics" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="crtwoid" property="crtwoid" jdbcType="INTEGER" />
+    <result column="total_call_count" property="totalCallCount" jdbcType="INTEGER" />
+    <result column="total_call_duration_time" property="totalCallDurationTime" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, crtwoid, total_call_count, total_call_duration_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from call_statistics
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from call_statistics
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zhita.Model.CallStatistics" >
+    insert into call_statistics (id, crtwoid, total_call_count, 
+      total_call_duration_time)
+    values (#{id,jdbcType=INTEGER}, #{crtwoid,jdbcType=INTEGER}, #{totalCallCount,jdbcType=INTEGER}, 
+      #{totalCallDurationTime,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.zhita.Model.CallStatistics" >
+    update call_statistics
+    set crtwoid = #{crtwoid,jdbcType=INTEGER},
+      total_call_count = #{totalCallCount,jdbcType=INTEGER},
+      total_call_duration_time = #{totalCallDurationTime,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

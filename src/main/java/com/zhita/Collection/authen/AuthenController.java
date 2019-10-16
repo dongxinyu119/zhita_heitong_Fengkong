@@ -43,5 +43,12 @@ public class AuthenController {
 	public Map<String,Object> queryauthenave(Integer userid,Integer page){
 		return intAuthenService.queryauthenave(userid,page);
 	}
+	
+	//风险信息检查表
+	@ResponseBody
+	@RequestMapping("/queryAllsen")
+    public Map<String,Object> queryAllsen(Integer userid){
+    	return intAuthenService.queryAllsen(userid);
+    }
 
 }

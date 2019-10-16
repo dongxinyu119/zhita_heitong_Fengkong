@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhita.Dao.SensitiveInfoNewupaMapper" >
+  <resultMap id="BaseResultMap" type="com.zhita.Model.SensitiveInfoNewupa" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+     <result column="xiaodai_userid" property="xiaodaiUserid" jdbcType="INTEGER" />
+    <result column="check_result" property="checkResult" jdbcType="VARCHAR" />
+    <result column="item_id" property="itemId" jdbcType="VARCHAR" />
+    <result column="item_name" property="itemName" jdbcType="VARCHAR" />
+    <result column="risk_level" property="riskLevel" jdbcType="VARCHAR" />
+    <result column="idcard_matching" property="idcardMatching" jdbcType="VARCHAR" />
+    <result column="name_matching" property="nameMatching" jdbcType="VARCHAR" />
+    <result column="network_length_check" property="networkLengthCheck" jdbcType="VARCHAR" />
+    <result column="idcard" property="idcard" jdbcType="VARCHAR" />
+    <result column="phone_number" property="phoneNumber" jdbcType="VARCHAR" />
+    <result column="result" property="result" jdbcType="VARCHAR" />
+    <collection property="listc"  ofType="com.zhita.Model.CallRecordListInfos" column="id">
+        <id column="id1" property="id"  jdbcType="INTEGER"/>
+        <result  column="sentivid"  property="sentivid" jdbcType="INTEGER"/>
+		<result  column="name"  property="name" jdbcType="VARCHAR"/>
+		<collection property="listct"  ofType="com.zhita.Model.CallRecordListItemInfosTwo" column="id">
+        	<id column="id2" property="id"  jdbcType="INTEGER"/>
+        	<result  column="crlid"  property="crlid" jdbcType="INTEGER"/>
+        	<result  column="called_count"  property="calledCount" jdbcType="VARCHAR"/>
+			<result  column="calling_count"  property="callingCount" jdbcType="VARCHAR"/>
+			<result  column="phonenumber"  property="phoneNumber" jdbcType="VARCHAR"/>
+			<collection property="listcs"  ofType="com.zhita.Model.CallStatistics" column="id">
+        		<id column="id3" property="id"  jdbcType="INTEGER"/>
+        		<result  column="crtwoid"  property="crtwoid" jdbcType="INTEGER"/>
+        		<result  column="total_call_count"  property="totalCallCount" jdbcType="INTEGER"/>
+				<result  column="total_call_duration_time"  property="totalCallDurationTime" jdbcType="INTEGER"/>
+    		</collection>
+    	</collection>
+    </collection>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, xiaodai_userid,check_result, item_id, item_name, risk_level, idcard_matching, name_matching, 
+    network_length_check, idcard, phone_number, result
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sensitive_info_newupa
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sensitive_info_newupa
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zhita.Model.SensitiveInfoNewupa" >
+    insert into sensitive_info_newupa (id, xiaodai_userid,check_result, item_id, 
+      item_name, risk_level, idcard_matching, 
+      name_matching, network_length_check, idcard, 
+      phone_number, result)
+    values (#{id,jdbcType=INTEGER}, #{xiaodaiUserid,jdbcType=INTEGER},#{checkResult,jdbcType=VARCHAR}, #{itemId,jdbcType=VARCHAR}, 
+      #{itemName,jdbcType=VARCHAR}, #{riskLevel,jdbcType=VARCHAR}, #{idcardMatching,jdbcType=VARCHAR}, 
+      #{nameMatching,jdbcType=VARCHAR}, #{networkLengthCheck,jdbcType=VARCHAR}, #{idcard,jdbcType=VARCHAR}, 
+      #{phoneNumber,jdbcType=VARCHAR}, #{result,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.zhita.Model.SensitiveInfoNewupa" >
+    update sensitive_info_newupa
+    set check_result = #{checkResult,jdbcType=VARCHAR},
+      item_id = #{itemId,jdbcType=VARCHAR},
+      item_name = #{itemName,jdbcType=VARCHAR},
+      risk_level = #{riskLevel,jdbcType=VARCHAR},
+      idcard_matching = #{idcardMatching,jdbcType=VARCHAR},
+      name_matching = #{nameMatching,jdbcType=VARCHAR},
+      network_length_check = #{networkLengthCheck,jdbcType=VARCHAR},
+      idcard = #{idcard,jdbcType=VARCHAR},
+      phone_number = #{phoneNumber,jdbcType=VARCHAR},
+      result = #{result,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <!-- 后台管理       查询列表  -->
+  <select id="queryAll" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  	select DISTINCT s.*,
+  	c.id id1,c.sentivid,c.name,
+	ct.id id2,ct.crlid,ct.called_count,ct.calling_count,ct.phone_number phonenumber,
+	cs.id id3,cs.crtwoid,cs.total_call_count,cs.total_call_duration_time
+	from sensitive_info_newupa s left join call_record_list_infos c on s.id=c.sentivid
+	left join call_record_list_item_infos_two ct on c.id=ct.crlid
+	left join call_statistics cs on ct.id=cs.crtwoid 
+	where s.xiaodai_userid=#{arg0}
+  </select>
+</mapper>

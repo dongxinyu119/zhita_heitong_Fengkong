@@ -41,7 +41,7 @@ public class Configuration {
 	private String end_time;
 	
 	private String app_name;
-
+	
 	public String getApp_name() {
 		return app_name;
 	}

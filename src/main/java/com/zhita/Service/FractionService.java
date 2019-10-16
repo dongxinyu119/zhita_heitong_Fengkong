@@ -1,6 +1,7 @@
 package com.zhita.Service;
 
 import com.zhita.Model.Rulelist;
+import com.zhita.Model.Rulelist_detail;
 import com.zhita.Model.User;
 
 public interface FractionService {
@@ -46,4 +47,11 @@ public interface FractionService {
 	
 	
 	Integer UserAppCount(Integer userId);
+	
+	
+	Integer AddCount(Rulelist_detail rele);
+	
+	
+	
+	
 }

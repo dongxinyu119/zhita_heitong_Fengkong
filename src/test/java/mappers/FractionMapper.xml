@@ -91,4 +91,16 @@
   	<select id="UserAppCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
   		select count(id) from userapp where `name` LIKE  "%"#{name}"%"
   	</select>
+  	
+  	
+  	<insert id="AddUserCount" parameterType="com.zhita.Model.Rulelist_detail">
+  		INSERT INTO `rulelist_detail` (
+  			rtid,
+  			rid,
+  			uid
+  		)values(#{rtid},#{rid},#{uid})
+  	</insert>
+  	
+  	
+  	
 </mapper>

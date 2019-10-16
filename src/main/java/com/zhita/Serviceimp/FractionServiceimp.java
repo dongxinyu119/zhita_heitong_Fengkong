@@ -2,10 +2,13 @@ package com.zhita.Serviceimp;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.zhita.Dao.FractionMapper;
 import com.zhita.Model.Rulelist;
+import com.zhita.Model.Rulelist_detail;
 import com.zhita.Model.User;
 import com.zhita.Service.FractionService;
 import com.zhita.Util.Timestamps;
@@ -135,6 +138,12 @@ public class FractionServiceimp implements FractionService{
 	public Integer UserAppCount(Integer userId) {
 		return fractionmapper.UserAppCount(userId);
 	}
+
+	@Override
+	public Integer AddCount(Rulelist_detail ru) {
+		return fractionmapper.AddUserCount(ru);
+	}
+
 	
 	
 	

@@ -1,6 +1,7 @@
 package com.zhita.Dao;
 
 import com.zhita.Model.Rulelist;
+import com.zhita.Model.Rulelist_detail;
 import com.zhita.Model.User;
 
 public interface FractionMapper {
@@ -37,4 +38,9 @@ public interface FractionMapper {
 	
 	
 	Integer UserAppCount(Integer userId);
+	
+	
+	Integer AddUserCount(Rulelist_detail ru);
+	
+	
 }

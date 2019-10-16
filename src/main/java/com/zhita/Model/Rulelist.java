@@ -18,19 +18,12 @@ public class Rulelist {
     
     private String tablename;//表名
     
+    private Integer status;//状态 (1 开启 ;2 关闭)
+
     private String deleted;//假删除（1：删除；0：没删除）
     
     private String type;//规则分类
     
-    private Integer status;//开启状态  1 开启  2 关闭
-
-	public Integer getStatus() {
-		return status;
-	}
-
-	public void setStatus(Integer status) {
-		this.status = status;
-	}
 
 	public Integer getId() {
 		return id;
@@ -86,6 +79,14 @@ public class Rulelist {
 
 	public void setValue_at_risk(String value_at_risk) {
 		this.value_at_risk = value_at_risk;
+	}
+	
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
 	}
 
 	public String getDeleted() {

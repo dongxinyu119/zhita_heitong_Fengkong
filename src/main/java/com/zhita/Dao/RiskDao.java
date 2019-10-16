@@ -28,4 +28,6 @@ public interface RiskDao {
 	
 	
 	Integer AppNum(Configuration name);
+	
+	
 }

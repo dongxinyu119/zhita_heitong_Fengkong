@@ -93,7 +93,7 @@
   	</select>
   	
   	
-  	<insert id="AddUserCount" parameterType="com.zhita.Model.Rulelist_detail">
+  	<insert id="AddUserCount" useGeneratedKeys="true" keyProperty="id" parameterType="com.zhita.Model.Rulelist_detail">
   		INSERT INTO `rulelist_detail` (
   			rtid,
   			rid,

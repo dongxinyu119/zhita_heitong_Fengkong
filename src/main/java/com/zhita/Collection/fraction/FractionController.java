@@ -922,7 +922,7 @@ public class FractionController {
 			u.setIdnumber(idNumber);
 			SimpleDateFormat sima = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			try {
-				u.setAuthentication_time(sima.format(new Date()));
+				u.setAuthentication_time(Timestamps.dateToStamp1(sima.format(new Date())));
 			} catch (Exception e) {
 				// TODO: handle exception
 			}

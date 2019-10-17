@@ -97,10 +97,45 @@
   		INSERT INTO `rulelist_detail` (
   			rtid,
   			rid,
-  			uid
-  		)values(#{rtid},#{rid},#{uid})
+  			value_at_risk,
+  			userid,
+  			authentication_time
+  		)values(#{rtid},#{rid},#{value_at_risk},#{userid},#{authentication_time})
   	</insert>
   	
   	
+  	<select id="SelectUserPhone" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+  		select count(u.id) from maillist ma,user u where ma.phone = u.phone and ma.userId = #{userId}
+  	</select>
   	
+  	
+  	<select id="PayUserNum" parameterType="com.zhita.Model.User" resultType="java.lang.Integer">
+  		select count(name)  from maillist where userId = #{userId} group by name having count(name) > 1
+  	</select>
+  	
+  	
+  	<select id="PhoneNum" parameterType="com.zhita.Model.User" resultType="java.lang.Integer">
+  		select count(phone)  from maillist where userId = #{userId} group by phone having count(phone) > 1
+  	</select>
+  	
+  	
+  	<select id="jjPhoneNum" parameterType="com.zhita.Model.User" resultType="java.lang.Integer">
+  		select count(name)  from emergency_contact_info where xiaodai_userid = #{userid} group by name having count(name) > 1
+  	</select>
+  	
+  	
+  	<select id="PhoneNumA" parameterType="com.zhita.Model.User" resultType="java.lang.Integer" >
+  		select count(id) from emergency_contact_info where xiaodai_userid = #{userId} group by left(phone_number,#{id}) 
+  		having count(left(phone_number,3)) > 1 
+  	</select>
+  	
+  	
+  	<select id="ReportNum" parameterType="com.zhita.Model.User" resultType="java.lang.Integer">
+  		select score from report_info where xiaodai_userid = #{userId}
+  	</select>
+  	
+  	
+  	<select id="ReportID" parameterType="com.zhita.Model.User" resultType="java.lang.Integer">
+  		select id from report_info where xiaodai_userid = #{userId}
+  	</select>
 </mapper>

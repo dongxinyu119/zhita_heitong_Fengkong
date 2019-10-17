@@ -2,6 +2,7 @@ package com.zhita.Serviceimp;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,8 @@ public class FractionServiceimp implements FractionService{
 	
 	@Autowired
 	private FractionMapper fractionmapper;
+	
+	
 
 	@Override
 	public Integer AppCount(Integer userId) {
@@ -143,6 +146,69 @@ public class FractionServiceimp implements FractionService{
 	public Integer AddCount(Rulelist_detail ru) {
 		return fractionmapper.AddUserCount(ru);
 	}
+
+	@Override
+	public Integer MaillstUserPhone(Integer userId) {
+		return fractionmapper.SelectUserPhone(userId);
+	}
+
+	@Override
+	public Integer PayUserNum(User user) {
+		List<Integer> suma = fractionmapper.PayUserNum(user);
+		Integer a = 0;
+		if(suma==null){
+			return a;
+		}
+		for(int i=0;i<suma.size();i++){
+			a = a + suma.get(i);
+		}
+		return a;
+	}
+
+	@Override
+	public Integer PhoneNum(User user) {
+		List<Integer> suma = fractionmapper.PhoneNum(user);
+		Integer a = 0;
+		if(suma==null){
+			return a;
+		}
+		
+		for(int i=0;i<suma.size();i++){
+			a = a + suma.get(i);
+		}
+		return a;
+	}
+
+	@Override
+	public Integer jjPhoneNum(User user) {
+		List<Integer> suma = fractionmapper.jjPhoneNum(user);
+		Integer a = 0;
+		
+		if(suma==null){
+			return a;
+		}
+		
+		for(int i=0;i<suma.size();i++){
+			a = a + suma.get(i);
+		}
+		return a;
+	}
+
+	@Override
+	public Integer PFhoneNum(User user) {
+		return fractionmapper.PhoneNumA(user);
+	}
+
+	@Override
+	public Integer ReportNum(User user) {
+		return fractionmapper.ReportNum(user);
+	}
+
+	@Override
+	public Integer ReportID(User user) {
+		return fractionmapper.ReportID(user);
+	}
+
 
 	
 	

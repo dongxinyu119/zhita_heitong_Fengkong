@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Param;
 
 import com.zhita.Model.Rulelist;
 import com.zhita.Model.RulelistType;
+import com.zhita.Model.Rulelist_detail;
+import com.zhita.Model.User;
 
 public interface RulelistMapper {
     int deleteByPrimaryKey(Integer id);
@@ -30,5 +32,17 @@ public interface RulelistMapper {
     
     //后台管理——更新假删除状态
     int upaFalseDel(Integer id);
+    
+    //后台管理——查询该用户最新一条数据
+    User queryuser(Integer userid);
+    
+    //后台管理——查询该用户的命中情况
+    List<Rulelist_detail> queryifhit(Integer userid,String authentime);
+    
+    //后台管理——查询该用户没有命中的规则分类
+    List<String> queryType(Integer userid,String authentime);
+    
+    //后台管理——查询该条规则被命中的用户集合
+    List<Rulelist_detail> queryuserhit(Integer rulelistid);
     
 }

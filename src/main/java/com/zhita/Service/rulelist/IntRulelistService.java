@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.zhita.Model.Rulelist;
 import com.zhita.Model.RulelistType;
+import com.zhita.Model.Rulelist_detail;
 
 public interface IntRulelistService {
 	
@@ -25,4 +26,10 @@ public interface IntRulelistService {
     
     //后台管理——更新假删除状态
     public int upaFalseDel(Integer id);
+    
+    //后台管理——各个规则分类是否命中
+    public List<Rulelist_detail> typeifhit(Integer userid);
+    
+    //后台管理——查询该条规则被命中的用户集合
+    public List<Rulelist_detail> queryuserhit(Integer rulelistid);
 }

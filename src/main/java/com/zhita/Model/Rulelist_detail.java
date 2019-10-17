@@ -15,6 +15,10 @@ public class Rulelist_detail {
 	private Integer rid;
 	
 	private Integer uid;
+	
+	private String sum;//该规则分类的总扣分
+	
+	private String type;//规则分类名
 
 	public Integer getRtid() {
 		return rtid;
@@ -47,7 +51,21 @@ public class Rulelist_detail {
 	public void setUid(Integer uid) {
 		this.uid = uid;
 	}
-	
-	
 
+	public String getSum() {
+		return sum;
+	}
+
+	public void setSum(String sum) {
+		this.sum = sum;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+	
 }

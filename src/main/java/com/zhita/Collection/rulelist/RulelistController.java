@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.zhita.Model.Rulelist;
 import com.zhita.Model.RulelistType;
+import com.zhita.Model.Rulelist_detail;
 import com.zhita.Service.rulelist.IntRulelistService;
 
 @Controller
@@ -60,5 +61,12 @@ public class RulelistController {
     public int upaFalseDel(Integer id){
     	return intRulelistService.upaFalseDel(id);
     }
+	
+	//后台管理——各个规则分类是否命中
+	@ResponseBody
+	@RequestMapping("/typeifhit")
+	public List<Rulelist_detail> typeifhit(Integer userid){
+		return intRulelistService.typeifhit(userid);
+	}
 
 }

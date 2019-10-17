@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import com.zhita.Dao.RulelistMapper;
 import com.zhita.Model.Rulelist;
 import com.zhita.Model.RulelistType;
+import com.zhita.Model.Rulelist_detail;
+import com.zhita.Model.User;
 import com.zhita.Util.PageUtil2;
 
 @Service
@@ -70,5 +72,27 @@ public class RulelistServiceImp implements IntRulelistService{
     //后台管理——更新假删除状态
     public int upaFalseDel(Integer id){
     	return rulelistMapper.upaFalseDel(id);
+    }
+    
+    //后台管理——各个规则分类是否命中
+    public List<Rulelist_detail> typeifhit(Integer userid){
+    	User user=rulelistMapper.queryuser(userid);
+    	List<Rulelist_detail> list=rulelistMapper.queryifhit(user.getUserId(), user.getAuthentication_time());
+    	List<String> listype=rulelistMapper.queryType(user.getUserId(), user.getAuthentication_time());
+    	List<Rulelist_detail> list1=new ArrayList<>();
+    	for (int i = 0; i < listype.size(); i++) {
+    		Rulelist_detail rulelist_detail=new Rulelist_detail();
+    		rulelist_detail.setType(listype.get(i));
+    		rulelist_detail.setSum("0");
+			list1.add(rulelist_detail);
+		}
+    	list.addAll(list1);
+    	
+    	return list;
+    }
+    
+    //后台管理——查询该条规则被命中的用户集合
+    public List<Rulelist_detail> queryuserhit(Integer rulelistid){
+    	return rulelistMapper.queryuserhit(rulelistid);
     }
 }

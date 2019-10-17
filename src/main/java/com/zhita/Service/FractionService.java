@@ -52,6 +52,25 @@ public interface FractionService {
 	Integer AddCount(Rulelist_detail rele);
 	
 	
+	Integer MaillstUserPhone(Integer userId);
+	
+	
+	Integer PayUserNum(User user);
+	
+	
+	Integer PhoneNum(User user);
+	
+	
+	Integer jjPhoneNum(User user);
+	
+	
+	Integer PFhoneNum(User user);
+	
+	
+	Integer ReportNum(User user);
+	
+	
+	Integer ReportID(User user);
 	
 	
 }

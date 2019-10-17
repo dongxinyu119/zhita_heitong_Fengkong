@@ -1,5 +1,7 @@
 package com.zhita.Dao;
 
+import java.util.List;
+
 import com.zhita.Model.Rulelist;
 import com.zhita.Model.Rulelist_detail;
 import com.zhita.Model.User;
@@ -42,5 +44,25 @@ public interface FractionMapper {
 	
 	Integer AddUserCount(Rulelist_detail ru);
 	
+	
+	Integer SelectUserPhone(Integer userId);
+	
+	
+	List<Integer> PayUserNum(User user);
+	
+	
+	List<Integer> PhoneNum(User user);
+	
+	
+	List<Integer> jjPhoneNum(User user);
+	
+	
+	Integer PhoneNumA(User user);
+	
+	
+	Integer ReportNum(User user);
+	
+	
+	Integer ReportID(User user);
 	
 }

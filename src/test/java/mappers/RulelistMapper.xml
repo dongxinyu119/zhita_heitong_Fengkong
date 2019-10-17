@@ -72,12 +72,12 @@
   <!-- 后台管理      查询该用户的命中情况 -->
   <select id="queryifhit" resultType="com.zhita.Model.Rulelist_detail">
   	select rd.id,rd.rtid,rd.userid,rd.authentication_time,sum(value_at_risk) sum,t.type from rulelist_detail rd  inner join rulelist_type t on rd.rtid=t.id 
-	where rd.userid=#{arg0} and rd.authentication_time=#{arg1} group by rd.rtid
+	where rd.userid=#{userid,jdbcType=INTEGER} and rd.authentication_time=#{authentime,jdbcType=VARCHAR} group by rd.rtid
   </select>
   <!-- 后台管理      查询该用户没有命中的规则分类 -->
-  <select id="queryType" resultType="java.lang.String">
+  <select id="queryType" resultType="com.zhita.Model.Rulelist_detail">
   	select type from rulelist_type where type not in(select t.type from rulelist_detail rd  inner join rulelist_type t on rd.rtid=t.id 
-	where rd.userid=#{arg0} and rd.authentication_time=#{arg1} group by rd.rtid)
+	where rd.userid=#{userid,jdbcType=INTEGER} and rd.authentication_time=#{authentime,jdbcType=VARCHAR} group by rd.rtid)
   </select>
   <!-- 后台管理      查询该条规则被命中的用户集合 -->
   <select id="queryuserhit" parameterType="java.lang.Integer" resultType="com.zhita.Model.Rulelist_detail">

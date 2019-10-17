@@ -62,11 +62,18 @@ public class RulelistController {
     	return intRulelistService.upaFalseDel(id);
     }
 	
-	//后台管理——各个规则分类是否命中
+	//后台管理——各个规则分类的命中分数
 	@ResponseBody
 	@RequestMapping("/typeifhit")
-	public List<Rulelist_detail> typeifhit(Integer userid){
+	public Map<String,Object> typeifhit(Integer userid){
 		return intRulelistService.typeifhit(userid);
 	}
+	
+	//后台管理——查询该条规则被命中的用户集合
+	@ResponseBody
+	@RequestMapping("/queryuserhit")
+    public List<Rulelist_detail> queryuserhit(Integer rulelistid){
+    	return intRulelistService.queryuserhit(rulelistid);
+    }
 
 }

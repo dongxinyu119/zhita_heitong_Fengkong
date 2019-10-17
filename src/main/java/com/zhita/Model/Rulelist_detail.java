@@ -23,6 +23,12 @@ public class Rulelist_detail {
 	private String value_at_risk;//规则的风险分值
 	
 	private String authentication_time;//同步规则表的认证时间
+	
+	private String username;//姓名
+	
+	private String thresholdvalue;//阈值
+	
+	private String fraction;//最后得分
 
 	public Integer getId() {
 		return id;
@@ -86,6 +92,30 @@ public class Rulelist_detail {
 
 	public void setAuthentication_time(String authentication_time) {
 		this.authentication_time = authentication_time;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getThresholdvalue() {
+		return thresholdvalue;
+	}
+
+	public void setThresholdvalue(String thresholdvalue) {
+		this.thresholdvalue = thresholdvalue;
+	}
+
+	public String getFraction() {
+		return fraction;
+	}
+
+	public void setFraction(String fraction) {
+		this.fraction = fraction;
 	}
 
 }

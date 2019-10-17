@@ -14,6 +14,7 @@ import com.zhita.Model.RulelistType;
 import com.zhita.Model.Rulelist_detail;
 import com.zhita.Model.User;
 import com.zhita.Util.PageUtil2;
+import com.zhita.Util.Timestamps;
 
 @Service
 public class RulelistServiceImp implements IntRulelistService{
@@ -74,25 +75,26 @@ public class RulelistServiceImp implements IntRulelistService{
     	return rulelistMapper.upaFalseDel(id);
     }
     
-    //后台管理——各个规则分类是否命中
-    public List<Rulelist_detail> typeifhit(Integer userid){
+    //后台管理——各个规则分类的命中分数
+    public Map<String,Object> typeifhit(Integer userid){
     	User user=rulelistMapper.queryuser(userid);
     	List<Rulelist_detail> list=rulelistMapper.queryifhit(user.getUserId(), user.getAuthentication_time());
-    	List<String> listype=rulelistMapper.queryType(user.getUserId(), user.getAuthentication_time());
-    	List<Rulelist_detail> list1=new ArrayList<>();
+    	List<Rulelist_detail> listype=rulelistMapper.queryType(user.getUserId(), user.getAuthentication_time());
     	for (int i = 0; i < listype.size(); i++) {
-    		Rulelist_detail rulelist_detail=new Rulelist_detail();
-    		rulelist_detail.setType(listype.get(i));
-    		rulelist_detail.setSum("0");
-			list1.add(rulelist_detail);
+    		listype.get(i).setSum("0");
 		}
-    	list.addAll(list1);
-    	
-    	return list;
+    	list.addAll(listype);
+    	Map<String,Object> map=new HashMap<>();
+    	map.put("list", list);
+    	return map;
     }
     
     //后台管理——查询该条规则被命中的用户集合
     public List<Rulelist_detail> queryuserhit(Integer rulelistid){
-    	return rulelistMapper.queryuserhit(rulelistid);
+    	List<Rulelist_detail> list= rulelistMapper.queryuserhit(rulelistid);
+    	for (int i = 0; i < list.size(); i++) {
+			list.get(i).setAuthentication_time(Timestamps.stampToDate(list.get(i).getAuthentication_time()));
+		}
+    	return list;
     }
 }

@@ -15,6 +15,9 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.zhita.Dao.ApplierInfoMapper;
 import com.zhita.Dao.BillInfoMapper;
+import com.zhita.Dao.CallRecordListInfosMapper;
+import com.zhita.Dao.CallRecordListItemInfosTwoMapper;
+import com.zhita.Dao.CallStatisticsMapper;
 import com.zhita.Dao.CircleOfFriendsLocationsMapper;
 import com.zhita.Dao.CommunicationCityInfoMapper;
 import com.zhita.Dao.CommunicationDetectionMapper;
@@ -29,12 +32,17 @@ import com.zhita.Dao.OperatorInfoMapper;
 import com.zhita.Dao.RechargeInfoMapper;
 import com.zhita.Dao.ReportInfoMapper;
 import com.zhita.Dao.SensitiveInfoNewMapper;
+import com.zhita.Dao.SensitiveInfoNewupaMapper;
 import com.zhita.Dao.SocialConnectionsinfoMapper;
 import com.zhita.Dao.Top10CallCountMapper;
 import com.zhita.Dao.Top10CallTimeMapper;
 import com.zhita.Dao.Top10SingleCallTimeMapper;
 import com.zhita.Dao.TravelInfoMapper;
+import com.zhita.Model.CallRecordListInfos;
+import com.zhita.Model.CallRecordListItemInfosTwo;
+import com.zhita.Model.CallStatistics;
 import com.zhita.Model.OperatorInfo;
+import com.zhita.Model.SensitiveInfoNewupa;
 
 @Controller
 @RequestMapping("/jiaZhouOperator")
@@ -104,6 +112,19 @@ public class JiaZhouOperator {
 	
 	@Autowired
 	TravelInfoMapper travelInfoMapper;
+	
+	@Autowired
+	SensitiveInfoNewupaMapper sensitiveInfoNewupaMapper;
+	
+	@Autowired
+	CallRecordListInfosMapper callRecordListInfosMapper;
+	
+	@Autowired
+	CallStatisticsMapper callStatisticsMapper;
+	
+	
+	@Autowired
+	CallRecordListItemInfosTwoMapper callRecordListItemInfosTwoMapper;
 
 	@RequestMapping("/setOperator")
 	@ResponseBody
@@ -412,131 +433,244 @@ public class JiaZhouOperator {
 		
 		
 		//sensitive_info_new
-		JSONArray sensitive_info = (JSONArray) data.get("sensitive_info_new");//风险信息检查
-		if (sensitive_info.size() > 0) {
-			JSONObject	jsonObject0 = (JSONObject) sensitive_info.get(0);
-		String key_information_risk_level = jsonObject0.getString("risk_level");//运营商关键信息匹配风险等级
-		int key_information_item_id = jsonObject0.getInteger("item_id");//运营商关键信息匹配风险项id
-		String key_information_item_name = jsonObject0.getString("item_name");//运营商关键信息匹配风险项名称
-		String key_information_check_result = jsonObject0.getString("check_result");//运营商关键信息匹配检查结果（结果有"未发现"、"result_detail_info"两种）		
+//		JSONArray sensitive_info = (JSONArray) data.get("sensitive_info_new");//风险信息检查
+//		if (sensitive_info.size() > 0) {
+//			JSONObject	jsonObject0 = (JSONObject) sensitive_info.get(0);
+//		String key_information_risk_level = jsonObject0.getString("risk_level");//运营商关键信息匹配风险等级
+//		int key_information_item_id = jsonObject0.getInteger("item_id");//运营商关键信息匹配风险项id
+//		String key_information_item_name = jsonObject0.getString("item_name");//运营商关键信息匹配风险项名称
+//		String key_information_check_result = jsonObject0.getString("check_result");//运营商关键信息匹配检查结果（结果有"未发现"、"result_detail_info"两种）		
+//		JSONObject result_detail_info = (JSONObject) jsonObject0.get("result_detail_info");//结果详情
+//				String key_information_idcard_matching = result_detail_info.getString("idcard_matching");//运营商关键信息匹配身份证匹配结果
+//				String key_information_name_matching = result_detail_info.getString("name_matching");//运营商关键信息匹配姓名匹配结果
+//
+//				JSONObject	jsonObject1 = (JSONObject) sensitive_info.get(1);
+//				String net_time_risk_level = jsonObject1.getString("risk_level");//入网时长检查风险等级
+//				int net_time_item_id = jsonObject1.getInteger("item_id");//入网时长检查风险项id
+//				String net_time_item_name = jsonObject1.getString("item_name");//入网时长检查风险项名称
+//				String net_time_check_result = jsonObject1.getString("check_result");//入网时长检查检查结果（结果有"未发现"、"result_detail_info"两种）
+//				result_detail_info = (JSONObject) jsonObject1.get("result_detail_info");//结果详情
+//				String network_length_check = result_detail_info.getString("network_length_check");//入网时长检查
+//				
+//				jsonObject2 = (JSONObject) sensitive_info.get(2);
+//				String applicant_blacklist_risk_level = jsonObject2.getString("risk_level");//申请人黑名单检查风险等级
+//				int applicant_blacklist_item_id = jsonObject2.getInteger("item_id");//申请人黑名单检查风险项id
+//				String applicant_blacklist_item_name = jsonObject2.getString("item_name");//申请人黑名单检查风险项名称
+//				String applicant_blacklist_check_result = jsonObject2.getString("check_result");//申请人黑名单检查检查结果（结果有"未发现"、"result_detail_info"两种）
+//				result_detail_info = (JSONObject) jsonObject2.get("result_detail_info");//结果详情
+//				String applicant_blacklist_idcard = result_detail_info.getString("idcard");//身份证未在黑名单中出现
+//				String applicant_blacklist_phone_number = result_detail_info.getString("phone_number");//手机号未在黑名单中出现
+//				
+//
+//				JSONObject jsonObject3 = (JSONObject) sensitive_info.get(3);
+//				String emergency_blacklist_blacklist_risk_level = jsonObject3.getString("risk_level");//紧急联系人黑名单检查风险等级
+//				int emergency_blacklist_blacklist_item_id = jsonObject3.getInteger("item_id");//紧急联系人黑名单检查风险项id
+//				String emergency_blacklist_blacklist_item_name = jsonObject3.getString("item_name");//紧急联系人黑名单检查风险项名称
+//				String emergency_blacklist_check_result = jsonObject3.getString("check_result");//紧急联系人黑名单检查结果（结果有"未发现"、"result_detail_info"两种）
+//				
+//				JSONObject jsonObject4 = (JSONObject) sensitive_info.get(4);
+//				String blacklist_communication_blacklist_risk_level = jsonObject4.getString("risk_level");//黑名单通信记录风险等级
+//				int blacklist_communication_blacklist_item_id = jsonObject4.getInteger("item_id");//黑名单通信记录风险项id
+//				String blacklist_communication_blacklist_item_name = jsonObject4.getString("item_name");//黑名单通信记录风险项名称
+//				String blacklist_communication_check_result = jsonObject4.getString("check_result");//黑名单通信记录结果（结果有"未发现"、"result_detail_info"两种）
+//				
+//				JSONObject jsonObject5 = (JSONObject) sensitive_info.get(5);
+//				String id_card_blacklist_risk_level = jsonObject5.getString("risk_level");//身份证关联信息检测风险等级
+//				int id_card_blacklist_item_id = jsonObject5.getInteger("item_id");//身份证关联信息检测风险项id
+//				String id_card_blacklist_item_name = jsonObject5.getString("item_name");//身份证关联信息检测风险项名称
+//				String id_card_check_result = jsonObject5.getString("check_result");//身份证关联信息检测结果（结果有"未发现"、"result_detail_info"两种）
+//				result_detail_info = (JSONObject) jsonObject2.get("result_detail_info");//结果详情
+//				String result = result_detail_info.getString("result");
+//				
+//				JSONObject jsonObject6 = (JSONObject) sensitive_info.get(6);
+//				String private_lending_risk_level = jsonObject6.getString("risk_level");//民间借贷风险等级
+//				int private_lending_item_id = jsonObject6.getInteger("item_id");//民间借贷风险项id
+//				String private_lending_item_name = jsonObject6.getString("item_name");//民间借贷风险项名称
+//				String private_lending_check_result = jsonObject6.getString("check_result");//民间借贷检测结果（结果有"未发现"、"result_detail_info"两种）
+//				
+//				
+//				JSONObject jsonObject7 = (JSONObject) sensitive_info.get(7);
+//				String financial_institutions_risk_level = jsonObject7.getString("risk_level");//金融机构风险等级
+//				int financial_institutions_item_id = jsonObject7.getInteger("item_id");//金融机构风险项id
+//				String financial_institutions_item_name = jsonObject7.getString("item_name");//金融机构风险项名称
+//				String financial_institutions_check_result = jsonObject7.getString("check_result");//金融机构检测结果（结果有"未发现"、"result_detail_info"两种）
+//				
+//				JSONObject jsonObject8 = (JSONObject) sensitive_info.get(8);
+//				String credit_card_risk_level = jsonObject8.getString("risk_level");//信用卡机构风险等级
+//				int credit_card_item_id = jsonObject8.getInteger("item_id");//信用卡机构风险项id
+//				String credit_card_item_name = jsonObject8.getString("item_name");//信用卡机构风险项名称
+//				String credit_card_check_result = jsonObject8.getString("check_result");//信用卡机构检测结果（结果有"未发现"、"result_detail_info"两种）
+//				
+//				JSONObject jsonObject9 = (JSONObject) sensitive_info.get(9);
+//				String lending_platform_risk_level = jsonObject9.getString("risk_level");//p2p借贷平台风险等级
+//				int lending_platform_item_id = jsonObject9.getInteger("item_id");//p2p借贷平台风险项id
+//				String lending_platform_item_name = jsonObject9.getString("item_name");//p2p借贷平台风险项名称
+//				String lending_platform_check_result = jsonObject9.getString("check_result");//p2p借贷平台检测结果（结果有"未发现"、"result_detail_info"两种）
+//				
+//				
+//				JSONObject jsonObject10 = (JSONObject) sensitive_info.get(10);
+//				String internet_loan_risk_level = jsonObject10.getString("risk_level");//互联网小贷风险等级
+//				int internet_loan_item_id = jsonObject10.getInteger("item_id");//互联网小贷风险项id
+//				String internet_loan_item_name = jsonObject10.getString("item_name");//互联网小贷风险项名称
+//				String internet_loan_check_result = jsonObject10.getString("check_result");//互联网小贷检测结果（结果有"未发现"、"result_detail_info"两种）
+//				
+//				
+//				JSONObject jsonObject11 = (JSONObject) sensitive_info.get(11);
+//				String lawyer_risk_level = jsonObject11.getString("risk_level");//律师风险等级
+//				int lawyer_item_id = jsonObject11.getInteger("item_id");//律师风险项id
+//				String lawyer_item_name = jsonObject11.getString("item_name");//律师风险项名称
+//				String lawyer_check_result = jsonObject11.getString("check_result");//律师检测结果（结果有"未发现"、"result_detail_info"两种）
+//				
+//				
+//				JSONObject jsonObject12 = (JSONObject) sensitive_info.get(12);
+//				String court_risk_level = jsonObject12.getString("risk_level");//法院风险等级
+//				int court_item_id = jsonObject12.getInteger("item_id");//法院风险项id
+//				String court_item_name = jsonObject12.getString("item_name");//法院风险项名称
+//				String court_check_result = jsonObject12.getString("check_result");//法院检测结果（结果有"未发现"、"result_detail_info"两种）
+//				
+//				JSONObject jsonObject13 = (JSONObject) sensitive_info.get(13);
+//				String risk_level_110 = jsonObject13.getString("risk_level");//110风险等级
+//				int item_id_110 = jsonObject13.getInteger("item_id");//110风险项id
+//				String item_name_110 = jsonObject13.getString("item_name");//110风险项名称
+//				String check_result_110 = jsonObject13.getString("check_result");//110检测结果（结果有"未发现"、"result_detail_info"两种）
+//				
+//				
+//				JSONObject jsonObject14 = (JSONObject) sensitive_info.get(14);
+//				String risk_level_120 = jsonObject14.getString("risk_level");//120风险等级
+//				int item_id_120 = jsonObject14.getInteger("item_id");//120风险项id
+//				String item_name_120 = jsonObject14.getString("item_name");//120风险项名称
+//				String check_result_120 = jsonObject14.getString("check_result");//120检测结果（结果有"未发现"、"result_detail_info"两种）
+//				
+//				
+//				JSONObject jsonObject15 = (JSONObject) sensitive_info.get(15);
+//				String macao_communication_risk_level = jsonObject15.getString("risk_level");//澳门通信风险等级
+//				int macao_communication_item_id = jsonObject15.getInteger("item_id");//澳门通信风险项id
+//				String macao_communication_item_name = jsonObject15.getString("item_name");//澳门通信风险项名称
+//				String macao_communication_check_result = jsonObject15.getString("check_result");//澳门通信检测结果（结果有"未发现"、"result_detail_info"两种）
+//				
+//				sensitiveInfoNewMapper.setsensitiveInfoNew(userId,key_information_risk_level,key_information_item_id,key_information_item_name,key_information_check_result,key_information_idcard_matching,key_information_name_matching,
+//						net_time_risk_level,net_time_item_id,net_time_item_name,net_time_check_result,network_length_check,applicant_blacklist_risk_level,applicant_blacklist_item_id,applicant_blacklist_item_name,applicant_blacklist_check_result,
+//						applicant_blacklist_idcard,applicant_blacklist_phone_number,emergency_blacklist_blacklist_risk_level,emergency_blacklist_blacklist_item_id,emergency_blacklist_blacklist_item_name,emergency_blacklist_check_result,
+//						blacklist_communication_blacklist_risk_level,blacklist_communication_blacklist_item_id,blacklist_communication_blacklist_item_name,blacklist_communication_check_result,id_card_blacklist_risk_level,id_card_blacklist_item_id,
+//						id_card_blacklist_item_name,id_card_check_result,result,private_lending_risk_level,private_lending_item_id,private_lending_item_name,private_lending_check_result,financial_institutions_risk_level,financial_institutions_item_id,
+//						financial_institutions_item_name,financial_institutions_check_result,credit_card_risk_level,credit_card_item_id,credit_card_item_name,credit_card_check_result,lending_platform_risk_level,lending_platform_item_id,lending_platform_item_name,
+//						lending_platform_check_result,internet_loan_risk_level,internet_loan_item_id,internet_loan_item_name,internet_loan_check_result,court_risk_level,court_item_id,court_item_name,court_check_result,risk_level_110,item_id_110,item_name_110,
+//						check_result_110,lawyer_risk_level,lawyer_item_id,lawyer_item_name,lawyer_check_result,risk_level_120,item_id_120,item_name_120,check_result_120,macao_communication_risk_level,macao_communication_item_id,macao_communication_item_name,macao_communication_check_result);
+				
+
+		//sensitive_info_new
+		JSONArray sensitive_info_new = (JSONArray) data.get("sensitive_info_new");//风险信息检查
+		String idcard_matching ="";
+		String name_matching = "";
+		String network_length_check = "";
+		String idcard1 = "";
+		String phone_number5 = "";
+		String result ="";
+		if (sensitive_info_new.size() > 0) {
+			for (int i = 0; i < sensitive_info_new.size(); i++) {
+			JSONObject	jsonObject0 = (JSONObject) sensitive_info_new.get(i);
+		String risk_level1 = jsonObject0.getString("risk_level");//运营商关键信息匹配风险等级
+		String item_id = jsonObject0.getInteger("item_id")+"";//运营商关键信息匹配风险项id
+		String item_name = jsonObject0.getString("item_name");//运营商关键信息匹配风险项名称
+		String check_result = jsonObject0.getString("check_result");//运营商关键信息匹配检查结果（结果有"未发现"、"result_detail_info"两种）		
 		JSONObject result_detail_info = (JSONObject) jsonObject0.get("result_detail_info");//结果详情
-				String key_information_idcard_matching = result_detail_info.getString("idcard_matching");//运营商关键信息匹配身份证匹配结果
-				String key_information_name_matching = result_detail_info.getString("name_matching");//运营商关键信息匹配姓名匹配结果
+		if(result_detail_info!=null) {
+			idcard_matching = result_detail_info.getString("idcard_matching");//运营商关键信息匹配身份证匹配结果
+			if(idcard_matching==null) {
+				idcard_matching="";
+			}
+			name_matching = result_detail_info.getString("name_matching");//运营商关键信息匹配姓名匹配结果
+			if(name_matching==null) {
+				name_matching="";
+			}
+			network_length_check = result_detail_info.getString("network_length_check");
+			if(network_length_check==null) {
+				network_length_check="";
+			}
+			idcard1 = result_detail_info.getString("idcard");
+			if(idcard1==null) {
+				idcard1="";
+			}
+			phone_number5 = result_detail_info.getString("phone_number");
+			if(phone_number5==null) {
+				phone_number5="";
+			}
+			result = result_detail_info.getString("result");
+			if(result==null) {
+				result="";
+			}
+			SensitiveInfoNewupa sensitiveInfoNewupa = new SensitiveInfoNewupa();
+			sensitiveInfoNewupa.setXiaodaiUserid(userId);
+			sensitiveInfoNewupa.setCheckResult(check_result);
+			sensitiveInfoNewupa.setItemId(item_id);
+			sensitiveInfoNewupa.setItemName(item_name);
+			sensitiveInfoNewupa.setRiskLevel(risk_level1);
+			sensitiveInfoNewupa.setIdcardMatching(idcard_matching);
+			sensitiveInfoNewupa.setNameMatching(name_matching);
+			sensitiveInfoNewupa.setNetworkLengthCheck(network_length_check);
+			sensitiveInfoNewupa.setIdcard(idcard1);
+			sensitiveInfoNewupaMapper.setsensitiveInfoNewupa(sensitiveInfoNewupa);
+			int sentivid = sensitiveInfoNewupa.getId();
+			
+			JSONArray call_record_list_infos = (JSONArray) result_detail_info.get("call_record_list_infos");//出行分析
+			if(call_record_list_infos!=null){
+				if (call_record_list_infos.size() > 0) {
+					for (int j = 0; j < call_record_list_infos.size(); j++) {				
+					JSONObject	jsonObject1 = (JSONObject) call_record_list_infos.get(j);
+					String	name2 = (String) jsonObject1.get("name");
+					CallRecordListInfos callRecordListInfos = new CallRecordListInfos();
+					callRecordListInfos.setName(name2);
+					callRecordListInfos.setSentivid(sentivid);
+					callRecordListInfosMapper.setcallRecordListInfos(callRecordListInfos);
+					int crlid =callRecordListInfos.getId();
+					JSONArray call_record_list_item_infos = (JSONArray) jsonObject1.get("call_record_list_item_infos");
+					if(call_record_list_item_infos!=null) {
+						if (call_record_list_item_infos.size() > 0) {
+							for (int k = 0; k < call_record_list_item_infos.size(); k++) {				
+							JSONObject	jsonObject5 = (JSONObject) call_record_list_item_infos.get(k);
+							Integer	called_countint = (Integer) jsonObject5.get("called_count");	
+							String called_count =called_countint+"";
+							Integer	calling_countint = (Integer) jsonObject5.get("calling_count");
+							String calling_count = calling_countint+"";
+							String	phone_number4 = (String) jsonObject5.get("phone_number");
+							CallRecordListItemInfosTwo callRecordListItemInfosTwo = new CallRecordListItemInfosTwo();
+							callRecordListItemInfosTwo.setCrlid(crlid);
+							callRecordListItemInfosTwo.setCalledCount(called_count);
+							callRecordListItemInfosTwo.setCallingCount(calling_count);
+							callRecordListItemInfosTwo.setPhoneNumber(phone_number4);
+							callRecordListItemInfosTwoMapper.setcallRecordListItemInfosTwo(callRecordListItemInfosTwo);
+							int crtwoid =  callRecordListItemInfosTwo.getId();
+							JSONArray call_statistics = (JSONArray) jsonObject5.get("call_statistics");
+							if (call_statistics.size() > 0) {
+								for (int l = 0; l < call_statistics.size(); l++) {	
+									JSONObject	jsonObject3 = (JSONObject) call_statistics.get(l);
+									Integer	total_call_count = (Integer) jsonObject3.get("total_call_count");
+									Integer	total_call_duration_time = (Integer) jsonObject3.get("total_call_duration_time");
+									CallStatistics callStatistics = new CallStatistics();
+									callStatistics.setCrtwoid(crtwoid);
+									callStatistics.setTotalCallCount(total_call_count);
+									callStatistics.setTotalCallDurationTime(total_call_duration_time);
+									callStatisticsMapper.setcallStatistics(callStatistics);
+								}
+				}
 
-				JSONObject	jsonObject1 = (JSONObject) sensitive_info.get(1);
-				String net_time_risk_level = jsonObject1.getString("risk_level");//入网时长检查风险等级
-				int net_time_item_id = jsonObject1.getInteger("item_id");//入网时长检查风险项id
-				String net_time_item_name = jsonObject1.getString("item_name");//入网时长检查风险项名称
-				String net_time_check_result = jsonObject1.getString("check_result");//入网时长检查检查结果（结果有"未发现"、"result_detail_info"两种）
-				result_detail_info = (JSONObject) jsonObject1.get("result_detail_info");//结果详情
-				String network_length_check = result_detail_info.getString("network_length_check");//入网时长检查
 				
-				jsonObject2 = (JSONObject) sensitive_info.get(2);
-				String applicant_blacklist_risk_level = jsonObject2.getString("risk_level");//申请人黑名单检查风险等级
-				int applicant_blacklist_item_id = jsonObject2.getInteger("item_id");//申请人黑名单检查风险项id
-				String applicant_blacklist_item_name = jsonObject2.getString("item_name");//申请人黑名单检查风险项名称
-				String applicant_blacklist_check_result = jsonObject2.getString("check_result");//申请人黑名单检查检查结果（结果有"未发现"、"result_detail_info"两种）
-				result_detail_info = (JSONObject) jsonObject2.get("result_detail_info");//结果详情
-				String applicant_blacklist_idcard = result_detail_info.getString("idcard");//身份证未在黑名单中出现
-				String applicant_blacklist_phone_number = result_detail_info.getString("phone_number");//手机号未在黑名单中出现
-				
+				}
+				}
+					}
 
-				JSONObject jsonObject3 = (JSONObject) sensitive_info.get(3);
-				String emergency_blacklist_blacklist_risk_level = jsonObject3.getString("risk_level");//紧急联系人黑名单检查风险等级
-				int emergency_blacklist_blacklist_item_id = jsonObject3.getInteger("item_id");//紧急联系人黑名单检查风险项id
-				String emergency_blacklist_blacklist_item_name = jsonObject3.getString("item_name");//紧急联系人黑名单检查风险项名称
-				String emergency_blacklist_check_result = jsonObject3.getString("check_result");//紧急联系人黑名单检查结果（结果有"未发现"、"result_detail_info"两种）
-				
-				JSONObject jsonObject4 = (JSONObject) sensitive_info.get(4);
-				String blacklist_communication_blacklist_risk_level = jsonObject4.getString("risk_level");//黑名单通信记录风险等级
-				int blacklist_communication_blacklist_item_id = jsonObject4.getInteger("item_id");//黑名单通信记录风险项id
-				String blacklist_communication_blacklist_item_name = jsonObject4.getString("item_name");//黑名单通信记录风险项名称
-				String blacklist_communication_check_result = jsonObject4.getString("check_result");//黑名单通信记录结果（结果有"未发现"、"result_detail_info"两种）
-				
-				JSONObject jsonObject5 = (JSONObject) sensitive_info.get(5);
-				String id_card_blacklist_risk_level = jsonObject5.getString("risk_level");//身份证关联信息检测风险等级
-				int id_card_blacklist_item_id = jsonObject5.getInteger("item_id");//身份证关联信息检测风险项id
-				String id_card_blacklist_item_name = jsonObject5.getString("item_name");//身份证关联信息检测风险项名称
-				String id_card_check_result = jsonObject5.getString("check_result");//身份证关联信息检测结果（结果有"未发现"、"result_detail_info"两种）
-				result_detail_info = (JSONObject) jsonObject2.get("result_detail_info");//结果详情
-				String result = result_detail_info.getString("result");
-				
-				JSONObject jsonObject6 = (JSONObject) sensitive_info.get(6);
-				String private_lending_risk_level = jsonObject6.getString("risk_level");//民间借贷风险等级
-				int private_lending_item_id = jsonObject6.getInteger("item_id");//民间借贷风险项id
-				String private_lending_item_name = jsonObject6.getString("item_name");//民间借贷风险项名称
-				String private_lending_check_result = jsonObject6.getString("check_result");//民间借贷检测结果（结果有"未发现"、"result_detail_info"两种）
-				
-				
-				JSONObject jsonObject7 = (JSONObject) sensitive_info.get(7);
-				String financial_institutions_risk_level = jsonObject7.getString("risk_level");//金融机构风险等级
-				int financial_institutions_item_id = jsonObject7.getInteger("item_id");//金融机构风险项id
-				String financial_institutions_item_name = jsonObject7.getString("item_name");//金融机构风险项名称
-				String financial_institutions_check_result = jsonObject7.getString("check_result");//金融机构检测结果（结果有"未发现"、"result_detail_info"两种）
-				
-				JSONObject jsonObject8 = (JSONObject) sensitive_info.get(8);
-				String credit_card_risk_level = jsonObject8.getString("risk_level");//信用卡机构风险等级
-				int credit_card_item_id = jsonObject8.getInteger("item_id");//信用卡机构风险项id
-				String credit_card_item_name = jsonObject8.getString("item_name");//信用卡机构风险项名称
-				String credit_card_check_result = jsonObject8.getString("check_result");//信用卡机构检测结果（结果有"未发现"、"result_detail_info"两种）
-				
-				JSONObject jsonObject9 = (JSONObject) sensitive_info.get(9);
-				String lending_platform_risk_level = jsonObject9.getString("risk_level");//p2p借贷平台风险等级
-				int lending_platform_item_id = jsonObject9.getInteger("item_id");//p2p借贷平台风险项id
-				String lending_platform_item_name = jsonObject9.getString("item_name");//p2p借贷平台风险项名称
-				String lending_platform_check_result = jsonObject9.getString("check_result");//p2p借贷平台检测结果（结果有"未发现"、"result_detail_info"两种）
-				
-				
-				JSONObject jsonObject10 = (JSONObject) sensitive_info.get(10);
-				String internet_loan_risk_level = jsonObject10.getString("risk_level");//互联网小贷风险等级
-				int internet_loan_item_id = jsonObject10.getInteger("item_id");//互联网小贷风险项id
-				String internet_loan_item_name = jsonObject10.getString("item_name");//互联网小贷风险项名称
-				String internet_loan_check_result = jsonObject10.getString("check_result");//互联网小贷检测结果（结果有"未发现"、"result_detail_info"两种）
-				
-				
-				JSONObject jsonObject11 = (JSONObject) sensitive_info.get(11);
-				String lawyer_risk_level = jsonObject11.getString("risk_level");//律师风险等级
-				int lawyer_item_id = jsonObject11.getInteger("item_id");//律师风险项id
-				String lawyer_item_name = jsonObject11.getString("item_name");//律师风险项名称
-				String lawyer_check_result = jsonObject11.getString("check_result");//律师检测结果（结果有"未发现"、"result_detail_info"两种）
-				
-				
-				JSONObject jsonObject12 = (JSONObject) sensitive_info.get(12);
-				String court_risk_level = jsonObject12.getString("risk_level");//法院风险等级
-				int court_item_id = jsonObject12.getInteger("item_id");//法院风险项id
-				String court_item_name = jsonObject12.getString("item_name");//法院风险项名称
-				String court_check_result = jsonObject12.getString("check_result");//法院检测结果（结果有"未发现"、"result_detail_info"两种）
-				
-				JSONObject jsonObject13 = (JSONObject) sensitive_info.get(13);
-				String risk_level_110 = jsonObject13.getString("risk_level");//110风险等级
-				int item_id_110 = jsonObject13.getInteger("item_id");//110风险项id
-				String item_name_110 = jsonObject13.getString("item_name");//110风险项名称
-				String check_result_110 = jsonObject13.getString("check_result");//110检测结果（结果有"未发现"、"result_detail_info"两种）
-				
-				
-				JSONObject jsonObject14 = (JSONObject) sensitive_info.get(14);
-				String risk_level_120 = jsonObject14.getString("risk_level");//120风险等级
-				int item_id_120 = jsonObject14.getInteger("item_id");//120风险项id
-				String item_name_120 = jsonObject14.getString("item_name");//120风险项名称
-				String check_result_120 = jsonObject14.getString("check_result");//120检测结果（结果有"未发现"、"result_detail_info"两种）
-				
-				
-				JSONObject jsonObject15 = (JSONObject) sensitive_info.get(15);
-				String macao_communication_risk_level = jsonObject15.getString("risk_level");//澳门通信风险等级
-				int macao_communication_item_id = jsonObject15.getInteger("item_id");//澳门通信风险项id
-				String macao_communication_item_name = jsonObject15.getString("item_name");//澳门通信风险项名称
-				String macao_communication_check_result = jsonObject15.getString("check_result");//澳门通信检测结果（结果有"未发现"、"result_detail_info"两种）
-				
-				sensitiveInfoNewMapper.setsensitiveInfoNew(userId,key_information_risk_level,key_information_item_id,key_information_item_name,key_information_check_result,key_information_idcard_matching,key_information_name_matching,
-						net_time_risk_level,net_time_item_id,net_time_item_name,net_time_check_result,network_length_check,applicant_blacklist_risk_level,applicant_blacklist_item_id,applicant_blacklist_item_name,applicant_blacklist_check_result,
-						applicant_blacklist_idcard,applicant_blacklist_phone_number,emergency_blacklist_blacklist_risk_level,emergency_blacklist_blacklist_item_id,emergency_blacklist_blacklist_item_name,emergency_blacklist_check_result,
-						blacklist_communication_blacklist_risk_level,blacklist_communication_blacklist_item_id,blacklist_communication_blacklist_item_name,blacklist_communication_check_result,id_card_blacklist_risk_level,id_card_blacklist_item_id,
-						id_card_blacklist_item_name,id_card_check_result,result,private_lending_risk_level,private_lending_item_id,private_lending_item_name,private_lending_check_result,financial_institutions_risk_level,financial_institutions_item_id,
-						financial_institutions_item_name,financial_institutions_check_result,credit_card_risk_level,credit_card_item_id,credit_card_item_name,credit_card_check_result,lending_platform_risk_level,lending_platform_item_id,lending_platform_item_name,
-						lending_platform_check_result,internet_loan_risk_level,internet_loan_item_id,internet_loan_item_name,internet_loan_check_result,court_risk_level,court_item_id,court_item_name,court_check_result,risk_level_110,item_id_110,item_name_110,
-						check_result_110,lawyer_risk_level,lawyer_item_id,lawyer_item_name,lawyer_check_result,risk_level_120,item_id_120,item_name_120,check_result_120,macao_communication_risk_level,macao_communication_item_id,macao_communication_item_name,macao_communication_check_result);
-				
+
 	}
+			}
+			}
+
+			}
+
+		
+		}
+	}
+			
+
 
 			
 			
@@ -616,5 +750,8 @@ public class JiaZhouOperator {
 		return "1111111";
 		
 	}
+	
+	
+	
 	
 }

@@ -14,4 +14,6 @@ public interface CallRecordListItemInfosTwoMapper {
     int updateByPrimaryKeySelective(CallRecordListItemInfosTwo record);
 
     int updateByPrimaryKey(CallRecordListItemInfosTwo record);
+
+	void setcallRecordListItemInfosTwo(CallRecordListItemInfosTwo callRecordListItemInfosTwo);
 }

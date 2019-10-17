@@ -14,4 +14,6 @@ public interface CallStatisticsMapper {
     int updateByPrimaryKeySelective(CallStatistics record);
 
     int updateByPrimaryKey(CallStatistics record);
+
+	void setcallStatistics(CallStatistics callStatistics);
 }

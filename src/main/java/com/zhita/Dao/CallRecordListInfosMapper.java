@@ -14,4 +14,6 @@ public interface CallRecordListInfosMapper {
     int updateByPrimaryKeySelective(CallRecordListInfos record);
 
     int updateByPrimaryKey(CallRecordListInfos record);
+
+	void setcallRecordListInfos(CallRecordListInfos callRecordListInfos);
 }

@@ -2,6 +2,8 @@ package com.zhita.Dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.zhita.Model.Rulelist;
 import com.zhita.Model.Rulelist_detail;
 import com.zhita.Model.User;
@@ -73,5 +75,8 @@ public interface FractionMapper {
 	
 	
 	Integer PhoneUserNum(User user);
+	
+	
+	Integer DeleteRule(@Param("userid") Integer userid ,@Param("authentication_time") String authentication_time);
 	
 }

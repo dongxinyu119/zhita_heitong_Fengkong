@@ -82,4 +82,7 @@ public interface FractionService {
 	Integer PhoneUserNum(User user);
 	
 	
+	Integer DeleteRulet(Integer userid,String authentication_time);
+	
+	
 }

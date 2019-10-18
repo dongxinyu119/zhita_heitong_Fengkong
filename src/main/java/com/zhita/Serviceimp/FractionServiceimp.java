@@ -224,6 +224,11 @@ public class FractionServiceimp implements FractionService{
 		return fractionmapper.PhoneUserNum(user);
 	}
 
+	@Override
+	public Integer DeleteRulet(Integer userid,String authentication_time) {
+		return fractionmapper.DeleteRule(userid, authentication_time);
+	}
+
 
 	
 	

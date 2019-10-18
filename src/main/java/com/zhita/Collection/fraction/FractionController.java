@@ -1619,7 +1619,12 @@ public class FractionController {
 				return map;
 			}
 		} catch (Exception e) {
-			e.addSuppressed(e);
+			fser.DeleteRulet(userId, u.getAuthentication_time());
+			map.put("name", name);
+			map.put("userId", userId);
+			map.put("idNumber", idNumber);
+			map.put("count", "请重新调用");
+			return map;
 		}
 		
 		if(count<0){

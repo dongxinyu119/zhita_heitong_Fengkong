@@ -169,4 +169,9 @@
   	<select id="PhoneUserNum" parameterType="com.zhita.Model.User" resultType="java.lang.Integer">
   		select count(id) from maillist where userId = #{userId}
   	</select>
+  	
+  	
+  	<delete id="DeleteRule" parameterType="java.util.Map">
+  		delete from rulelist_detail where userid  = #{userid} and authentication_time =#{authentication_time}
+  	</delete>
 </mapper>

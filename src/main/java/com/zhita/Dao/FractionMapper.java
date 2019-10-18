@@ -65,4 +65,13 @@ public interface FractionMapper {
 	
 	Integer ReportID(User user);
 	
+	
+	Integer AppInFoUser(User user);
+	
+	
+	Integer MacNum(User user);
+	
+	
+	Integer PhoneUserNum(User user);
+	
 }

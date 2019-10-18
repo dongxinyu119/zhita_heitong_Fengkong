@@ -120,7 +120,7 @@
   	
   	
   	<select id="jjPhoneNum" parameterType="com.zhita.Model.User" resultType="java.lang.Integer">
-  		select count(name)  from emergency_contact_info where xiaodai_userid = #{userid} group by name having count(name) > 1
+  		select count(name)  from emergency_contact_info where xiaodai_userid = #{userId} group by name having count(name) > 1
   	</select>
   	
   	
@@ -131,11 +131,41 @@
   	
   	
   	<select id="ReportNum" parameterType="com.zhita.Model.User" resultType="java.lang.Integer">
-  		select score from report_info where xiaodai_userid = #{userId}
+  		select max(id),score from report_info where xiaodai_userid = #{userId}
   	</select>
   	
   	
   	<select id="ReportID" parameterType="com.zhita.Model.User" resultType="java.lang.Integer">
-  		select id from report_info where xiaodai_userid = #{userId}
+  		select max(id) from report_info where xiaodai_userid = #{userId}
+  	</select>
+  	
+  	
+  	<select id="AppInFoUser" parameterType="com.zhita.Model.User" resultType="java.lang.Integer">
+  		select max(id) from applier_info 
+  		<where>
+  			<if test="phone != null and phone != ''">
+  				phone_number = #{phone}
+  			</if>
+  			<if test="idnumber != null and idnumber != ''">
+  				AND idcard = #{idnumber}
+  			</if>
+  			<if test="idnumber != null and idnumber != ''">
+  				AND idcard = #{idnumber}
+  			</if>
+  			<if test="name != null and name != ''">
+  				AND name = #{name}
+  			</if>
+  		</where> 
+  	</select>
+  	
+  	
+  	<select id="MacNum" parameterType="com.zhita.Model.User" resultType="java.lang.Integer">
+  		select count(id) from configuration where phone = #{phone} group by wifiMac
+  		having count(wifiMac) > 1 
+  	</select>
+  	
+  	
+  	<select id="PhoneUserNum" parameterType="com.zhita.Model.User" resultType="java.lang.Integer">
+  		select count(id) from maillist where userId = #{userId}
   	</select>
 </mapper>

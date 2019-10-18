@@ -73,4 +73,13 @@ public interface FractionService {
 	Integer ReportID(User user);
 	
 	
+	Integer AppInfoUser(User user);
+	
+	
+	Integer MacUserNum(User user);
+	
+	
+	Integer PhoneUserNum(User user);
+	
+	
 }

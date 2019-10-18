@@ -14,8 +14,6 @@ public class Rulelist_detail {
 	
 	private Integer rid;
 	
-	private Integer uid;
-	
 	private String sum;//该规则分类的总扣分
 	
 	private String type;//规则分类名
@@ -48,14 +46,6 @@ public class Rulelist_detail {
 
 	public void setRid(Integer rid) {
 		this.rid = rid;
-	}
-
-	public Integer getUid() {
-		return uid;
-	}
-
-	public void setUid(Integer uid) {
-		this.uid = uid;
 	}
 
 	public String getSum() {

@@ -209,6 +209,21 @@ public class FractionServiceimp implements FractionService{
 		return fractionmapper.ReportID(user);
 	}
 
+	@Override
+	public Integer AppInfoUser(User user) {
+		return fractionmapper.AppInFoUser(user);
+	}
+
+	@Override
+	public Integer MacUserNum(User user) {
+		return fractionmapper.MacNum(user);
+	}
+
+	@Override
+	public Integer PhoneUserNum(User user) {
+		return fractionmapper.PhoneUserNum(user);
+	}
+
 
 	
 	

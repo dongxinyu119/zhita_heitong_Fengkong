@@ -29,6 +29,16 @@ public class Rulelist_detail {
 	private String thresholdvalue;//阈值
 	
 	private String fraction;//最后得分
+	
+	private Integer usum;
+
+	public Integer getUsum() {
+		return usum;
+	}
+
+	public void setUsum(Integer usum) {
+		this.usum = usum;
+	}
 
 	public Integer getId() {
 		return id;

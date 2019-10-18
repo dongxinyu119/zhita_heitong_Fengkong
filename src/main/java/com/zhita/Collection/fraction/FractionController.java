@@ -77,11 +77,12 @@ public class FractionController {
 			if(re.getStatus()!=2){
 				if(a != null){
 					if(a < Integer.valueOf(re.getThresholdValue())){
-						count = Integer.valueOf(re.getValue_at_risk());
+						count =count - Integer.valueOf(re.getValue_at_risk());
 						ru.setUserid(userId);
 						ru.setValue_at_risk(re.getValue_at_risk());
 						ru.setRtid(re.getTypeid());
 						ru.setRid(id);
+						ru.setUsum(count);
 						fser.AddCount(ru);
 					}
 				}
@@ -93,11 +94,12 @@ public class FractionController {
 			if(re.getStatus()!=2){
 					if(a != null){
 						if(a > Integer.valueOf(re.getThresholdValue())){
-							count = Integer.valueOf(re.getValue_at_risk());
+							count =count - Integer.valueOf(re.getValue_at_risk());
 							ru.setUserid(userId);
 							ru.setValue_at_risk(re.getValue_at_risk());
 							ru.setRid(id);
 							ru.setRtid(re.getTypeid());
+							ru.setUsum(count);
 							fser.AddCount(ru);
 						}
 					}
@@ -120,6 +122,7 @@ public class FractionController {
 							ru.setValue_at_risk(re.getValue_at_risk());
 							ru.setRid(id);
 							ru.setRtid(re.getTypeid());
+							ru.setUsum(count);
 							fser.AddCount(ru);
 						}
 					}
@@ -140,6 +143,7 @@ public class FractionController {
 								ru.setUserid(userId);
 								ru.setValue_at_risk(re.getValue_at_risk());
 								ru.setRid(id);
+								ru.setUsum(count);
 								ru.setRtid(re.getTypeid());
 								fser.AddCount(ru);
 							}
@@ -158,6 +162,7 @@ public class FractionController {
 							ru.setUserid(userId);
 							ru.setValue_at_risk(re.getValue_at_risk());
 							ru.setRtid(re.getTypeid());
+							ru.setUsum(count);
 							ru.setRid(id);
 							fser.AddCount(ru);
 					}
@@ -177,6 +182,7 @@ public class FractionController {
 							ru.setUserid(userId);
 							ru.setValue_at_risk(re.getValue_at_risk());
 							ru.setRid(id);
+							ru.setUsum(count);
 							ru.setRtid(re.getTypeid());
 							fser.AddCount(ru);
 						}
@@ -192,6 +198,7 @@ public class FractionController {
 						if(WifiMacNum > Integer.valueOf(re.getThresholdValue())){
 							count = count-Integer.valueOf(re.getValue_at_risk());
 							ru.setUserid(userId);
+							ru.setUsum(count);
 							ru.setValue_at_risk(re.getValue_at_risk());
 							ru.setRtid(re.getTypeid());
 							ru.setRid(id);
@@ -224,6 +231,7 @@ public class FractionController {
 							ru.setValue_at_risk(re.getValue_at_risk());
 							ru.setRtid(re.getTypeid());
 							ru.setRid(id);
+							ru.setUsum(count);
 							fser.AddCount(ru);
 						}
 					}
@@ -251,6 +259,7 @@ public class FractionController {
 							ru.setValue_at_risk(re.getValue_at_risk());
 							ru.setRtid(re.getTypeid());
 							ru.setRid(id);
+							ru.setUsum(count);
 							fser.AddCount(ru);
 						}
 					}
@@ -269,6 +278,7 @@ public class FractionController {
 							ru.setValue_at_risk(re.getValue_at_risk());
 							ru.setRtid(re.getTypeid());
 							ru.setRid(id);
+							ru.setUsum(count);
 							fser.AddCount(ru);
 						}
 					}
@@ -287,6 +297,7 @@ public class FractionController {
 							ru.setUserid(userId);
 							ru.setValue_at_risk(re.getValue_at_risk());
 							ru.setRid(id);
+							ru.setUsum(count);
 							ru.setRtid(re.getTypeid());
 							fser.AddCount(ru);
 						}
@@ -304,6 +315,7 @@ public class FractionController {
 							ru.setUserid(userId);
 							ru.setValue_at_risk(re.getValue_at_risk());
 							ru.setRid(id);
+							ru.setUsum(count);
 							ru.setRtid(re.getTypeid());
 							fser.AddCount(ru);
 						}
@@ -321,6 +333,7 @@ public class FractionController {
 							ru.setUserid(userId);
 							ru.setValue_at_risk(re.getValue_at_risk());
 							ru.setRid(id);
+							ru.setUsum(count);
 							ru.setRtid(re.getTypeid());
 							fser.AddCount(ru);
 						}
@@ -336,6 +349,7 @@ public class FractionController {
 						if(userPhoneCount > Integer.valueOf(re.getThresholdValue())){
 							count = count-Integer.valueOf(re.getValue_at_risk());
 							ru.setUserid(userId);
+							ru.setUsum(count);
 							ru.setValue_at_risk(re.getValue_at_risk());
 							ru.setRtid(re.getTypeid());
 							ru.setRid(id);
@@ -356,6 +370,7 @@ public class FractionController {
 							ru.setUserid(userId);
 							ru.setValue_at_risk(re.getValue_at_risk());
 							ru.setRid(id);
+							ru.setUsum(count);
 							ru.setRtid(re.getTypeid());
 							fser.AddCount(ru);
 						}
@@ -373,6 +388,7 @@ public class FractionController {
 							ru.setUserid(userId);
 							ru.setValue_at_risk(re.getValue_at_risk());
 							ru.setRid(id);
+							ru.setUsum(count);
 							ru.setRtid(re.getTypeid());
 							fser.AddCount(ru);
 						}
@@ -406,6 +422,7 @@ public class FractionController {
 							ru.setValue_at_risk(re.getValue_at_risk());
 							ru.setRtid(re.getTypeid());
 							ru.setRid(id);
+							ru.setUsum(count);
 							fser.AddCount(ru);
 						}
 					}
@@ -427,6 +444,7 @@ public class FractionController {
 							ru.setValue_at_risk(re.getValue_at_risk());
 							ru.setRtid(re.getTypeid());
 							ru.setRid(id);
+							ru.setUsum(count);
 							fser.AddCount(ru);
 						}
 					}
@@ -453,6 +471,7 @@ public class FractionController {
 							ru.setValue_at_risk(re.getValue_at_risk());
 							ru.setRtid(re.getTypeid());
 							ru.setRid(id);
+							ru.setUsum(count);
 							fser.AddCount(ru);
 						}
 					}
@@ -479,6 +498,7 @@ public class FractionController {
 							ru.setValue_at_risk(re.getValue_at_risk());
 							ru.setRtid(re.getTypeid());
 							ru.setRid(id);
+							ru.setUsum(count);
 							fser.AddCount(ru);
 						}
 					}
@@ -505,6 +525,7 @@ public class FractionController {
 							ru.setValue_at_risk(re.getValue_at_risk());
 							ru.setRtid(re.getTypeid());
 							ru.setRid(id);
+							ru.setUsum(count);
 							fser.AddCount(ru);
 						}
 					}
@@ -532,6 +553,7 @@ public class FractionController {
 							ru.setValue_at_risk(re.getValue_at_risk());
 							ru.setRtid(re.getTypeid());
 							ru.setRid(id);
+							ru.setUsum(count);
 							fser.AddCount(ru);
 						}
 					}
@@ -564,6 +586,7 @@ public class FractionController {
 							ru.setValue_at_risk(re.getValue_at_risk());
 							ru.setRtid(re.getTypeid());
 							ru.setRid(id);
+							ru.setUsum(count);
 							fser.AddCount(ru);
 						}
 					}
@@ -585,6 +608,7 @@ public class FractionController {
 							ru.setValue_at_risk(re.getValue_at_risk());
 							ru.setRtid(re.getTypeid());
 							ru.setRid(id);
+							ru.setUsum(count);
 							fser.AddCount(ru);
 						}
 					}
@@ -606,6 +630,7 @@ public class FractionController {
 							ru.setValue_at_risk(re.getValue_at_risk());
 							ru.setRtid(re.getTypeid());
 							ru.setRid(id);
+							ru.setUsum(count);
 							fser.AddCount(ru);
 						}
 					}
@@ -630,6 +655,7 @@ public class FractionController {
 							ru.setUserid(userId);
 							ru.setValue_at_risk(re.getValue_at_risk());
 							ru.setRid(id);
+							ru.setUsum(count);
 							ru.setRtid(re.getTypeid());
 							fser.AddCount(ru);
 						}
@@ -647,6 +673,7 @@ public class FractionController {
 							ru.setUserid(userId);
 							ru.setValue_at_risk(re.getValue_at_risk());
 							ru.setRid(id);
+							ru.setUsum(count);
 							ru.setRtid(re.getTypeid());
 							fser.AddCount(ru);
 						}
@@ -667,6 +694,7 @@ public class FractionController {
 							ru.setValue_at_risk(re.getValue_at_risk());
 							ru.setRtid(re.getTypeid());
 							ru.setRid(id);
+							ru.setUsum(count);
 							fser.AddCount(ru);
 						}
 					}
@@ -685,6 +713,7 @@ public class FractionController {
 							ru.setValue_at_risk(re.getValue_at_risk());
 							ru.setRtid(re.getTypeid());
 							ru.setRid(id);
+							ru.setUsum(count);
 							fser.AddCount(ru);
 						}
 					}
@@ -707,6 +736,7 @@ public class FractionController {
 							ru.setValue_at_risk(re.getValue_at_risk());
 							ru.setRtid(re.getTypeid());
 							ru.setRid(id);
+							ru.setUsum(count);
 							fser.AddCount(ru);
 						}
 					}
@@ -727,6 +757,7 @@ public class FractionController {
 							ru.setValue_at_risk(re.getValue_at_risk());
 							ru.setRtid(re.getTypeid());
 							ru.setRid(id);
+							ru.setUsum(count);
 							fser.AddCount(ru);
 						}
 					}
@@ -752,6 +783,7 @@ public class FractionController {
 							ru.setValue_at_risk(re.getValue_at_risk());
 							ru.setRtid(re.getTypeid());
 							ru.setRid(id);
+							ru.setUsum(count);
 							fser.AddCount(ru);
 						}
 					}
@@ -772,6 +804,7 @@ public class FractionController {
 							ru.setValue_at_risk(re.getValue_at_risk());
 							ru.setRtid(re.getTypeid());
 							ru.setRid(id);
+							ru.setUsum(count);
 							fser.AddCount(ru);
 						}
 					}
@@ -796,6 +829,7 @@ public class FractionController {
 							ru.setValue_at_risk(re.getValue_at_risk());
 							ru.setRtid(re.getTypeid());
 							ru.setRid(id);
+							ru.setUsum(count);
 							fser.AddCount(ru);
 						}
 					}
@@ -822,6 +856,7 @@ public class FractionController {
 							ru.setValue_at_risk(re.getValue_at_risk());
 							ru.setRtid(re.getTypeid());
 							ru.setRid(id);
+							ru.setUsum(count);
 							fser.AddCount(ru);
 						}
 					}
@@ -844,6 +879,7 @@ public class FractionController {
 							ru.setValue_at_risk(re.getValue_at_risk());
 							ru.setRtid(re.getTypeid());
 							ru.setRid(id);
+							ru.setUsum(count);
 							fser.AddCount(ru);
 						}
 					}
@@ -868,6 +904,7 @@ public class FractionController {
 							ru.setValue_at_risk(re.getValue_at_risk());
 							ru.setRtid(re.getTypeid());
 							ru.setRid(id);
+							ru.setUsum(count);
 							fser.AddCount(ru);
 						}
 					}
@@ -891,6 +928,7 @@ public class FractionController {
 							ru.setValue_at_risk(re.getValue_at_risk());
 							ru.setRtid(re.getTypeid());
 							ru.setRid(id);
+							ru.setUsum(count);
 							fser.AddCount(ru);
 						}
 					}
@@ -915,6 +953,7 @@ public class FractionController {
 							ru.setValue_at_risk(re.getValue_at_risk());
 							ru.setRtid(re.getTypeid());
 							ru.setRid(id);
+							ru.setUsum(count);
 							fser.AddCount(ru);
 						}
 					}
@@ -938,6 +977,7 @@ public class FractionController {
 							ru.setValue_at_risk(re.getValue_at_risk());
 							ru.setRtid(re.getTypeid());
 							ru.setRid(id);
+							ru.setUsum(count);
 							fser.AddCount(ru);
 						}
 					}
@@ -963,6 +1003,7 @@ public class FractionController {
 							ru.setValue_at_risk(re.getValue_at_risk());
 							ru.setRtid(re.getTypeid());
 							ru.setRid(id);
+							ru.setUsum(count);
 							fser.AddCount(ru);
 						}
 					}
@@ -985,6 +1026,7 @@ public class FractionController {
 							ru.setValue_at_risk(re.getValue_at_risk());
 							ru.setRtid(re.getTypeid());
 							ru.setRid(id);
+							ru.setUsum(count);
 							fser.AddCount(ru);
 						}
 					}
@@ -1006,6 +1048,7 @@ public class FractionController {
 							ru.setValue_at_risk(re.getValue_at_risk());
 							ru.setRtid(re.getTypeid());
 							ru.setRid(id);
+							ru.setUsum(count);
 							fser.AddCount(ru);
 						}
 					}
@@ -1029,6 +1072,7 @@ public class FractionController {
 							ru.setValue_at_risk(re.getValue_at_risk());
 							ru.setRtid(re.getTypeid());
 							ru.setRid(id);
+							ru.setUsum(count);
 							fser.AddCount(ru);
 						}
 					}
@@ -1055,6 +1099,7 @@ public class FractionController {
 							ru.setValue_at_risk(re.getValue_at_risk());
 							ru.setRtid(re.getTypeid());
 							ru.setRid(id);
+							ru.setUsum(count);
 							fser.AddCount(ru);
 						}
 					}
@@ -1074,6 +1119,7 @@ public class FractionController {
 							ru.setUserid(userId);
 							ru.setValue_at_risk(re.getValue_at_risk());
 							ru.setRid(id);
+							ru.setUsum(count);
 							fser.AddCount(ru);
 						}
 					}
@@ -1099,6 +1145,7 @@ public class FractionController {
 							ru.setValue_at_risk(re.getValue_at_risk());
 							ru.setRtid(re.getTypeid());
 							ru.setRid(id);
+							ru.setUsum(count);
 							fser.AddCount(ru);
 						}
 					}
@@ -1120,6 +1167,7 @@ public class FractionController {
 							ru.setValue_at_risk(re.getValue_at_risk());
 							ru.setRtid(re.getTypeid());
 							ru.setRid(id);
+							ru.setUsum(count);
 							fser.AddCount(ru);
 						}
 					}
@@ -1140,6 +1188,7 @@ public class FractionController {
 							ru.setValue_at_risk(re.getValue_at_risk());
 							ru.setRtid(re.getTypeid());
 							ru.setRid(id);
+							ru.setUsum(count);
 							fser.AddCount(ru);
 						}
 					}
@@ -1160,6 +1209,7 @@ public class FractionController {
 							ru.setValue_at_risk(re.getValue_at_risk());
 							ru.setRtid(re.getTypeid());
 							ru.setRid(id);
+							ru.setUsum(count);
 							fser.AddCount(ru);
 						}
 					}
@@ -1181,6 +1231,7 @@ public class FractionController {
 							ru.setValue_at_risk(re.getValue_at_risk());
 							ru.setRtid(re.getTypeid());
 							ru.setRid(id);
+							ru.setUsum(count);
 							fser.AddCount(ru);
 						}
 					}
@@ -1202,6 +1253,7 @@ public class FractionController {
 							ru.setValue_at_risk(re.getValue_at_risk());
 							ru.setRtid(re.getTypeid());
 							ru.setRid(id);
+							ru.setUsum(count);
 							fser.AddCount(ru);
 						}
 					}
@@ -1221,6 +1273,7 @@ public class FractionController {
 					ru.setValue_at_risk(re.getValue_at_risk());
 					ru.setRtid(re.getTypeid());
 					ru.setRid(id);
+					ru.setUsum(count);
 					fser.AddCount(ru);
 				}else if(one.equals("1701")){
 					count = count-Integer.valueOf(re.getValue_at_risk());
@@ -1228,6 +1281,8 @@ public class FractionController {
 					ru.setValue_at_risk(re.getValue_at_risk());
 					ru.setRtid(re.getTypeid());
 					ru.setRid(id);
+					
+					ru.setUsum(count);
 					fser.AddCount(ru);
 				}else if(one.equals("1702")){
 					count = count-Integer.valueOf(re.getValue_at_risk());
@@ -1235,6 +1290,7 @@ public class FractionController {
 					ru.setValue_at_risk(re.getValue_at_risk());
 					ru.setRtid(re.getTypeid());
 					ru.setRid(id);
+					ru.setUsum(count);
 					fser.AddCount(ru);
 				}else if(one.equals("1704")){
 					count = count-Integer.valueOf(re.getValue_at_risk());
@@ -1242,6 +1298,8 @@ public class FractionController {
 					ru.setValue_at_risk(re.getValue_at_risk());
 					ru.setRtid(re.getTypeid());
 					ru.setRid(id);
+					ru.setUsum(count);
+					
 					fser.AddCount(ru);
 				}else if(one.equals("1707")){
 					count = count-Integer.valueOf(re.getValue_at_risk());
@@ -1249,6 +1307,7 @@ public class FractionController {
 					ru.setValue_at_risk(re.getValue_at_risk());
 					ru.setRtid(re.getTypeid());
 					ru.setRid(id);
+					ru.setUsum(count);
 					fser.AddCount(ru);
 				}else if(one.equals("1708")){
 					count = count-Integer.valueOf(re.getValue_at_risk());
@@ -1256,6 +1315,7 @@ public class FractionController {
 					ru.setValue_at_risk(re.getValue_at_risk());
 					ru.setRtid(re.getTypeid());
 					ru.setRid(id);
+					ru.setUsum(count);
 					fser.AddCount(ru);
 				}else if(one.equals("1709")){
 					count = count-Integer.valueOf(re.getValue_at_risk());
@@ -1263,6 +1323,7 @@ public class FractionController {
 					ru.setValue_at_risk(re.getValue_at_risk());
 					ru.setRtid(re.getTypeid());
 					ru.setRid(id);
+					ru.setUsum(count);
 					fser.AddCount(ru);
 				}else if(one.equals("1703")){
 					count = count-Integer.valueOf(re.getValue_at_risk());
@@ -1270,6 +1331,7 @@ public class FractionController {
 					ru.setValue_at_risk(re.getValue_at_risk());
 					ru.setRtid(re.getTypeid());
 					ru.setRid(id);
+					ru.setUsum(count);
 					fser.AddCount(ru);
 				}else if(one.equals("1705")){
 					count = count-Integer.valueOf(re.getValue_at_risk());
@@ -1277,6 +1339,7 @@ public class FractionController {
 					ru.setValue_at_risk(re.getValue_at_risk());
 					ru.setRtid(re.getTypeid());
 					ru.setRid(id);
+					ru.setUsum(count);
 					fser.AddCount(ru);
 				}else if(one.equals("1706")){
 					count = count-Integer.valueOf(re.getValue_at_risk());
@@ -1284,6 +1347,7 @@ public class FractionController {
 					ru.setValue_at_risk(re.getValue_at_risk());
 					ru.setRtid(re.getTypeid());
 					ru.setRid(id);
+					ru.setUsum(count);
 					fser.AddCount(ru);
 				}else if(one.equals("171")){
 					count = count-Integer.valueOf(re.getValue_at_risk());
@@ -1291,6 +1355,7 @@ public class FractionController {
 					ru.setValue_at_risk(re.getValue_at_risk());
 					ru.setRtid(re.getTypeid());
 					ru.setRid(id);
+					ru.setUsum(count);
 					fser.AddCount(ru);
 				}
 			
@@ -1311,6 +1376,7 @@ public class FractionController {
 					ru.setValue_at_risk(re.getValue_at_risk());
 					ru.setRtid(re.getTypeid());
 					ru.setRid(id);
+					ru.setUsum(count);
 					fser.AddCount(ru);
 				}else if(onec.equals("145")){
 					count = count-Integer.valueOf(re.getValue_at_risk());
@@ -1318,6 +1384,7 @@ public class FractionController {
 					ru.setValue_at_risk(re.getValue_at_risk());
 					ru.setRtid(re.getTypeid());
 					ru.setRid(id);
+					ru.setUsum(count);
 					fser.AddCount(ru);
 				}
 			}
@@ -1336,6 +1403,7 @@ public class FractionController {
 						ru.setValue_at_risk(re.getValue_at_risk());
 						ru.setRtid(re.getTypeid());
 						ru.setRid(id);
+						ru.setUsum(count);
 						fser.AddCount(ru);
 					}else if(Fnec.equals("145")){
 						count = count-Integer.valueOf(re.getValue_at_risk());
@@ -1352,31 +1420,31 @@ public class FractionController {
 			
 			
 			
-			id = 84;
-			re = fser.RulelistFraction(id);//查询规则id为 84  的风险分值
-			user.setUserId(userId);
-			String FnecA = phone.substring(0,4);
-			if(re.getStatus() != 2){
-				if(FnecA != null){
-					if(FnecA.equals("147")){
-						count = count-Integer.valueOf(re.getValue_at_risk());
-						ru.setUserid(userId);
-						ru.setValue_at_risk(re.getValue_at_risk());
-						ru.setRtid(re.getTypeid());
-						ru.setRid(id);
-						fser.AddCount(ru);
-					}else if(FnecA.equals("145")){
-						count = count-Integer.valueOf(re.getValue_at_risk());
-						ru.setUserid(userId);
-						ru.setValue_at_risk(re.getValue_at_risk());
-						ru.setRtid(re.getTypeid());
-						ru.setRid(id);
-						fser.AddCount(ru);
-					}
-				}
-						
-			}
-			
+//			id = 84;
+//			re = fser.RulelistFraction(id);//查询规则id为 84  的风险分值
+//			user.setUserId(userId);
+//			String FnecA = phone.substring(0,4);
+//			if(re.getStatus() != 2){
+//				if(FnecA != null){
+//					if(FnecA.equals("147")){
+//						count = count-Integer.valueOf(re.getValue_at_risk());
+//						ru.setUserid(userId);
+//						ru.setValue_at_risk(re.getValue_at_risk());
+//						ru.setRtid(re.getTypeid());
+//						ru.setRid(id);
+//						fser.AddCount(ru);
+//					}else if(FnecA.equals("145")){
+//						count = count-Integer.valueOf(re.getValue_at_risk());
+//						ru.setUserid(userId);
+//						ru.setValue_at_risk(re.getValue_at_risk());
+//						ru.setRtid(re.getTypeid());
+//						ru.setRid(id);
+//						fser.AddCount(ru);
+//					}
+//				}
+//						
+//			}
+//			
 			
 			
 			id = 178;
@@ -1391,6 +1459,7 @@ public class FractionController {
 						ru.setValue_at_risk(re.getValue_at_risk());
 						ru.setRtid(re.getTypeid());
 						ru.setRid(id);
+						ru.setUsum(count);
 						fser.AddCount(ru);
 					}
 				}
@@ -1410,6 +1479,7 @@ public class FractionController {
 						ru.setValue_at_risk(re.getValue_at_risk());
 						ru.setRtid(re.getTypeid());
 						ru.setRid(id);
+						ru.setUsum(count);
 						fser.AddCount(ru);
 					}
 				}
@@ -1431,6 +1501,7 @@ public class FractionController {
 						ru.setValue_at_risk(re.getValue_at_risk());
 						ru.setRtid(re.getTypeid());
 						ru.setRid(id);
+						ru.setUsum(count);
 						fser.AddCount(ru);
 					}
 				}
@@ -1450,6 +1521,7 @@ public class FractionController {
 						ru.setValue_at_risk(re.getValue_at_risk());
 						ru.setRtid(re.getTypeid());
 						ru.setRid(id);
+						ru.setUsum(count);
 						fser.AddCount(ru);
 				}
 			}
@@ -1468,6 +1540,7 @@ public class FractionController {
 						ru.setValue_at_risk(re.getValue_at_risk());
 						ru.setRtid(re.getTypeid());
 						ru.setRid(id);
+						ru.setUsum(count);
 						fser.AddCount(ru);
 				}
 			}
@@ -1486,6 +1559,7 @@ public class FractionController {
 						ru.setValue_at_risk(re.getValue_at_risk());
 						ru.setRtid(re.getTypeid());
 						ru.setRid(id);
+						ru.setUsum(count);
 						fser.AddCount(ru);
 				}
 			}
@@ -1504,6 +1578,7 @@ public class FractionController {
 						ru.setValue_at_risk(re.getValue_at_risk());
 						ru.setRtid(re.getTypeid());
 						ru.setRid(id);
+						ru.setUsum(count);
 						fser.AddCount(ru);
 					}
 				}
@@ -1523,6 +1598,7 @@ public class FractionController {
 						ru.setValue_at_risk(re.getValue_at_risk());
 						ru.setRtid(re.getTypeid());
 						ru.setRid(id);
+						ru.setUsum(count);
 						fser.AddCount(ru);
 				}
 			}

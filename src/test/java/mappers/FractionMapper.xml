@@ -99,8 +99,9 @@
   			rid,
   			value_at_risk,
   			userid,
-  			authentication_time
-  		)values(#{rtid},#{rid},#{value_at_risk},#{userid},#{authentication_time})
+  			authentication_time,
+  			usum
+  		)values(#{rtid},#{rid},#{value_at_risk},#{userid},#{authentication_time},#{usum})
   	</insert>
   	
   	

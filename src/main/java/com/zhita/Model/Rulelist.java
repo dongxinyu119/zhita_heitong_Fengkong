@@ -24,7 +24,6 @@ public class Rulelist {
     
     private String type;//规则分类
     
-
 	public Integer getId() {
 		return id;
 	}

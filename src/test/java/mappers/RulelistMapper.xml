@@ -86,4 +86,14 @@
 	where rid=#{arg0} and rd.userid=u.userid and rd.authentication_time=u.authentication_time and rd.rid=r.id order by rd.authentication_time desc) t  
 	group by t.userid
   </select>
+  <!-- 后台管理        查询用户表所有数据 -->
+  <select id="queryAllUser" resultType="com.zhita.Model.User">
+  	select * from user
+  </select>
+  <!-- 后台管理        查询该用户的规则命中情况 -->
+  <select id="queryhit" resultType="com.zhita.Model.Rulelist_detail">
+  	select rd.id,rd.rtid,rd.rid,rd.value_at_risk,rd.authentication_time,rd.userid,rt.type,r.rulelist,r.thresholdvalue,u.username,u.fraction 
+	from rulelist_detail rd,rulelist_type rt,rulelist r,user u where rd.rtid=rt.id and rd.rid=r.id and rd.userid=u.userid and rd.authentication_time=u.authentication_time
+	and rd.userid=#{userid,jdbcType=INTEGER} and rd.authentication_time=#{authentime,jdbcType=VARCHAR}
+  </select>
 </mapper>

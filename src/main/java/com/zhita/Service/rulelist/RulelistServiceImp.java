@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -94,6 +95,24 @@ public class RulelistServiceImp implements IntRulelistService{
     	List<Rulelist_detail> list= rulelistMapper.queryuserhit(rulelistid);
     	for (int i = 0; i < list.size(); i++) {
 			list.get(i).setAuthentication_time(Timestamps.stampToDate(list.get(i).getAuthentication_time()));
+		}
+    	return list;
+    }
+    
+    //后台管理——查询用户表所有数据
+    public List<User> queryAllUser(){
+    	List<User> list= rulelistMapper.queryAllUser();
+    	for (int i = 0; i < list.size(); i++) {
+    		list.get(i).setAuthentication_time(Timestamps.stampToDate(list.get(i).getAuthentication_time()));
+		}
+    	return list;
+    }
+    
+    //后台管理——查询该用户的规则命中情况
+    public List<Rulelist_detail> queryhit(Integer userid,String authentime){
+    	List<Rulelist_detail> list= rulelistMapper.queryhit(userid, authentime);
+    	for (int i = 0; i < list.size(); i++) {
+    		list.get(i).setAuthentication_time(Timestamps.stampToDate(list.get(i).getAuthentication_time()));
 		}
     	return list;
     }

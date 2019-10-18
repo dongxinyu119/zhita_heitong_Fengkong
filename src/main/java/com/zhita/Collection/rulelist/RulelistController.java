@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.zhita.Model.Rulelist;
 import com.zhita.Model.RulelistType;
 import com.zhita.Model.Rulelist_detail;
+import com.zhita.Model.User;
 import com.zhita.Service.rulelist.IntRulelistService;
 
 @Controller
@@ -74,6 +75,20 @@ public class RulelistController {
 	@RequestMapping("/queryuserhit")
     public List<Rulelist_detail> queryuserhit(Integer rulelistid){
     	return intRulelistService.queryuserhit(rulelistid);
+    }
+    
+    //后台管理——查询用户表所有数据
+    @ResponseBody
+	@RequestMapping("/queryAllUser")
+    public List<User> queryAllUser(){
+    	return intRulelistService.queryAllUser();
+    }
+    
+    //后台管理——查询该用户的规则命中情况
+    @ResponseBody
+	@RequestMapping("/queryhit")
+    public List<Rulelist_detail> queryhit(Integer userid,String authentime){
+    	return intRulelistService.queryhit(userid, authentime);
     }
 
 }

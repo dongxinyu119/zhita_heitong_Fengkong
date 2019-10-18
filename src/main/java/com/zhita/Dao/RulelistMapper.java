@@ -45,4 +45,10 @@ public interface RulelistMapper {
     //后台管理——查询该条规则被命中的用户集合
     List<Rulelist_detail> queryuserhit(Integer rulelistid);
     
+    //后台管理——查询用户表所有数据
+    List<User> queryAllUser();
+    
+    //后台管理——查询该用户的规则命中情况
+    List<Rulelist_detail> queryhit(@Param("userid") Integer userid,@Param("authentime") String authentime);
+    
 }

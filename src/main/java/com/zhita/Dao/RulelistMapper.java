@@ -37,10 +37,10 @@ public interface RulelistMapper {
     User queryuser(Integer userid);
     
     //后台管理——查询该用户的命中情况
-    List<Rulelist_detail> queryifhit(Integer userid,String authentime);
+    List<Rulelist_detail> queryifhit(@Param("userid") Integer userid,@Param("authentime") String authentime);
     
     //后台管理——查询该用户没有命中的规则分类
-    List<String> queryType(Integer userid,String authentime);
+    List<Rulelist_detail> queryType(@Param("userid") Integer userid,@Param("authentime") String authentime);
     
     //后台管理——查询该条规则被命中的用户集合
     List<Rulelist_detail> queryuserhit(Integer rulelistid);

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+﻿<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zhita.Dao.CallRecordListItemInfosTwoMapper" >
   <resultMap id="BaseResultMap" type="com.zhita.Model.CallRecordListItemInfosTwo" >
@@ -35,4 +35,13 @@
       phone_number = #{phoneNumber,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  
+      <insert id="setcallRecordListItemInfosTwo" parameterType="com.zhita.Model.CallRecordListItemInfosTwo" useGeneratedKeys="true" keyProperty="id">
+   insert into call_record_list_item_infos_two (crlid,called_count,calling_count,phone_number)
+   values(#{crlid},
+   #{calledCount},
+   #{callingCount},
+   #{phoneNumber})
+    </insert>
 </mapper>

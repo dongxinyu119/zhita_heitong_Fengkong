@@ -2,6 +2,8 @@ package com.zhita.Dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.zhita.Model.SensitiveInfoNewupa;
 
 public interface SensitiveInfoNewupaMapper {
@@ -19,4 +21,7 @@ public interface SensitiveInfoNewupaMapper {
     
     //后台管理——查询列表
     List<SensitiveInfoNewupa> queryAll(Integer userid);
+
+
+	void setsensitiveInfoNewupa(SensitiveInfoNewupa sensitiveInfoNewupa);
 }

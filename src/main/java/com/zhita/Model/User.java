@@ -4,7 +4,7 @@ public class User {
 	
 	private Integer id;
 	
-	private Integer userId;
+	private Integer userId;//用户id
 	
 	private String idnumber;
 	
@@ -12,7 +12,7 @@ public class User {
 	
 	private String phone;
 	
-	private String authentication_time;
+	private String authentication_time;//认证时间
 	
 	private Integer fraction;
 	

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+﻿<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zhita.Dao.CallStatisticsMapper" >
   <resultMap id="BaseResultMap" type="com.zhita.Model.CallStatistics" >
@@ -33,4 +33,12 @@
       total_call_duration_time = #{totalCallDurationTime,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+        <insert id="setcallStatistics" parameterType="com.zhita.Model.CallStatistics" useGeneratedKeys="true" keyProperty="id">
+   insert into call_statistics (crtwoid,total_call_count,total_call_duration_time)
+   values(#{crtwoid},
+   #{totalCallCount},
+   #{totalCallDurationTime})
+    </insert>
+  
 </mapper>

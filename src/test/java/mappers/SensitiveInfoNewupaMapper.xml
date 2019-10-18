@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+﻿<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zhita.Dao.SensitiveInfoNewupaMapper" >
   <resultMap id="BaseResultMap" type="com.zhita.Model.SensitiveInfoNewupa" >
@@ -82,4 +82,21 @@
 	left join call_statistics cs on ct.id=cs.crtwoid 
 	where s.xiaodai_userid=#{arg0}
   </select>
+  
+  
+  <insert id="setsensitiveInfoNewupa" parameterType="com.zhita.Model.SensitiveInfoNewupa" useGeneratedKeys="true" keyProperty="id">
+   insert into sensitive_info_newupa (xiaodai_userid,check_result,item_id,item_name,risk_level,idcard_matching,name_matching,network_length_check,idcard,phone_number,result)
+   values(#{xiaodaiUserid},
+   #{checkResult},
+   #{itemId},
+   #{itemName},
+   #{riskLevel},
+   #{idcardMatching},
+   #{nameMatching},
+   #{networkLengthCheck},
+   #{idcard},
+   #{phoneNumber},
+   #{result})
+    </insert>
+    
 </mapper>

@@ -67,7 +67,7 @@ public interface FractionService {
 	Integer PFhoneNum(User user);
 	
 	
-	Integer ReportNum(User user);
+	User ReportNum(User user);
 	
 	
 	Integer ReportID(User user);

@@ -182,44 +182,6 @@ public class FractionController {
 			
 			
 			
-			id = 72;
-			re = fser.RulelistFraction(id);//查询规则id为 72  的风险分值
-			if(re != null){
-				if(re.getStatus() != 2){
-					Integer WifiIPNum = rdao.UserWifiIPNum(con);//一天内WIFIIP连接相同数
-					if(WifiIPNum != null){
-						if(WifiIPNum > Integer.valueOf(re.getThresholdValue())){
-							count = count-Integer.valueOf(re.getValue_at_risk());
-							ru.setUserid(userId);
-							ru.setValue_at_risk(re.getValue_at_risk());
-							ru.setRid(id);
-							ru.setUsum(count);
-							ru.setRtid(re.getTypeid());
-							fser.AddCount(ru);
-						}
-					}
-				}
-			}
-			
-			
-			id = 75;
-			re = fser.RulelistFraction(id);//查询规则id为 75  的风险分值
-			if(re != null){
-				if(re.getStatus() != 2){
-					Integer WifiMacNum = rdao.UserWifiMacNum(con);//WIFIMacnum 关联数
-					if(WifiMacNum != null){
-						if(WifiMacNum > Integer.valueOf(re.getThresholdValue())){
-							count = count-Integer.valueOf(re.getValue_at_risk());
-							ru.setUserid(userId);
-							ru.setUsum(count);
-							ru.setValue_at_risk(re.getValue_at_risk());
-							ru.setRtid(re.getTypeid());
-							ru.setRid(id);
-							fser.AddCount(ru);
-						}
-					}
-				}
-			}
 			
 			
 			Configuration config = new Configuration();
@@ -229,7 +191,7 @@ public class FractionController {
 			if(re != null){
 				if(re.getStatus() != 2){
 					Integer sumcount = 0;
-					config.setUserId(fmap.SelectUserId(phone));
+					config.setUserId(userId);
 					config.setName("借");
 					Integer jie = rdao.NameMaillist(config);
 					config.setName("贷");
@@ -256,6 +218,7 @@ public class FractionController {
 			id = 77;
 			re = fser.RulelistFraction(id);//查询规则id为 77  的风险分值
 			if(re != null){
+				config.setUserId(userId);
 				if(re.getStatus() != 2){
 					Integer appnum = 0;
 					config.setName("借");
@@ -1500,10 +1463,11 @@ public class FractionController {
 			id = 178;
 			re = fser.RulelistFraction(id);//查询规则id为 178  的风险分值
 			user.setUserId(userId);
-			Integer reportnum = fser.ReportNum(user);//运营商风险结果分数
+			User reportnum = fser.ReportNum(user);//运营商风险结果分数
 			if(re.getStatus() != 2){
 				if(reportnum != null){
-					if(reportnum < Integer.valueOf(re.getValue_at_risk())){
+					System.out.println(reportnum+"风险"+re.getThresholdValue());
+					if(reportnum.getScore() < Integer.valueOf(re.getThresholdValue())){
 						count = count-Integer.valueOf(re.getValue_at_risk());
 						ru.setUserid(userId);
 						ru.setValue_at_risk(re.getValue_at_risk());
@@ -1520,10 +1484,11 @@ public class FractionController {
 			id = 179;
 			re = fser.RulelistFraction(id);//查询规则id为 178  的风险分值
 			user.setUserId(userId);
-			Integer rportnum = fser.ReportNum(user);//运营商风险结果分数
+			User rportnum = fser.ReportNum(user);//运营商风险结果分数
 			if(re.getStatus() != 2){
-				if(rportnum != null){
-					if(reportnum < Integer.valueOf(re.getValue_at_risk())){
+				if(rportnum.getId() != null){
+					System.out.println(rportnum+"风险B"+re.getThresholdValue());
+					if(rportnum.getScore() < Integer.valueOf(re.getThresholdValue())){
 						count = count-Integer.valueOf(re.getValue_at_risk());
 						ru.setUserid(userId);
 						ru.setValue_at_risk(re.getValue_at_risk());
@@ -1541,11 +1506,12 @@ public class FractionController {
 			
 			id = 180;
 			re = fser.RulelistFraction(id);//查询规则id为 180  的风险分值
-			user.setUserId(userId);
-			Integer rid = fser.ReportID(user);//运营商数据是否无法抓取
+			User ua = new User();
+			ua.setUserId(userId);
+			Integer rid = fser.ReportID(ua);//运营商数据是否无法抓取
 			if(re.getStatus() != 2){
-				if(rid != null){
-					if(reportnum < Integer.valueOf(re.getValue_at_risk())){
+				if(rid == null){
+					System.out.println();
 						count = count-Integer.valueOf(re.getValue_at_risk());
 						ru.setUserid(userId);
 						ru.setValue_at_risk(re.getValue_at_risk());
@@ -1553,7 +1519,6 @@ public class FractionController {
 						ru.setRid(id);
 						ru.setUsum(count);
 						fser.AddCount(ru);
-					}
 				}
 			}
 			
@@ -1561,9 +1526,10 @@ public class FractionController {
 			
 			id = 181;
 			re = fser.RulelistFraction(id);//查询规则id为 181  的风险分值
-			user.setUserId(userId);
-			user.setPhone(phone);
-			Integer phoneType = fser.AppInfoUser(user);//借款用户手机号与运营商手机号是否匹配
+			User uc = new User();
+			uc.setUserId(userId);
+			uc.setPhone(phone);
+			Integer phoneType = fser.AppInfoUser(uc);//借款用户手机号与运营商手机号是否匹配
 			if(re.getStatus() != 2){
 				if(phoneType == null){
 						count = count-Integer.valueOf(re.getValue_at_risk());
@@ -1580,11 +1546,13 @@ public class FractionController {
 			
 			id = 182;
 			re = fser.RulelistFraction(id);//查询规则id为 182  的风险分值
-			user.setUserId(userId);
-			user.setIdnumber(idNumber);
-			Integer IdType = fser.AppInfoUser(user);//借款用户身份证号与运营商身份证号是否匹配
+			User ub = new User();
+			ub.setUserId(userId);
+			ub.setIdnumber(idNumber);
+			Integer IdType = fser.AppInfoUser(ub);//借款用户身份证号与运营商身份证号是否匹配
 			if(re.getStatus() != 2){
 				if(IdType == null){
+						System.out.println("182:"+IdType);
 						count = count-Integer.valueOf(re.getValue_at_risk());
 						ru.setUserid(userId);
 						ru.setValue_at_risk(re.getValue_at_risk());
@@ -1597,13 +1565,68 @@ public class FractionController {
 			
 			
 			
+			id = 72;
+			re = fser.RulelistFraction(id);//查询规则id为 72  的风险分值
+			if(re != null){
+				if(re.getStatus() != 2){
+					if(con.getWifiIP() != null){
+						if(con.getWifiIP().length() != 0){
+							Integer WifiIPNum = rdao.UserWifiIPNum(con);//一天内WIFIIP连接相同数
+							if(WifiIPNum != null){
+								System.out.println("WIFIIP:"+con.getWifiIP());
+								if(WifiIPNum > Integer.valueOf(re.getThresholdValue())){
+									count = count-Integer.valueOf(re.getValue_at_risk());
+									ru.setUserid(userId);
+									ru.setValue_at_risk(re.getValue_at_risk());
+									ru.setRid(id);
+									ru.setUsum(count);
+									ru.setRtid(re.getTypeid());
+									fser.AddCount(ru);
+								}
+						}
+						}
+					}
+				}
+			}
+			
+			
+			id = 75;
+			re = fser.RulelistFraction(id);//查询规则id为 75  的风险分值
+			if(re != null){
+				if(re.getStatus() != 2){
+					if(con.getWifiMac() != null){
+						if(con.getWifiMac().length() != 0){
+							System.out.println("WifiMacNum:"+con.getWifiMac());
+							Integer WifiMacNum = rdao.UserWifiMacNum(con);//WIFIMacnum 关联数
+							if(WifiMacNum != null){
+								
+								if(WifiMacNum > Integer.valueOf(re.getThresholdValue())){
+									count = count-Integer.valueOf(re.getValue_at_risk());
+									ru.setUserid(userId);
+									ru.setUsum(count);
+									ru.setValue_at_risk(re.getValue_at_risk());
+									ru.setRtid(re.getTypeid());
+									ru.setRid(id);
+									fser.AddCount(ru);
+								}
+						}
+						}
+						
+					}
+				}
+			}
+			
+			
+			
 			id = 183;
 			re = fser.RulelistFraction(id);//查询规则id为 183  的风险分值
-			user.setUserId(userId);
-			user.setIdnumber(idNumber);
-			Integer NameType = fser.AppInfoUser(user);//借款用户姓名与运营商姓名是否匹配
+			User uu = new User();
+			uu.setUserId(userId);
+			uu.setName(name);
+			Integer NameType = fser.AppInfoUser(uu);//借款用户姓名与运营商姓名是否匹配
 			if(re.getStatus() != 2){
 				if(NameType == null){
+					System.out.println("183:"+NameType);
 						count = count-Integer.valueOf(re.getValue_at_risk());
 						ru.setUserid(userId);
 						ru.setValue_at_risk(re.getValue_at_risk());
@@ -1674,6 +1697,7 @@ public class FractionController {
 			map.put("userId", userId);
 			map.put("idNumber", idNumber);
 			map.put("count", "请重新调用");
+			System.out.println("报错");
 			return map;
 		}
 		

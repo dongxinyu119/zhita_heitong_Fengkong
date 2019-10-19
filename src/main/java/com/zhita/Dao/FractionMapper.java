@@ -62,7 +62,7 @@ public interface FractionMapper {
 	Integer PhoneNumA(User user);
 	
 	
-	Integer ReportNum(User user);
+	User ReportNum(User user);
 	
 	
 	Integer ReportID(User user);

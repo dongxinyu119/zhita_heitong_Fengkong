@@ -200,7 +200,7 @@ public class FractionServiceimp implements FractionService{
 	}
 
 	@Override
-	public Integer ReportNum(User user) {
+	public User ReportNum(User user) {
 		return fractionmapper.ReportNum(user);
 	}
 

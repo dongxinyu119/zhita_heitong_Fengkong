@@ -131,8 +131,8 @@
   	</select>
   	
   	
-  	<select id="ReportNum" parameterType="com.zhita.Model.User" resultType="java.lang.Integer">
-  		select max(id),score from report_info where xiaodai_userid = #{userId}
+  	<select id="ReportNum" parameterType="com.zhita.Model.User" resultType="com.zhita.Model.User">
+  		select max(id) as id,score from report_info where xiaodai_userid = #{userId}
   	</select>
   	
   	
@@ -146,9 +146,6 @@
   		<where>
   			<if test="phone != null and phone != ''">
   				phone_number = #{phone}
-  			</if>
-  			<if test="idnumber != null and idnumber != ''">
-  				AND idcard = #{idnumber}
   			</if>
   			<if test="idnumber != null and idnumber != ''">
   				AND idcard = #{idnumber}

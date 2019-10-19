@@ -23,6 +23,16 @@ public class User {
 	private String end_time;
 	
 	private String name;
+	
+	private Integer score;
+
+	public Integer getScore() {
+		return score;
+	}
+
+	public void setScore(Integer score) {
+		this.score = score;
+	}
 
 	public String getName() {
 		return name;

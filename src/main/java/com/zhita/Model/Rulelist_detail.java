@@ -30,6 +30,8 @@ public class Rulelist_detail {
 	
 	private String fraction;//最后得分
 	
+	private String rulelist;//规则名
+	
 	private Integer usum;
 
 	public Integer getUsum() {
@@ -126,6 +128,14 @@ public class Rulelist_detail {
 
 	public void setFraction(String fraction) {
 		this.fraction = fraction;
+	}
+
+	public String getRulelist() {
+		return rulelist;
+	}
+
+	public void setRulelist(String rulelist) {
+		this.rulelist = rulelist;
 	}
 
 }

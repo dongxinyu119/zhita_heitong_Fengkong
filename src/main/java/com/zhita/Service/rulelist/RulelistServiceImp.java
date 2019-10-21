@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mysql.fabric.xmlrpc.base.Array;
 import com.zhita.Dao.RulelistMapper;
 import com.zhita.Model.Rulelist;
 import com.zhita.Model.RulelistType;
@@ -79,12 +80,24 @@ public class RulelistServiceImp implements IntRulelistService{
     //后台管理——各个规则分类的命中分数
     public Map<String,Object> typeifhit(Integer userid){
     	User user=rulelistMapper.queryuser(userid);
-    	List<Rulelist_detail> list=rulelistMapper.queryifhit(user.getUserId(), user.getAuthentication_time());
-    	List<Rulelist_detail> listype=rulelistMapper.queryType(user.getUserId(), user.getAuthentication_time());
-    	for (int i = 0; i < listype.size(); i++) {
-    		listype.get(i).setSum("0");
-		}
-    	list.addAll(listype);
+    	List<Rulelist_detail> list=new ArrayList<>();
+    	if(user==null||"".equals(user)){
+    		List<RulelistType> listtype=rulelistMapper.queryAllType();
+    		for (int i = 0; i < listtype.size(); i++) {
+				Rulelist_detail rd=new Rulelist_detail();
+				rd.setType(listtype.get(i).getType());
+				rd.setSum("0");
+				list.add(rd);
+			}
+    	}else{
+    		list=rulelistMapper.queryifhit(user.getUserId(), user.getAuthentication_time());
+        	List<Rulelist_detail> listype=rulelistMapper.queryType(user.getUserId(), user.getAuthentication_time());
+        	for (int i = 0; i < listype.size(); i++) {
+        		listype.get(i).setSum("0");
+    		}
+        	list.addAll(listype);
+    	}
+    	
     	Map<String,Object> map=new HashMap<>();
     	map.put("list", list);
     	return map;

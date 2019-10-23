@@ -225,4 +225,16 @@ public class AuthenServiceImp implements IntAuthenService{
     	map.put("listsen", listsen);
         return map;
     }
+    
+    //通话详情（通话月份，通话时间段，通话时长分布）
+    public Map<String,Object> queryTelephone(Integer userid){
+    	List<CommunicationMonthInfo> listcommonth=communicationMonthInfoMapper.queryAll(userid);//通话月份分布OK--可能会分页
+		List<CommunicationTimeBucketInfo> listcombuck=communicationTimeBucketInfoMapper.queryAll(userid);//通话时间段分布OK--可能会分页
+		List<CommunicationTimeDurationInfo> listcomdur=communicationTimeDurationInfoMapper.queryAll(userid);//通话时长分布表OK--可能会分页
+    	Map<String,Object> map=new HashMap<String, Object>();
+    	map.put("listcommonth", listcommonth);//通话月份分布
+    	map.put("listcombuck", listcombuck);//通话时间段分布
+    	map.put("listcomdur", listcomdur);//通话时长分布
+    	return map;
+    }
 }

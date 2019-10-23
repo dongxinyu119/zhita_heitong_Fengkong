@@ -14,4 +14,7 @@ public interface IntAuthenService {
 	
 	//后台管理——查询列表(风险信息检查)
     public Map<String,Object> queryAllsen(Integer userid);
+    
+    //通话详情（通话月份，通话时间段，通话时长分布）
+    public Map<String,Object> queryTelephone(Integer userid);
 }

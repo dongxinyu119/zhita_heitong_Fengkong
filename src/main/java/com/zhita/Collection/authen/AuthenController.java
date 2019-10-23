@@ -50,5 +50,12 @@ public class AuthenController {
     public Map<String,Object> queryAllsen(Integer userid){
     	return intAuthenService.queryAllsen(userid);
     }
+	
+	//通话详情（通话月份，通话时间段，通话时长分布）
+	@ResponseBody
+	@RequestMapping("/queryTelephone")
+    public Map<String,Object> queryTelephone(Integer userid){
+    	return intAuthenService.queryTelephone(userid);
+    }
 
 }

@@ -17,4 +17,7 @@ public interface IntAuthenService {
     
     //通话详情（通话月份，通话时间段，通话时长分布）
     public Map<String,Object> queryTelephone(Integer userid);
+    
+    //通话亲密度（通话次数前10，通话总时长前10，单次通话时长前10）
+    public Map<String,Object> queryTopten(Integer userid);
 }

@@ -228,13 +228,26 @@ public class AuthenServiceImp implements IntAuthenService{
     
     //通话详情（通话月份，通话时间段，通话时长分布）
     public Map<String,Object> queryTelephone(Integer userid){
-    	List<CommunicationMonthInfo> listcommonth=communicationMonthInfoMapper.queryAll(userid);//通话月份分布OK--可能会分页
-		List<CommunicationTimeBucketInfo> listcombuck=communicationTimeBucketInfoMapper.queryAll(userid);//通话时间段分布OK--可能会分页
-		List<CommunicationTimeDurationInfo> listcomdur=communicationTimeDurationInfoMapper.queryAll(userid);//通话时长分布表OK--可能会分页
+    	List<CommunicationMonthInfo> listcommonth=communicationMonthInfoMapper.queryAll(userid);//通话月份分布--可能会分页
+		List<CommunicationTimeBucketInfo> listcombuck=communicationTimeBucketInfoMapper.queryAll(userid);//通话时间段分布--可能会分页
+		List<CommunicationTimeDurationInfo> listcomdur=communicationTimeDurationInfoMapper.queryAll(userid);//通话时长分布表--可能会分页
     	Map<String,Object> map=new HashMap<String, Object>();
     	map.put("listcommonth", listcommonth);//通话月份分布
     	map.put("listcombuck", listcombuck);//通话时间段分布
     	map.put("listcomdur", listcomdur);//通话时长分布
     	return map;
     }
+    
+    //通话亲密度（通话次数前10，通话总时长前10，单次通话时长前10）
+    public Map<String,Object> queryTopten(Integer userid){
+    	List<Top10CallCount> top10call=top10CallCountMapper.queryAll(userid);//通话次数前10 表
+    	List<Top10CallTime> top10time=top10CallTimeMapper.queryAll(userid);//通话总时长前10 表
+    	List<Top10SingleCallTime> top10sing=top10SingleCallTimeMapper.queryAll(userid);//单次通话时长前10 表
+		Map<String,Object> map=new HashMap<String, Object>();
+		map.put("top10call", top10call);//通话次数前10 表
+		map.put("top10time", top10time);//通话总时长前10表
+		map.put("top10sing", top10sing);//单次通话时长前10 表
+		return map;
+    }
+    
 }

@@ -86,9 +86,13 @@
 	where rid=#{arg0} and rd.userid=u.userid and rd.authentication_time=u.authentication_time and rd.rid=r.id order by rd.authentication_time desc) t  
 	group by t.userid
   </select>
+  <!-- 后台管理        查询用户表数量 -->
+  <select id="queryAllUserCount" resultType="java.lang.Integer">
+  	select count(*) from user 
+  </select>
   <!-- 后台管理        查询用户表所有数据 -->
   <select id="queryAllUser" resultType="com.zhita.Model.User">
-  	select * from user
+  	select * from user limit #{page,jdbcType=INTEGER},#{pagesize,jdbcType=INTEGER}
   </select>
   <!-- 后台管理        查询该用户的规则命中情况 -->
   <select id="queryhit" resultType="com.zhita.Model.Rulelist_detail">

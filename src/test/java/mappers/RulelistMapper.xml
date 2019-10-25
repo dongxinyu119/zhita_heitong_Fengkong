@@ -92,7 +92,7 @@
   </select>
   <!-- 后台管理        查询用户表所有数据 -->
   <select id="queryAllUser" resultType="com.zhita.Model.User">
-  	select * from user limit #{page,jdbcType=INTEGER},#{pagesize,jdbcType=INTEGER}
+  	select * from user order by authentication_time desc limit #{page,jdbcType=INTEGER},#{pagesize,jdbcType=INTEGER}
   </select>
   <!-- 后台管理        查询该用户的规则命中情况 -->
   <select id="queryhit" resultType="com.zhita.Model.Rulelist_detail">

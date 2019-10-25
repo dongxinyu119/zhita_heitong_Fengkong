@@ -1,5 +1,6 @@
 package com.zhita.Service.rulelist;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -143,7 +144,14 @@ public class RulelistServiceImp implements IntRulelistService{
     
     //后台管理——查询该用户的规则命中情况
     public List<Rulelist_detail> queryhit(Integer userid,String authentime){
-    	List<Rulelist_detail> list= rulelistMapper.queryhit(userid, authentime);
+    	String authentimesta=null;
+    	try {
+    		authentimesta=Timestamps.dateToStamp1(authentime);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	List<Rulelist_detail> list= rulelistMapper.queryhit(userid, authentimesta);
     	for (int i = 0; i < list.size(); i++) {
     		list.get(i).setAuthentication_time(Timestamps.stampToDate(list.get(i).getAuthentication_time()));
 		}

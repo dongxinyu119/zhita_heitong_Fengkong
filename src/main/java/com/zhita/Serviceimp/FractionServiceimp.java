@@ -229,6 +229,49 @@ public class FractionServiceimp implements FractionService{
 		return fractionmapper.DeleteRule(userid, authentication_time);
 	}
 
+	@Override
+	public String PhoneUserMoney(Integer userId) {
+		return fractionmapper.PhoneUserMoney(userId);
+	}
+
+	@Override
+	public Integer SmsUserMoney(Integer userId) {
+		return fractionmapper.SmsUserNum(userId);
+	}
+
+	@Override
+	public Integer MonthUserphone(Integer userId) {
+		return fractionmapper.MonthUserphone(userId);
+	}
+
+	@Override
+	public Integer UserNum(Integer userId) {
+		return fractionmapper.UserNum(userId);
+	}
+
+	@Override
+	public Integer PassUserNum(Integer userId) {
+		return fractionmapper.PassUserNum(userId);
+	}
+
+	@Override
+	public Integer WifiNameNum(User user) {
+		return fractionmapper.WifiNamenum(user);
+	}
+
+	@Override
+	public Integer UserLongintime(User user) {
+		SimpleDateFormat sim = new SimpleDateFormat("yyyy-MM-dd");
+		String time = sim.format(new Date());
+		try {
+			user.setStatu_time(Timestamps.dateToStamp1(time+" 24:00:00"));
+			user.setEnd_time(Timestamps.dateToStamp1(time+" 05:00:00"));
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return fractionmapper.UserloginTime(user);
+	}
+
 
 	
 	

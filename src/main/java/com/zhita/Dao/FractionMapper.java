@@ -1,5 +1,6 @@
 package com.zhita.Dao;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -78,5 +79,26 @@ public interface FractionMapper {
 	
 	
 	Integer DeleteRule(@Param("userid") Integer userid ,@Param("authentication_time") String authentication_time);
+	
+	
+	String PhoneUserMoney(Integer userId);
+	
+	
+	Integer SmsUserNum(Integer userId);
+	
+	
+	Integer MonthUserphone(Integer userId);
+	
+	
+	Integer UserNum(Integer userId);
+	
+	
+	Integer PassUserNum(Integer userId);
+	
+	
+	Integer WifiNamenum(User user);
+	
+	
+	Integer UserloginTime(User user);
 	
 }

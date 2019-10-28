@@ -1,5 +1,7 @@
 package com.zhita.Service;
 
+import java.math.BigDecimal;
+
 import com.zhita.Model.Rulelist;
 import com.zhita.Model.Rulelist_detail;
 import com.zhita.Model.User;
@@ -84,5 +86,25 @@ public interface FractionService {
 	
 	Integer DeleteRulet(Integer userid,String authentication_time);
 	
+	
+	String PhoneUserMoney(Integer userId);
+	
+	
+	Integer SmsUserMoney(Integer userId);
+	
+	
+	Integer MonthUserphone(Integer userId);
+	
+	
+	Integer UserNum(Integer userId);
+	
+	
+	Integer PassUserNum(Integer userId);
+	
+	
+	Integer WifiNameNum(User user);
+	
+	
+	Integer UserLongintime(User user);
 	
 }

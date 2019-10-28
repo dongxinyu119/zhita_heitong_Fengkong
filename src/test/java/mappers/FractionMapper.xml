@@ -79,6 +79,12 @@
   			<if test="name != null and name != ''">
   				and `name` LIKE  "%"#{name}"%"
   			</if>
+  			<if test="phone != null and phone != ''">
+  				and phone = #{phone}
+  			</if>
+  			<if test="idnumber != null and idnumber != ''">
+  				and idnumber = #{idnumber}
+  			</if>
   		</where>
   	</select>
   	
@@ -171,4 +177,35 @@
   	<delete id="DeleteRule" parameterType="java.util.Map">
   		delete from rulelist_detail where userid  = #{userid} and authentication_time =#{authentication_time}
   	</delete>
+  	
+  	
+  	<select id="PhoneUserMoney" parameterType="java.lang.Integer" resultType="java.lang.String">
+  		select available_amount from operator_info where xiaodai_userid = #{userId}
+  	</select>
+  	
+  	
+  	<select id="SmsUserNum" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+  		select count(id) from sms_record_label where xiaodai_userid = #{userId}
+  	</select>
+  	
+  	
+  	<select id="MonthUserphone" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+  		select count(id) from top10_call_count where xiaodai_userid = #{userId}
+  	</select>
+  	
+  	
+  	<select id="UserNum" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+  		select count(id) from maillist where userId = #{userId}
+  	</select>
+  	
+  	
+  	<select id="WifiNamenum" parameterType="com.zhita.Model.User" resultType="java.lang.Integer">
+  		select id from configuration where wifiName like CONCAT('%',#{name},'%') 
+  	</select>
+  	
+  	
+  	<select id="UserloginTime" parameterType="com.zhita.Model.User" resultType="java.lang.Integer">
+  		select id from configuration where phone = #{phone} and send_time between #{statu_time} and #{end_time}
+  	</select>
+  	
 </mapper>

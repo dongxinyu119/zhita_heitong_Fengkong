@@ -1,5 +1,6 @@
 package com.zhita.Collection.fraction;
 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -18,6 +19,7 @@ import com.zhita.Model.Rulelist_detail;
 import com.zhita.Model.User;
 import com.zhita.Service.FractionService;
 import com.zhita.Util.Timestamps;
+import com.zhita.Util.TuoMinUtil;
 
 
 
@@ -40,7 +42,6 @@ public class FractionController {
 	private FengkMapper fmap;
 	
 	
-	@SuppressWarnings("null")
 	@RequestMapping("Exhibitionfraction")
 	@ResponseBody
 	public Map<String, Object> SeleExhibition(Integer userId,String phone,String name,String idNumber,String appId){
@@ -720,7 +721,115 @@ public class FractionController {
 			if(re.getStatus() != 2){
 					Integer zcnum = fser.UserZuC(userId);//借贷类app安装个数
 					if(zcnum != null){
-						if(zcnum > Integer.valueOf(re.getThresholdValue())){
+						if(zcnum <= Integer.valueOf(re.getThresholdValue())){
+							count = count-Integer.valueOf(re.getValue_at_risk());
+							ru.setUserid(userId);
+							ru.setValue_at_risk(re.getValue_at_risk());
+							ru.setRtid(re.getTypeid());
+							ru.setRid(id);
+							ru.setUsum(count);
+							fser.AddCount(ru);
+						}
+					}
+			}
+			
+			
+			
+			
+			id = 117;
+			re = fser.RulelistFraction(id);//查询规则id为 117  的风险分值
+			Integer phonjdnum = 0;
+			user.setUserId(userId);
+			user.setName("贷");
+			phonjdnum = phonjdnum + fser.AppNum(user);//近1个月借款人手机号对应设备历史安装借贷类app类个数
+			user.setName("米");
+			phonjdnum = phonjdnum + fser.AppNum(user);
+			user.setName("花");
+			phonjdnum = phonjdnum + fser.AppNum(user);
+			if(re.getStatus() != 2){
+					if(phonjdnum != null){
+						if(phonjdnum <= Integer.valueOf(re.getThresholdValue())){
+							count = count-Integer.valueOf(re.getValue_at_risk());
+							ru.setUserid(userId);
+							ru.setValue_at_risk(re.getValue_at_risk());
+							ru.setRtid(re.getTypeid());
+							ru.setRid(id);
+							ru.setUsum(count);
+							fser.AddCount(ru);
+						}
+					}
+			}
+			
+			
+			
+			id = 118;
+			re = fser.RulelistFraction(id);//查询规则id为 118  的风险分值
+			Integer phonzcnum = 0;
+			user.setUserId(userId);
+			user.setName("博彩");
+			phonzcnum = phonzcnum + fser.AppNum(user);//近1个月借款人身份证号对应设备历史安装赌博类app类个数
+			user.setName("斗地主");
+			phonzcnum = phonzcnum + fser.AppNum(user);
+			user.setName("金花");
+			phonzcnum = phonzcnum + fser.AppNum(user);
+			if(re.getStatus() != 2){
+					if(phonzcnum != null){
+						if(phonzcnum <= Integer.valueOf(re.getThresholdValue())){
+							count = count-Integer.valueOf(re.getValue_at_risk());
+							ru.setUserid(userId);
+							ru.setValue_at_risk(re.getValue_at_risk());
+							ru.setRtid(re.getTypeid());
+							ru.setRid(id);
+							ru.setUsum(count);
+							fser.AddCount(ru);
+						}
+					}
+			}
+			
+			
+			
+			
+			
+			id = 119;
+			re = fser.RulelistFraction(id);//查询规则id为 119  的风险分值
+			Integer phonjOdnum = 0;
+			user.setUserId(userId);
+			user.setName("贷");
+			phonjOdnum = phonjOdnum + fser.AppNum(user);//近1个月借款人手机号对应设备历史安装借贷类app类个数
+			user.setName("米");
+			phonjOdnum = phonjOdnum + fser.AppNum(user);
+			user.setName("花");
+			phonjOdnum = phonjOdnum + fser.AppNum(user);
+			if(re.getStatus() != 2){
+					if(phonjOdnum != null){
+						if(phonjOdnum <= Integer.valueOf(re.getThresholdValue())){
+							count = count-Integer.valueOf(re.getValue_at_risk());
+							ru.setUserid(userId);
+							ru.setValue_at_risk(re.getValue_at_risk());
+							ru.setRtid(re.getTypeid());
+							ru.setRid(id);
+							ru.setUsum(count);
+							fser.AddCount(ru);
+						}
+					}
+			}
+			
+			
+			
+			
+			id = 120;
+			re = fser.RulelistFraction(id);//查询规则id为 120  的风险分值
+			Integer idzcnum = 0;
+			user.setUserId(userId);
+			user.setName("博彩");
+			idzcnum = idzcnum + fser.AppNum(user);//近1个月借款人身份证号对应设备历史安装赌博类app类个数
+			user.setName("斗地主");
+			idzcnum = idzcnum + fser.AppNum(user);
+			user.setName("金花");
+			idzcnum = idzcnum + fser.AppNum(user);
+			if(re.getStatus() != 2){
+					if(idzcnum != null){
+						if(idzcnum <= Integer.valueOf(re.getThresholdValue())){
 							count = count-Integer.valueOf(re.getValue_at_risk());
 							ru.setUserid(userId);
 							ru.setValue_at_risk(re.getValue_at_risk());
@@ -1146,13 +1255,13 @@ public class FractionController {
 			user.setUserId(userId);
 			user.setName("花");
 			Integer jnum = fser.AppNum(user);//借贷类app安装个数;
+			user.setName("贷");
+			jnum =jnum + fser.AppNum(user);
+			user.setName("米");
+			jnum =jnum + fser.AppNum(user);
 			if(re.getStatus() != 2){
 					if(jnum != null){
 						if(jnum > Integer.valueOf(re.getThresholdValue())){
-							user.setName("贷");
-							jnum =jnum + fser.AppNum(user);
-							user.setName("米");
-							jnum =jnum + fser.AppNum(user);
 							count = count-Integer.valueOf(re.getValue_at_risk());
 							ru.setUserid(userId);
 							ru.setValue_at_risk(re.getValue_at_risk());
@@ -1433,31 +1542,228 @@ public class FractionController {
 			
 			
 			
-//			id = 84;
-//			re = fser.RulelistFraction(id);//查询规则id为 84  的风险分值
-//			user.setUserId(userId);
-//			String FnecA = phone.substring(0,4);
-//			if(re.getStatus() != 2){
-//				if(FnecA != null){
-//					if(FnecA.equals("147")){
-//						count = count-Integer.valueOf(re.getValue_at_risk());
-//						ru.setUserid(userId);
-//						ru.setValue_at_risk(re.getValue_at_risk());
-//						ru.setRtid(re.getTypeid());
-//						ru.setRid(id);
-//						fser.AddCount(ru);
-//					}else if(FnecA.equals("145")){
-//						count = count-Integer.valueOf(re.getValue_at_risk());
-//						ru.setUserid(userId);
-//						ru.setValue_at_risk(re.getValue_at_risk());
-//						ru.setRtid(re.getTypeid());
-//						ru.setRid(id);
-//						fser.AddCount(ru);
-//					}
-//				}
-//						
-//			}
-//			
+			id = 157;
+			re = fser.RulelistFraction(id);//查询规则id为 157  的风险分值
+			User userwifi = new User();
+			userwifi.setUserId(userId);
+			userwifi.setName("彩票");
+			Integer wifiNum =  fser.WifiNameNum(userwifi);//wifi名称是否命中彩票类
+			if(re.getStatus() != 2){
+					if(wifiNum != null){
+							count = count-Integer.valueOf(re.getValue_at_risk());
+							ru.setUserid(userId);
+							ru.setValue_at_risk(re.getValue_at_risk());
+							ru.setRtid(re.getTypeid());
+							ru.setRid(id);
+							ru.setUsum(count);
+							fser.AddCount(ru);
+						}
+			}		
+			
+			
+			
+			
+			id = 158;
+			re = fser.RulelistFraction(id);//查询规则id为 157  的风险分值
+			User userwifia = new User();
+			userwifi.setUserId(userId);
+			userwifi.setName("金");
+			Integer wifiName =  fser.WifiNameNum(userwifia);//wifi名称是否命中金融类
+			if(re.getStatus() != 2){
+					if(wifiName != null){
+							count = count-Integer.valueOf(re.getValue_at_risk());
+							ru.setUserid(userId);
+							ru.setValue_at_risk(re.getValue_at_risk());
+							ru.setRtid(re.getTypeid());
+							ru.setRid(id);
+							ru.setUsum(count);
+							fser.AddCount(ru);
+					}
+			}		
+			
+			
+			
+			
+			id = 159;
+			re = fser.RulelistFraction(id);//查询规则id为 159  的风险分值
+			User userwifiaY = new User();
+			userwifi.setUserId(userId);
+			userwifi.setName("歌");
+			Integer userwifiaAY =  fser.WifiNameNum(userwifiaY);//wifi名称是否命中娱乐场所类
+			userwifi.setName("酒吧");
+			Integer userwifiaAj =  fser.WifiNameNum(userwifiaY);//wifi名称是否命中娱乐场所类
+			userwifi.setName("KTV");
+			Integer userwifiaAk =  fser.WifiNameNum(userwifiaY);//wifi名称是否命中娱乐场所类
+			if(re.getStatus() != 2){
+					if(userwifiaAY != null){
+							count = count-Integer.valueOf(re.getValue_at_risk());
+							ru.setUserid(userId);
+							ru.setValue_at_risk(re.getValue_at_risk());
+							ru.setRtid(re.getTypeid());
+							ru.setRid(id);
+							ru.setUsum(count);
+							fser.AddCount(ru);
+					}else if(userwifiaAj != null){
+						count = count-Integer.valueOf(re.getValue_at_risk());
+						ru.setUserid(userId);
+						ru.setValue_at_risk(re.getValue_at_risk());
+						ru.setRtid(re.getTypeid());
+						ru.setRid(id);
+						ru.setUsum(count);
+						fser.AddCount(ru);
+					}else if(userwifiaAk != null){
+						count = count-Integer.valueOf(re.getValue_at_risk());
+						ru.setUserid(userId);
+						ru.setValue_at_risk(re.getValue_at_risk());
+						ru.setRtid(re.getTypeid());
+						ru.setRid(id);
+						ru.setUsum(count);
+						fser.AddCount(ru);
+				}
+			}		
+			
+			
+			
+			
+			id = 160;
+			re = fser.RulelistFraction(id);//查询规则id为 160  的风险分值
+			User userwifiaYd = new User();
+			userwifi.setUserId(userId);
+			userwifi.setName("博彩");
+			Integer userwifiaAYc =  fser.WifiNameNum(userwifiaYd);//wifi名称是否命中赌博类
+			userwifi.setName("斗地主");
+			Integer userwifiaAjd =  fser.WifiNameNum(userwifiaYd);//wifi名称是否命中赌博类
+			userwifi.setName("金花");
+			Integer userwifiaAkj =  fser.WifiNameNum(userwifiaYd);//wifi名称是否命中赌博类
+			if(re.getStatus() != 2){
+					if(userwifiaAYc != null){
+							count = count-Integer.valueOf(re.getValue_at_risk());
+							ru.setUserid(userId);
+							ru.setValue_at_risk(re.getValue_at_risk());
+							ru.setRtid(re.getTypeid());
+							ru.setRid(id);
+							ru.setUsum(count);
+							fser.AddCount(ru);
+					}else if(userwifiaAjd != null){
+						count = count-Integer.valueOf(re.getValue_at_risk());
+						ru.setUserid(userId);
+						ru.setValue_at_risk(re.getValue_at_risk());
+						ru.setRtid(re.getTypeid());
+						ru.setRid(id);
+						ru.setUsum(count);
+						fser.AddCount(ru);
+					}else if(userwifiaAkj != null){
+						count = count-Integer.valueOf(re.getValue_at_risk());
+						ru.setUserid(userId);
+						ru.setValue_at_risk(re.getValue_at_risk());
+						ru.setRtid(re.getTypeid());
+						ru.setRid(id);
+						ru.setUsum(count);
+						fser.AddCount(ru);
+				}
+			}		
+			
+			
+			
+			
+			
+			id = 161;
+			re = fser.RulelistFraction(id);//查询规则id为 161  的风险分值
+			User userwifiaz = new User();
+			userwifi.setUserId(userId);
+			userwifi.setName("中介");
+			Integer wifiNamez =  fser.WifiNameNum(userwifiaz);//wifi名称是否命中中介类
+			if(re.getStatus() != 2){
+					if(wifiNamez != null){
+							count = count-Integer.valueOf(re.getValue_at_risk());
+							ru.setUserid(userId);
+							ru.setValue_at_risk(re.getValue_at_risk());
+							ru.setRtid(re.getTypeid());
+							ru.setRid(id);
+							ru.setUsum(count);
+							fser.AddCount(ru);
+					}
+			}		
+			
+			
+			
+			
+			
+			id = 162;
+			re = fser.RulelistFraction(id);//查询规则id为 162  的风险分值
+			User userwifiazy = new User();
+			userwifi.setUserId(userId);
+			userwifi.setName("医院");
+			Integer wifiNamezy =  fser.WifiNameNum(userwifiazy);//wifi名称是否命中医院类
+			if(re.getStatus() != 2){
+					if(wifiNamezy != null){
+							count = count-Integer.valueOf(re.getValue_at_risk());
+							ru.setUserid(userId);
+							ru.setValue_at_risk(re.getValue_at_risk());
+							ru.setRtid(re.getTypeid());
+							ru.setRid(id);
+							ru.setUsum(count);
+							fser.AddCount(ru);
+					}
+			}		
+			
+			
+			
+			
+			id = 163;
+			re = fser.RulelistFraction(id);//查询规则id为 163  的风险分值
+			User userwifiaYdd = new User();
+			userwifi.setUserId(userId);
+			userwifi.setName("酒店");
+			Integer userwifiaAYcd =  fser.WifiNameNum(userwifiaYdd);//wifi名称是否命中赌博类
+			userwifi.setName("宾馆");
+			Integer userwifiaAjdb =  fser.WifiNameNum(userwifiaYdd);//wifi名称是否命中赌博类
+			if(re.getStatus() != 2){
+					if(userwifiaAYcd != null){
+							count = count-Integer.valueOf(re.getValue_at_risk());
+							ru.setUserid(userId);
+							ru.setValue_at_risk(re.getValue_at_risk());
+							ru.setRtid(re.getTypeid());
+							ru.setRid(id);
+							ru.setUsum(count);
+							fser.AddCount(ru);
+					}else if(userwifiaAjdb != null){
+						count = count-Integer.valueOf(re.getValue_at_risk());
+						ru.setUserid(userId);
+						ru.setValue_at_risk(re.getValue_at_risk());
+						ru.setRtid(re.getTypeid());
+						ru.setRid(id);
+						ru.setUsum(count);
+						fser.AddCount(ru);
+					}
+			}		
+			
+			
+			
+			
+			
+			
+			id = 174;
+			re = fser.RulelistFraction(id);//查询规则id为 174  的风险分值
+			user.setPhone(phone);
+			Integer reportnumA = fser.UserLongintime(user);//登录app时间是否为12:00-5：00
+			if(re.getStatus() != 2){
+				if(reportnumA != null){
+						count = count-Integer.valueOf(re.getValue_at_risk());
+						ru.setUserid(userId);
+						ru.setValue_at_risk(re.getValue_at_risk());
+						ru.setRtid(re.getTypeid());
+						ru.setRid(id);
+						ru.setUsum(count);
+						fser.AddCount(ru);
+				}
+						
+			}
+			
+			
+			
+			
+			
 			
 			
 			id = 178;
@@ -1503,7 +1809,6 @@ public class FractionController {
 			
 			
 			
-			
 			id = 180;
 			re = fser.RulelistFraction(id);//查询规则id为 180  的风险分值
 			User ua = new User();
@@ -1522,13 +1827,13 @@ public class FractionController {
 				}
 			}
 			
-			
+			TuoMinUtil to = new TuoMinUtil();
 			
 			id = 181;
 			re = fser.RulelistFraction(id);//查询规则id为 181  的风险分值
 			User uc = new User();
 			uc.setUserId(userId);
-			uc.setPhone(phone);
+			uc.setPhone(to.mobileEncrypt(phone));
 			Integer phoneType = fser.AppInfoUser(uc);//借款用户手机号与运营商手机号是否匹配
 			if(re.getStatus() != 2){
 				if(phoneType == null){
@@ -1677,6 +1982,369 @@ public class FractionController {
 			}
 			
 			
+			
+			id = 185;
+			re = fser.RulelistFraction(id);//查询规则id为 185  的风险分值
+			String phonemoney = fser.PhoneUserMoney(userId);//手机余额 
+			BigDecimal aphon = new BigDecimal(phonemoney);
+			if(re.getStatus() != 2){
+				BigDecimal bphon = new BigDecimal(re.getThresholdValue());
+				int ctype = aphon.compareTo(bphon);
+				if(ctype < 0){
+						count = count-Integer.valueOf(re.getValue_at_risk());
+						ru.setUserid(userId);
+						ru.setValue_at_risk(re.getValue_at_risk());
+						ru.setRtid(re.getTypeid());
+						ru.setRid(id);
+						ru.setUsum(count);
+						fser.AddCount(ru);
+				}
+			}
+			
+			
+			
+			id = 197;
+			re = fser.RulelistFraction(id);//查询规则id为 197  的风险分值
+			Integer smsNum = fser.SmsUserMoney(userId);//短信发送次数
+			if(re.getStatus() != 2){
+				if(smsNum < Integer.valueOf(re.getThresholdValue())){
+						count = count-Integer.valueOf(re.getValue_at_risk());
+						ru.setUserid(userId);
+						ru.setValue_at_risk(re.getValue_at_risk());
+						ru.setRtid(re.getTypeid());
+						ru.setRid(id);
+						ru.setUsum(count);
+						fser.AddCount(ru);
+				}
+			}
+			
+			
+			
+			
+			id = 198;
+			re = fser.RulelistFraction(id);//查询规则id为 197  的风险分值
+			Integer smsCNum = fser.SmsUserMoney(userId);//短信发送次数
+			if(re.getStatus() != 2){
+				if(smsCNum > Integer.valueOf(re.getThresholdValue())){
+						count = count-Integer.valueOf(re.getValue_at_risk());
+						ru.setUserid(userId);
+						ru.setValue_at_risk(re.getValue_at_risk());
+						ru.setRtid(re.getTypeid());
+						ru.setRid(id);
+						ru.setUsum(count);
+						fser.AddCount(ru);
+				}
+			}
+			
+			
+			
+			
+			id = 186;
+			re = fser.RulelistFraction(id);//查询规则id为 186  的风险分值
+			Integer month = fser.MonthUserphone(userId);//近一月被叫号码个数
+			if(re.getStatus() != 2){
+				if(month < Integer.valueOf(re.getThresholdValue())){
+						count = count-Integer.valueOf(re.getValue_at_risk());
+						ru.setUserid(userId);
+						ru.setValue_at_risk(re.getValue_at_risk());
+						ru.setRtid(re.getTypeid());
+						ru.setRid(id);
+						ru.setUsum(count);
+						fser.AddCount(ru);
+				}
+			}
+			
+			
+			
+			id = 187;
+			re = fser.RulelistFraction(id);//查询规则id为 186  的风险分值
+			Integer monthC = fser.MonthUserphone(userId);//近一月被叫号码个数
+			if(re.getStatus() != 2){
+				if(monthC > Integer.valueOf(re.getThresholdValue())){
+						count = count-Integer.valueOf(re.getValue_at_risk());
+						ru.setUserid(userId);
+						ru.setValue_at_risk(re.getValue_at_risk());
+						ru.setRtid(re.getTypeid());
+						ru.setRid(id);
+						ru.setUsum(count);
+						fser.AddCount(ru);
+				}
+			}
+			
+			
+			
+			id = 199;
+			re = fser.RulelistFraction(id);//查询规则id为 199  的风险分值
+			Integer usernum = fser.UserNum(userId);//通讯录联系人数量
+			if(re.getStatus() != 2){
+				if(usernum < Integer.valueOf(re.getThresholdValue())){
+						count = count-Integer.valueOf(re.getValue_at_risk());
+						ru.setUserid(userId);
+						ru.setValue_at_risk(re.getValue_at_risk());
+						ru.setRtid(re.getTypeid());
+						ru.setRid(id);
+						ru.setUsum(count);
+						fser.AddCount(ru);
+				}
+			}
+			
+			
+			
+			id = 30;
+			re = fser.RulelistFraction(id);//查询规则id为 30  的风险分值
+			Integer apnum = 0;
+			user.setUserId(userId);
+			user.setName("借");
+			apnum =apnum + fser.AppNum(user);//近7天 借款人手机号对应设备历史安装借贷类app类个数
+			user.setName("贷");
+			apnum =apnum + fser.AppNum(user);
+			user.setName("米");
+			apnum =apnum + fser.AppNum(user);
+			if(re.getStatus() != 2){
+					if(dmnum != null){
+						if(dmnum >= Integer.valueOf(re.getThresholdValue())){
+							count = count-Integer.valueOf(re.getValue_at_risk());
+							ru.setUserid(userId);
+							ru.setValue_at_risk(re.getValue_at_risk());
+							ru.setRtid(re.getTypeid());
+							ru.setRid(id);
+							ru.setUsum(count);
+							fser.AddCount(ru);
+						}
+					}
+			}
+			
+			
+			
+			
+			id = 31;
+			re = fser.RulelistFraction(id);//查询规则id为 30  的风险分值
+			Integer monthapnum = 0;
+			user.setUserId(userId);
+			user.setName("借");
+			monthapnum =monthapnum + fser.AppNum(user);//近1个月借款人手机号对应设备历史安装借贷类app类个数
+			user.setName("贷");
+			monthapnum =monthapnum + fser.AppNum(user);
+			user.setName("米");
+			monthapnum =monthapnum + fser.AppNum(user);
+			if(re.getStatus() != 2){
+					if(monthapnum != null){
+						if(monthapnum >= Integer.valueOf(re.getThresholdValue())){
+							count = count-Integer.valueOf(re.getValue_at_risk());
+							ru.setUserid(userId);
+							ru.setValue_at_risk(re.getValue_at_risk());
+							ru.setRtid(re.getTypeid());
+							ru.setRid(id);
+							ru.setUsum(count);
+							fser.AddCount(ru);
+						}
+					}
+			}
+			
+			
+			
+			
+
+			id = 32;
+			re = fser.RulelistFraction(id);//查询规则id为 32  的风险分值
+			Integer dcnum = 0;
+			user.setUserId(userId);
+			user.setName("博彩");
+			dcnum = dcnum + fser.AppNum(user);//近7天借款人手机号对应设备历史安装赌博类app类个数
+			user.setName("斗地主");
+			dcnum = dcnum + fser.AppNum(user);//近7天借款人手机号对应设备历史安装赌博类app类个数
+			user.setName("金花");
+			dcnum = dcnum + fser.AppNum(user);//近7天借款人手机号对应设备历史安装赌博类app类个数
+			if(re.getStatus() != 2){
+					if(dcnum != null){
+						if(dcnum >= Integer.valueOf(re.getThresholdValue())){
+							count = count-Integer.valueOf(re.getValue_at_risk());
+							ru.setUserid(userId);
+							ru.setValue_at_risk(re.getValue_at_risk());
+							ru.setRtid(re.getTypeid());
+							ru.setRid(id);
+							ru.setUsum(count);
+							fser.AddCount(ru);
+						}
+					}
+			}
+			
+			
+			
+			
+			id = 33;
+			re = fser.RulelistFraction(id);//查询规则id为 33  的风险分值
+			Integer monthdcnum = 0;
+			user.setUserId(userId);
+			user.setName("博彩");
+			monthdcnum = monthdcnum + fser.AppNum(user);//近1个月借款人手机号对应设备历史安装赌博类app类个数
+			user.setName("斗地主");
+			monthdcnum = monthdcnum + fser.AppNum(user);//近1个月借款人手机号对应设备历史安装赌博类app类个数
+			user.setName("金花");
+			monthdcnum = monthdcnum + fser.AppNum(user);//近1个月借款人手机号对应设备历史安装赌博类app类个数
+			if(re.getStatus() != 2){
+					if(monthdcnum != null){
+						if(monthdcnum >= Integer.valueOf(re.getThresholdValue())){
+							count = count-Integer.valueOf(re.getValue_at_risk());
+							ru.setUserid(userId);
+							ru.setValue_at_risk(re.getValue_at_risk());
+							ru.setRtid(re.getTypeid());
+							ru.setRid(id);
+							ru.setUsum(count);
+							fser.AddCount(ru);
+						}
+					}
+			}
+			
+			
+			
+			
+			id = 34;
+			re = fser.RulelistFraction(id);//查询规则id为 30  的风险分值
+			Integer idapnum = 0;
+			user.setUserId(userId);
+			user.setName("借");
+			idapnum =idapnum + fser.AppNum(user);//近7天 借款人手机号对应设备历史安装借贷类app类个数
+			user.setName("贷");
+			idapnum =idapnum + fser.AppNum(user);
+			user.setName("米");
+			idapnum =idapnum + fser.AppNum(user);
+			if(re.getStatus() != 2){
+					if(idapnum != null){
+						if(idapnum >= Integer.valueOf(re.getThresholdValue())){
+							count = count-Integer.valueOf(re.getValue_at_risk());
+							ru.setUserid(userId);
+							ru.setValue_at_risk(re.getValue_at_risk());
+							ru.setRtid(re.getTypeid());
+							ru.setRid(id);
+							ru.setUsum(count);
+							fser.AddCount(ru);
+						}
+					}
+			}
+			
+			
+			
+			
+			id = 35;
+			re = fser.RulelistFraction(id);//查询规则id为 30  的风险分值
+			Integer idmonthapnum = 0;
+			user.setUserId(userId);
+			user.setName("借");
+			idmonthapnum =idmonthapnum + fser.AppNum(user);//近1个月借款人手机号对应设备历史安装借贷类app类个数
+			user.setName("贷");
+			idmonthapnum =idmonthapnum + fser.AppNum(user);
+			user.setName("米");
+			idmonthapnum =idmonthapnum + fser.AppNum(user);
+			if(re.getStatus() != 2){
+					if(idmonthapnum != null){
+						if(idmonthapnum >= Integer.valueOf(re.getThresholdValue())){
+							count = count-Integer.valueOf(re.getValue_at_risk());
+							ru.setUserid(userId);
+							ru.setValue_at_risk(re.getValue_at_risk());
+							ru.setRtid(re.getTypeid());
+							ru.setRid(id);
+							ru.setUsum(count);
+							fser.AddCount(ru);
+						}
+					}
+			}
+			
+			
+			
+			id = 36;
+			re = fser.RulelistFraction(id);//查询规则id为 36  的风险分值
+			Integer monthdAcnum = 0;
+			user.setUserId(userId);
+			user.setName("博彩");
+			monthdAcnum = monthdAcnum + fser.AppNum(user);//近7天借款人手机号对应设备历史安装赌博类app类个数
+			user.setName("斗地主");
+			monthdAcnum = monthdAcnum + fser.AppNum(user);//近7天借款人手机号对应设备历史安装赌博类app类个数
+			user.setName("金花");
+			monthdAcnum = monthdAcnum + fser.AppNum(user);//近7天借款人手机号对应设备历史安装赌博类app类个数
+			if(re.getStatus() != 2){
+					if(monthdAcnum != null){
+						if(monthdAcnum >= Integer.valueOf(re.getThresholdValue())){
+							count = count-Integer.valueOf(re.getValue_at_risk());
+							ru.setUserid(userId);
+							ru.setValue_at_risk(re.getValue_at_risk());
+							ru.setRtid(re.getTypeid());
+							ru.setRid(id);
+							ru.setUsum(count);
+							fser.AddCount(ru);
+						}
+					}
+			}
+			
+			
+			
+			
+			id = 33;
+			re = fser.RulelistFraction(id);//查询规则id为 33  的风险分值
+			Integer monthdcnumC = 0;
+			user.setUserId(userId);
+			user.setName("博彩");
+			monthdcnumC = monthdcnumC + fser.AppNum(user);//近1个月借款人手机号对应设备历史安装赌博类app类个数
+			user.setName("斗地主");
+			monthdcnumC = monthdcnumC + fser.AppNum(user);//近1个月借款人手机号对应设备历史安装赌博类app类个数
+			user.setName("金花");
+			monthdcnumC = monthdcnumC + fser.AppNum(user);//近1个月借款人手机号对应设备历史安装赌博类app类个数
+			if(re.getStatus() != 2){
+					if(monthdcnumC != null){
+						if(monthdcnumC >= Integer.valueOf(re.getThresholdValue())){
+							count = count-Integer.valueOf(re.getValue_at_risk());
+							ru.setUserid(userId);
+							ru.setValue_at_risk(re.getValue_at_risk());
+							ru.setRtid(re.getTypeid());
+							ru.setRid(id);
+							ru.setUsum(count);
+							fser.AddCount(ru);
+						}
+					}
+			}
+			
+			
+			
+			
+			id = 202;
+			re = fser.RulelistFraction(id);//查询规则id为 186  的风险分值
+			Integer monthZ = fser.MonthUserphone(userId);//近6月主叫号码数量
+			if(re.getStatus() != 2){
+				if(monthZ < Integer.valueOf(re.getThresholdValue())){
+						count = count-Integer.valueOf(re.getValue_at_risk());
+						ru.setUserid(userId);
+						ru.setValue_at_risk(re.getValue_at_risk());
+						ru.setRtid(re.getTypeid());
+						ru.setRid(id);
+						ru.setUsum(count);
+						fser.AddCount(ru);
+				}
+			}
+			
+			
+			
+			
+			
+			id = 203;
+			re = fser.RulelistFraction(id);//查询规则id为 186  的风险分值
+			Integer monthCs = fser.MonthUserphone(userId);//近3月被叫号码数量
+			if(re.getStatus() != 2){
+				if(monthCs > Integer.valueOf(re.getThresholdValue())){
+						count = count-Integer.valueOf(re.getValue_at_risk());
+						ru.setUserid(userId);
+						ru.setValue_at_risk(re.getValue_at_risk());
+						ru.setRtid(re.getTypeid());
+						ru.setRid(id);
+						ru.setUsum(count);
+						fser.AddCount(ru);
+				}
+			}
+			
+			
+			
+			
+			
+			
 			u.setFraction(count);
 			u.setIdnumber(idNumber);
 			
@@ -1688,7 +2356,8 @@ public class FractionController {
 				map.put("name", name);
 				map.put("userId", userId);
 				map.put("idNumber", idNumber);
-				map.put("count", "请重新调用");
+				map.put("msg", "请重新调用");
+				map.put("count", 0);
 				return map;
 			}
 		} catch (Exception e) {
@@ -1696,7 +2365,8 @@ public class FractionController {
 			map.put("name", name);
 			map.put("userId", userId);
 			map.put("idNumber", idNumber);
-			map.put("count", "请重新调用");
+			map.put("msg", "请重新调用");
+			map.put("count", 0);
 			System.out.println("报错");
 			return map;
 		}

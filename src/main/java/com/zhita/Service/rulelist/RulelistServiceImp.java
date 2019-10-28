@@ -1,15 +1,14 @@
 package com.zhita.Service.rulelist;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.mysql.fabric.xmlrpc.base.Array;
 import com.zhita.Dao.RulelistMapper;
 import com.zhita.Model.Rulelist;
 import com.zhita.Model.RulelistType;
@@ -113,17 +112,46 @@ public class RulelistServiceImp implements IntRulelistService{
     }
     
     //后台管理——查询用户表所有数据
-    public List<User> queryAllUser(){
-    	List<User> list= rulelistMapper.queryAllUser();
+    public Map<String,Object> queryAllUser(Integer page){
+    	List<User> list= new ArrayList<>();
+    	PageUtil2 pageUtil=null;
+		int totalCount=rulelistMapper.queryAllUserCount();//查询总数量
+		pageUtil=new PageUtil2(page,totalCount);
+    	if(page<1) {
+    		page=1;
+    		pageUtil.setPage(page);
+    	}
+    	else if(page>pageUtil.getTotalPageCount()) {
+    		if(totalCount==0) {
+    			page=pageUtil.getTotalPageCount()+1;
+    		}else {
+    			page=pageUtil.getTotalPageCount();
+    		}
+    		pageUtil.setPage(page);
+    	}
+    	int pages=(page-1)*pageUtil.getPageSize();
+    	
+    	list=rulelistMapper.queryAllUser(pages,pageUtil.getPageSize());
     	for (int i = 0; i < list.size(); i++) {
     		list.get(i).setAuthentication_time(Timestamps.stampToDate(list.get(i).getAuthentication_time()));
 		}
-    	return list;
+    	
+    	Map<String,Object> map=new HashMap<>();
+    	map.put("list", list);
+    	map.put("pageUtil", pageUtil);
+    	return map;
     }
     
     //后台管理——查询该用户的规则命中情况
     public List<Rulelist_detail> queryhit(Integer userid,String authentime){
-    	List<Rulelist_detail> list= rulelistMapper.queryhit(userid, authentime);
+    	String authentimesta=null;
+    	try {
+    		authentimesta=Timestamps.dateToStamp1(authentime);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	List<Rulelist_detail> list= rulelistMapper.queryhit(userid, authentimesta);
     	for (int i = 0; i < list.size(); i++) {
     		list.get(i).setAuthentication_time(Timestamps.stampToDate(list.get(i).getAuthentication_time()));
 		}

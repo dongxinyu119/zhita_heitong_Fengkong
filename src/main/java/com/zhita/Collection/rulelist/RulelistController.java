@@ -80,8 +80,8 @@ public class RulelistController {
     //后台管理——查询用户表所有数据
     @ResponseBody
 	@RequestMapping("/queryAllUser")
-    public List<User> queryAllUser(){
-    	return intRulelistService.queryAllUser();
+    public Map<String,Object> queryAllUser(Integer page){
+    	return intRulelistService.queryAllUser(page);
     }
     
     //后台管理——查询该用户的规则命中情况

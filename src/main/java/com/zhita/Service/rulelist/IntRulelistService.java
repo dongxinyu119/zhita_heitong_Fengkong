@@ -3,8 +3,6 @@ package com.zhita.Service.rulelist;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.annotations.Param;
-
 import com.zhita.Model.Rulelist;
 import com.zhita.Model.RulelistType;
 import com.zhita.Model.Rulelist_detail;
@@ -37,7 +35,7 @@ public interface IntRulelistService {
     public List<Rulelist_detail> queryuserhit(Integer rulelistid);
     
     //后台管理——查询用户表所有数据
-    public List<User> queryAllUser();
+    public Map<String,Object> queryAllUser(Integer page);
     
     //后台管理——查询该用户的规则命中情况
     public List<Rulelist_detail> queryhit(Integer userid,String authentime);

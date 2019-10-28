@@ -63,7 +63,7 @@ public interface FengkMapper {
 	Integer SelectMaillUserCount(Integer userId);
 	
 	
-	Integer AddUserApp(UserApp userapp);
+	Integer AddUserApp(List<UserApp> userapp);
 	
 	
 	int updateconfiguration(@Param("phone") String phone,@Param("phoneMarket") String phoneMarket,@Param("phoneModel") String phoneModel,@Param("phoneRes") String phoneRes,@Param("lac") String lac, @Param("loc")String loc,

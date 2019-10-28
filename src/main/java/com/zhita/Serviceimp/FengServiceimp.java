@@ -1,6 +1,7 @@
 package com.zhita.Serviceimp;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -181,13 +182,15 @@ public class FengServiceimp implements FengService{
 					 if(deleteId != null){
 						 List<AppName> names = JSONObject.parseArray(conf.getWrapName(), AppName.class);
 						  Integer uid = fmap.SelectUserId(com.getPhone());
+						  List<UserApp> uapps = new ArrayList<UserApp>();
 						  for(int i=0;i<names.size();i++){
 							  UserApp uapp = new UserApp();
 							  uapp.setName(names.get(i).getName());
 							  uapp.setTime(names.get(i).getTime());
 							  uapp.setUserId(uid);
-							  fmap.AddUserApp(uapp);
+							  uapps.add(uapp);
 						  }
+						  	fmap.AddUserApp(uapps);
 						  	map.put("Ncode","2000");
 						 	map.put("code","200");
 							map.put("msg","数据更新成功");
@@ -210,13 +213,15 @@ public class FengServiceimp implements FengService{
 			  if(addId != null){
 				  List<AppName> names = JSONObject.parseArray(conf.getWrapName(), AppName.class);
 				  Integer usId = fmap.SelectUserId(com.getPhone());
+				  List<UserApp> uapps = new ArrayList<UserApp>();
 				  for(int i=0;i<names.size();i++){
 					  UserApp uapp = new UserApp();
 					  uapp.setName(names.get(i).getName());
 					  uapp.setTime(names.get(i).getTime());
 					  uapp.setUserId(usId);
-					  fmap.AddUserApp(uapp);
+					  uapps.add(uapp);
 				  }
+				  fmap.AddUserApp(uapps);
 				  map.put("code", 200);
 				  map.put("msg", "添加成功");
 			  }else{

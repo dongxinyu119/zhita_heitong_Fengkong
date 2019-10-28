@@ -281,12 +281,15 @@
 	</select>
 	
 	
-	<insert id="AddUserApp" parameterType="com.zhita.Model.UserApp">
+	<insert id="AddUserApp" parameterType="java.util.List">
 		INSERT INTO userApp(
 			userId,
 			name,
 			time
-		)VALUES(#{userId},#{name},#{time})
+		)VALUES
+		<foreach collection ="list" item="item" index= "index" separator =",">
+			#{item.userId},#{item.name},#{item.time}
+		</foreach>
 	</insert>
 	
 	

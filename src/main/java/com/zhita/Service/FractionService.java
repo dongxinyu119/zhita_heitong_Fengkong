@@ -1,6 +1,6 @@
 package com.zhita.Service;
 
-import java.math.BigDecimal;
+
 
 import com.zhita.Model.Rulelist;
 import com.zhita.Model.Rulelist_detail;
@@ -106,5 +106,14 @@ public interface FractionService {
 	
 	
 	Integer UserLongintime(User user);
+	
+	
+	Integer Userpt(Integer userId);
+	
+	
+	int Userappt(User userId);
+	
+	
+	int IDNumberCount(User userId);
 	
 }

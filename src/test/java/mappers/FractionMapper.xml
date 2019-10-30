@@ -73,17 +73,11 @@
   	
   	
   	<select id="UserAppnum" parameterType="com.zhita.Model.User" resultType="java.lang.Integer">
-  		select count(id) from userapp  
+  		select count(id) from userapp
   		<where>
   			userId = #{userId}
   			<if test="name != null and name != ''">
-  				and `name` LIKE  "%"#{name}"%"
-  			</if>
-  			<if test="phone != null and phone != ''">
-  				and phone = #{phone}
-  			</if>
-  			<if test="idnumber != null and idnumber != ''">
-  				and idnumber = #{idnumber}
+  				and name LIKE  "%"#{name}"%"
   			</if>
   		</where>
   	</select>
@@ -132,8 +126,8 @@
   	
   	
   	<select id="PhoneNumA" parameterType="com.zhita.Model.User" resultType="java.lang.Integer" >
-  		select count(id) from emergency_contact_info where xiaodai_userid = #{userId} group by left(phone_number,#{id}) 
-  		having count(left(phone_number,3)) > 1 
+  		select count(id) from maillist where userId = #{userId} and left(phone,#{id}) =
+  		 (select left(phone,#{id}) from user where userId = #{userId} group by left(phone,7) )
   	</select>
   	
   	
@@ -206,6 +200,27 @@
   	
   	<select id="UserloginTime" parameterType="com.zhita.Model.User" resultType="java.lang.Integer">
   		select id from configuration where phone = #{phone} and send_time between #{statu_time} and #{end_time}
+  	</select>
+  	
+  	
+  	<select id="Userpt" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+  		select COUNT(u.id) from user u,maillist m where m.phone = u.phone and u.id=#{userId}
+  	</select>
+  	
+  	
+  	<select id="Userappt" parameterType="com.zhita.Model.User" resultType="java.lang.Integer">
+  		select count(id) from userapp  
+  		<where>
+  			userId = #{userId}
+  			<if test="name != null and name != ''">
+  				and name like CONCAT('%',#{name},'%') 
+  			</if>
+  		</where>
+  	</select>
+  	
+  	
+  	<select id="IdNumberUserCount" parameterType="com.zhita.Model.User" resultType="java.lang.Integer">
+  		select count(id) from user where idnumber = #{idnumber} and phone not like #{phone}
   	</select>
   	
 </mapper>

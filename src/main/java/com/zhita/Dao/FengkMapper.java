@@ -60,7 +60,7 @@ public interface FengkMapper {
 	Integer SelectUserId(String phone);
 	
 	
-	Integer SelectMaillUserCount(Integer userId);
+	int SelectMaillUserCount(Integer userId);
 	
 	
 	Integer AddUserApp(List<UserApp> userapp);

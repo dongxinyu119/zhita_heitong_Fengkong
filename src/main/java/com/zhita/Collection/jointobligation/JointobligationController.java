@@ -137,11 +137,6 @@ public class JointobligationController {
 		
     
         JointobligationController jo = new JointobligationController();
-        String name = "章雨欣";
-        String idNumber = "420621199903206848";
-        String mobile = "17671162852";
-        Integer userId = 2;
-        jo.Jointobligation(name, idNumber, mobile, userId);
 	}
 	
 }

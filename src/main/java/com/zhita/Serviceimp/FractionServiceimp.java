@@ -272,6 +272,21 @@ public class FractionServiceimp implements FractionService{
 		return fractionmapper.UserloginTime(user);
 	}
 
+	@Override
+	public Integer Userpt(Integer userId) {
+		return fractionmapper.Userpt(userId);
+	}
+
+	@Override
+	public int Userappt(User userId) {
+		return fractionmapper.Userappt(userId);
+	}
+
+	@Override
+	public int IDNumberCount(User userId) {
+		return fractionmapper.IdNumberUserCount(userId);
+	}
+
 
 	
 	

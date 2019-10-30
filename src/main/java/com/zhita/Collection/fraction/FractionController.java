@@ -1986,7 +1986,13 @@ public class FractionController {
 			id = 185;
 			re = fser.RulelistFraction(id);//查询规则id为 185  的风险分值
 			String phonemoney = fser.PhoneUserMoney(userId);//手机余额 
-			BigDecimal aphon = new BigDecimal(phonemoney);
+			BigDecimal aphon = null;
+			if(phonemoney != null){
+				aphon = new BigDecimal(phonemoney);
+			}else{
+				aphon = new BigDecimal(0);
+			}
+			
 			if(re.getStatus() != 2){
 				BigDecimal bphon = new BigDecimal(re.getThresholdValue());
 				int ctype = aphon.compareTo(bphon);
@@ -2279,7 +2285,7 @@ public class FractionController {
 			
 			
 			
-			id = 33;
+			id = 37;
 			re = fser.RulelistFraction(id);//查询规则id为 33  的风险分值
 			Integer monthdcnumC = 0;
 			user.setUserId(userId);
@@ -2344,10 +2350,860 @@ public class FractionController {
 			
 			
 			
+			id = 9;
+			re = fser.RulelistFraction(id);//查询规则id为 9  的风险分值
+			if(re != null){
+				if(re.getStatus() != 2){
+					Integer userPhoneCount = fser.Userpt(userId);//借款人通讯录关联平台注册借款人
+					if(userPhoneCount != null){
+						if(userPhoneCount >= Integer.valueOf(re.getThresholdValue())){
+							count = count-Integer.valueOf(re.getValue_at_risk());
+							ru.setUserid(userId);
+							ru.setValue_at_risk(re.getValue_at_risk());
+							ru.setRid(id);
+							ru.setUsum(count);
+							ru.setRtid(re.getTypeid());
+							fser.AddCount(ru);
+						}
+					}
+				}
+			}
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			id = 10;
+			re = fser.RulelistFraction(id);//查询规则id为 10  的风险分值
+			if(re != null){
+				if(re.getStatus() != 2){
+					Integer userPhoneCount = fser.Userpt(userId);//借款人通讯录关联平台逾期借款人
+					if(userPhoneCount != null){
+						if(userPhoneCount >= Integer.valueOf(re.getThresholdValue())){
+							count = count-Integer.valueOf(re.getValue_at_risk());
+							ru.setUserid(userId);
+							ru.setValue_at_risk(re.getValue_at_risk());
+							ru.setRid(id);
+							ru.setUsum(count);
+							ru.setRtid(re.getTypeid());
+							fser.AddCount(ru);
+						}
+					}
+				}
+			}
+			
+			
+			
+			
+			
+//			id = 235;
+//			re = fser.RulelistFraction(id);//查询规则id为 235  的风险分值
+//			User uas = new User();
+//			uas.setUserId(userId);
+//			if(re != null){
+//				if(re.getStatus() != 2){
+//					Integer userPhoneCount = fser.Userappt(uas);//app安装个数
+//					if(userPhoneCount != null){
+//						if(userPhoneCount < Integer.valueOf(re.getThresholdValue())){
+//							count = count-Integer.valueOf(re.getValue_at_risk());
+//							ru.setUserid(userId);
+//							ru.setValue_at_risk(re.getValue_at_risk());
+//							ru.setRid(id);
+//							ru.setUsum(count);
+//							ru.setRtid(re.getTypeid());
+//							fser.AddCount(ru);
+//						}
+//					}
+//				}
+//			}
+			
+			
+			
+			
+			
+			id = 236;
+			re = fser.RulelistFraction(id);//查询规则id为 236  的风险分值
+			User userIda = new User();
+			userIda.setUserId(userId);
+			userIda.setName("微信");
+			if(re != null){
+				if(re.getStatus() != 2){
+					Integer userPhoneCount = fser.Userappt(userIda);//是否有安装微信app
+					if(userPhoneCount == null){
+							count = count-Integer.valueOf(re.getValue_at_risk());
+							ru.setUserid(userId);
+							ru.setValue_at_risk(re.getValue_at_risk());
+							ru.setRid(id);
+							ru.setUsum(count);
+							ru.setRtid(re.getTypeid());
+							fser.AddCount(ru);
+					}
+				}
+			}
+			
+			
+			
+			
+			
+			id = 237;
+			re = fser.RulelistFraction(id);//查询规则id为 237  的风险分值
+			User userIdz = new User();
+			userIdz.setUserId(userId);
+			userIdz.setName("支付宝");
+			if(re != null){
+				if(re.getStatus() != 2){
+					Integer userPhoneCount = fser.Userappt(userIdz);//是否有安装支付宝app
+					if(userPhoneCount == null){
+							count = count-Integer.valueOf(re.getValue_at_risk());
+							ru.setUserid(userId);
+							ru.setValue_at_risk(re.getValue_at_risk());
+							ru.setRid(id);
+							ru.setUsum(count);
+							ru.setRtid(re.getTypeid());
+							fser.AddCount(ru);
+					}
+				}
+			}
+			
+			
+			
+			
+			
+			
+//			id = 239;
+//			re = fser.RulelistFraction(id);//查询规则id为 239  的风险分值
+//			User userIdi = new User();
+//			userIdi.setUserId(userId);
+//			userIdi.setName("IMEI");
+//			if(re != null){
+//				if(re.getStatus() != 2){
+//					Integer userPhoneCount = fser.Userappt(userIdi);//是否有IMEI修改app
+//					if(userPhoneCount != null){
+//							count = count-Integer.valueOf(re.getValue_at_risk());
+//							ru.setUserid(userId);
+//							ru.setValue_at_risk(re.getValue_at_risk());
+//							ru.setRid(id);
+//							ru.setUsum(count);
+//							ru.setRtid(re.getTypeid());
+//							fser.AddCount(ru);
+//					}
+//				}
+//			}
+			
+			
+			
+			
+//			
+//			id = 245;
+//			re = fser.RulelistFraction(id);//查询规则id为 245  的风险分值
+//			User userIdq = new User();
+//			userIdq.setUserId(userId);
+//			userIdq.setName("QQ");
+//			if(re != null){
+//				if(re.getStatus() != 2){
+//					Integer userPhoneCount = fser.Userappt(userIdq);//是否安装QQapp
+//					if(userPhoneCount != null){
+//							count = count-Integer.valueOf(re.getValue_at_risk());
+//							ru.setUserid(userId);
+//							ru.setValue_at_risk(re.getValue_at_risk());
+//							ru.setRid(id);
+//							ru.setUsum(count);
+//							ru.setRtid(re.getTypeid());
+//							fser.AddCount(ru);
+//					}
+//				}
+//			}
+			
+			
+			
+			
+			
+//			id = 246;
+//			re = fser.RulelistFraction(id);//查询规则id为 246  的风险分值
+//			User userIdr = new User();
+//			userIdr.setUserId(userId);
+//			userIdr.setName("日历");
+//			if(re != null){
+//				if(re.getStatus() != 2){
+//					Integer userPhoneCount = fser.Userappt(userIdr);//是否安装日历app
+//					if(userPhoneCount != null){
+//							count = count-Integer.valueOf(re.getValue_at_risk());
+//							ru.setUserid(userId);
+//							ru.setValue_at_risk(re.getValue_at_risk());
+//							ru.setRid(id);
+//							ru.setUsum(count);
+//							ru.setRtid(re.getTypeid());
+//							fser.AddCount(ru);
+//					}
+//				}
+//			}
+			
+			
+			
+			
+			
+//			id = 240;
+//			re = fser.RulelistFraction(id);//查询规则id为 240  的风险分值
+//			User userIdn = new User();
+//			userIdn.setUserId(userId);
+//			userIdn.setName("微信");
+//			if(re != null){
+//				if(re.getStatus() != 2){
+//					Integer userPhoneCount = fser.Userappt(userIdn);//微信app安装个数
+//					if(userPhoneCount != null){
+//						if(userPhoneCount > Integer.valueOf(re.getThresholdValue())){
+//							count = count-Integer.valueOf(re.getValue_at_risk());
+//							ru.setUserid(userId);
+//							ru.setValue_at_risk(re.getValue_at_risk());
+//							ru.setRid(id);
+//							ru.setUsum(count);
+//							ru.setRtid(re.getTypeid());
+//							fser.AddCount(ru);
+//						}
+//					}
+//				}
+//			}
+//			
+//			
+//			
+//			
+//			id = 241;
+//			re = fser.RulelistFraction(id);//查询规则id为 241  的风险分值
+//			User userIdzf = new User();
+//			userIdzf.setUserId(userId);
+//			userIdzf.setName("支付宝");
+//			if(re != null){
+//				if(re.getStatus() != 2){
+//					Integer userPhoneCount = fser.Userappt(userIdzf);//支付宝app安装个数
+//					if(userPhoneCount != null){
+//						if(userPhoneCount > Integer.valueOf(re.getThresholdValue())){
+//							count = count-Integer.valueOf(re.getValue_at_risk());
+//							ru.setUserid(userId);
+//							ru.setValue_at_risk(re.getValue_at_risk());
+//							ru.setRid(id);
+//							ru.setUsum(count);
+//							ru.setRtid(re.getTypeid());
+//							fser.AddCount(ru);
+//						}
+//					}
+//				}
+//			}
+//			
+//			
+//			
+//			
+//			id = 247;
+//			re = fser.RulelistFraction(id);//查询规则id为 247  的风险分值
+//			User userIdx = new User();
+//			userIdx.setUserId(userId);
+//			userIdx.setName("相册");
+//			if(re != null){
+//				if(re.getStatus() != 2){
+//					Integer userPhoneCount = fser.Userappt(userIdr);//是否安装相册app
+//					if(userPhoneCount != null){
+//							count = count-Integer.valueOf(re.getValue_at_risk());
+//							ru.setUserid(userId);
+//							ru.setValue_at_risk(re.getValue_at_risk());
+//							ru.setRid(id);
+//							ru.setUsum(count);
+//							ru.setRtid(re.getTypeid());
+//							fser.AddCount(ru);
+//					}
+//				}
+//			}
+//			
+//			
+//			
+//			id = 248;
+//			re = fser.RulelistFraction(id);//查询规则id为 248  的风险分值
+//			User userIds = new User();
+//			userIds.setUserId(userId);
+//			userIds.setName("设置");
+//			if(re != null){
+//				if(re.getStatus() != 2){
+//					Integer userPhoneCount = fser.Userappt(userIds);//是否安装设置app
+//					if(userPhoneCount != null){
+//							count = count-Integer.valueOf(re.getValue_at_risk());
+//							ru.setUserid(userId);
+//							ru.setValue_at_risk(re.getValue_at_risk());
+//							ru.setRid(id);
+//							ru.setUsum(count);
+//							ru.setRtid(re.getTypeid());
+//							fser.AddCount(ru);
+//					}
+//				}
+//			}
+//			
+//			
+//			
+//			
+//			
+//			id = 249;
+//			re = fser.RulelistFraction(id);//查询规则id为 249  的风险分值
+//			User userIdl = new User();
+//			userIdl.setUserId(userId);
+//			userIdl.setName("浏览器");
+//			if(re != null){
+//				if(re.getStatus() != 2){
+//					Integer userPhoneCount = fser.Userappt(userIdl);//是否安装浏览器app
+//					if(userPhoneCount != null){
+//							count = count-Integer.valueOf(re.getValue_at_risk());
+//							ru.setUserid(userId);
+//							ru.setValue_at_risk(re.getValue_at_risk());
+//							ru.setRid(id);
+//							ru.setUsum(count);
+//							ru.setRtid(re.getTypeid());
+//							fser.AddCount(ru);
+//					}
+//				}
+//			}
+//			
+//			
+//			
+//			
+//			id = 250;
+//			re = fser.RulelistFraction(id);//查询规则id为 250  的风险分值
+//			User userIdly = new User();
+//			userIdly.setUserId(userId);
+//			userIdly.setName("旅");
+//			if(re != null){
+//				if(re.getStatus() != 2){
+//					Integer userPhoneCount = fser.Userappt(userIdly);//是否安装旅游出行类app
+//					if(userPhoneCount != null){
+//							count = count-Integer.valueOf(re.getValue_at_risk());
+//							ru.setUserid(userId);
+//							ru.setValue_at_risk(re.getValue_at_risk());
+//							ru.setRid(id);
+//							ru.setUsum(count);
+//							ru.setRtid(re.getTypeid());
+//							fser.AddCount(ru);
+//					}
+//				}
+//			}
+//			
+//			
+//			
+//			
+//			
+//			id = 251;
+//			re = fser.RulelistFraction(id);//查询规则id为 251  的风险分值
+//			User userIdlya = new User();
+//			userIdlya.setUserId(userId);
+//			userIdlya.setName("旅");
+//			if(re != null){
+//				if(re.getStatus() != 2){
+//					Integer userPhoneCount = fser.Userappt(userIdlya);//旅游出行类app安装个数
+//					if(userPhoneCount != null){
+//						if(userPhoneCount < Integer.valueOf(re.getThresholdValue())){
+//							count = count-Integer.valueOf(re.getValue_at_risk());
+//							ru.setUserid(userId);
+//							ru.setValue_at_risk(re.getValue_at_risk());
+//							ru.setRid(id);
+//							ru.setUsum(count);
+//							ru.setRtid(re.getTypeid());
+//							fser.AddCount(ru);
+//						}
+//					}
+//				}
+//			}
+//			
+//			
+//			
+//			
+//			id = 252;
+//			re = fser.RulelistFraction(id);//查询规则id为 252  的风险分值
+//			User userIdlq = new User();
+//			userIdlq.setUserId(userId);
+//			if(re != null){
+//				if(re.getStatus() != 2){
+//					Integer userPhoneCount = fser.Userappt(userIdlq);//其他类app安装个数
+//					if(userPhoneCount != null){
+//						if(userPhoneCount > Integer.valueOf(re.getThresholdValue())){
+//							count = count-Integer.valueOf(re.getValue_at_risk());
+//							ru.setUserid(userId);
+//							ru.setValue_at_risk(re.getValue_at_risk());
+//							ru.setRid(id);
+//							ru.setUsum(count);
+//							ru.setRtid(re.getTypeid());
+//							fser.AddCount(ru);
+//						}
+//					}
+//				}
+//			}
+//			
+//			
+//			
+//			
+//			
+//			id = 253;
+//			re = fser.RulelistFraction(id);//查询规则id为 253  的风险分值
+//			User userIdld = new User();
+//			userIdld.setUserId(userId);
+//			userIdld.setName("毒");
+//			if(re != null){
+//				if(re.getStatus() != 2){
+//					Integer userPhoneCount = fser.Userappt(userIdld);//是否安装软件杀毒类app
+//					if(userPhoneCount != null){
+//							count = count-Integer.valueOf(re.getValue_at_risk());
+//							ru.setUserid(userId);
+//							ru.setValue_at_risk(re.getValue_at_risk());
+//							ru.setRid(id);
+//							ru.setUsum(count);
+//							ru.setRtid(re.getTypeid());
+//							fser.AddCount(ru);
+//					}
+//				}
+//			}
+//			
+//			
+//			
+//			
+//			
+//			id = 254;
+//			re = fser.RulelistFraction(id);//查询规则id为 254  的风险分值
+//			User userIdldn = new User();
+//			userIdldn.setUserId(userId);
+//			userIdldn.setName("毒");
+//			if(re != null){
+//				if(re.getStatus() != 2){
+//					Integer userPhoneCount = fser.Userappt(userIdldn);//软件杀毒类app安装个数
+//					if(userPhoneCount != null){
+//						if(userPhoneCount > Integer.valueOf(re.getThresholdValue())){
+//							count = count-Integer.valueOf(re.getValue_at_risk());
+//							ru.setUserid(userId);
+//							ru.setValue_at_risk(re.getValue_at_risk());
+//							ru.setRid(id);
+//							ru.setUsum(count);
+//							ru.setRtid(re.getTypeid());
+//							fser.AddCount(ru);
+//						}
+//					}
+//				}
+//			}
+//			
+//			
+//			
+//			
+//			id = 255;
+//			re = fser.RulelistFraction(id);//查询规则id为 255  的风险分值
+//			User userIdldx = new User();
+//			userIdldx.setUserId(userId);
+//			userIdldx.setName("相");
+//			User userIdldt = new User();
+//			userIdldt.setUserId(userId);
+//			userIdldt.setName("图");
+//			if(re != null){
+//				if(re.getStatus() != 2){
+//					Integer userPhoneCount = fser.Userappt(userIdldn);//摄影图像类app安装个数
+//					Integer userPhoneTCount = fser.Userappt(userIdldt);
+//					userPhoneCount = userPhoneCount + userPhoneTCount;
+//					if(userPhoneCount != null){
+//						if(userPhoneCount > Integer.valueOf(re.getThresholdValue())){
+//							count = count-Integer.valueOf(re.getValue_at_risk());
+//							ru.setUserid(userId);
+//							ru.setValue_at_risk(re.getValue_at_risk());
+//							ru.setRid(id);
+//							ru.setUsum(count);
+//							ru.setRtid(re.getTypeid());
+//							fser.AddCount(ru);
+//						}
+//					}
+//				}
+//			}
+//			
+//			
+//			
+//			
+//			
+//			id = 256;
+//			re = fser.RulelistFraction(id);//查询规则id为 255  的风险分值
+//			User userIdlds = new User();
+//			userIdlds.setUserId(userId);
+//			userIdlds.setName("美团");
+//			if(re != null){
+//				if(re.getStatus() != 2){
+//					Integer userPhoneCount = fser.Userappt(userIdlds);//是否安装生活服务类app
+//					if(userPhoneCount != null){
+//							count = count-Integer.valueOf(re.getValue_at_risk());
+//							ru.setUserid(userId);
+//							ru.setValue_at_risk(re.getValue_at_risk());
+//							ru.setRid(id);
+//							ru.setUsum(count);
+//							ru.setRtid(re.getTypeid());
+//							fser.AddCount(ru);
+//					}
+//				}
+//			}
+//			
+//			
+//			
+//			
+//			id = 257;
+//			re = fser.RulelistFraction(id);//查询规则id为 256  的风险分值
+//			User userIdlds1 = new User();
+//			userIdlds1.setUserId(userId);
+//			userIdlds1.setName("美团");
+//			User userIdldsh = new User();
+//			userIdldsh.setUserId(userId);
+//			userIdldsh.setName("生");
+//			if(re != null){
+//				if(re.getStatus() != 2){
+//					Integer userPhoneCount = fser.Userappt(userIdlds1);//是否安装生活服务类app
+//					Integer userPhoneTCount = fser.Userappt(userIdldsh);
+//					userPhoneCount = userPhoneCount + userPhoneTCount;
+//					if(userPhoneCount != null){
+//						if(userPhoneCount < Integer.valueOf(re.getThresholdValue())){
+//							count = count-Integer.valueOf(re.getValue_at_risk());
+//							ru.setUserid(userId);
+//							ru.setValue_at_risk(re.getValue_at_risk());
+//							ru.setRid(id);
+//							ru.setUsum(count);
+//							ru.setRtid(re.getTypeid());
+//							fser.AddCount(ru);
+//						}
+//					}
+//				}
+//			}
+//			
+//			
+//			
+//			
+//			id = 258;
+//			re = fser.RulelistFraction(id);//查询规则id为 258  的风险分值
+//			User userIdldtx = new User();
+//			userIdldtx.setUserId(userId);
+//			userIdldtx.setName("通讯");
+//			if(re != null){
+//				if(re.getStatus() != 2){
+//					Integer userPhoneCount = fser.Userappt(userIdldtx);//是否安装通讯社交类app
+//					if(userPhoneCount != null){
+//							count = count-Integer.valueOf(re.getValue_at_risk());
+//							ru.setUserid(userId);
+//							ru.setValue_at_risk(re.getValue_at_risk());
+//							ru.setRid(id);
+//							ru.setUsum(count);
+//							ru.setRtid(re.getTypeid());
+//							fser.AddCount(ru);
+//					}
+//				}
+//			}
+//			
+//			
+//			
+//			id = 259;
+//			re = fser.RulelistFraction(id);//查询规则id为 259  的风险分值
+//			User userIdldtxn = new User();
+//			userIdldtxn.setUserId(userId);
+//			userIdldtxn.setName("通讯");
+//			User userIdldtxn2 = new User();
+//			userIdldtxn2.setUserId(userId);
+//			userIdldtxn2.setName("社");
+//			if(re != null){
+//				if(re.getStatus() != 2){
+//					Integer userPhoneCount = fser.Userappt(userIdldtxn);//通讯社交类app安装个数
+//					Integer userPhoneCount1 = fser.Userappt(userIdldtxn2);
+//					userPhoneCount = userPhoneCount + userPhoneCount1;
+//					if(userPhoneCount != null){
+//						if(userPhoneCount > Integer.valueOf(re.getThresholdValue())){
+//							count = count-Integer.valueOf(re.getValue_at_risk());
+//							ru.setUserid(userId);
+//							ru.setValue_at_risk(re.getValue_at_risk());
+//							ru.setRid(id);
+//							ru.setUsum(count);
+//							ru.setRtid(re.getTypeid());
+//							fser.AddCount(ru);
+//						}
+//					}
+//				}
+//			}
+//			
+//			
+//			
+//			
+//			id = 260;
+//			re = fser.RulelistFraction(id);//查询规则id为 260  的风险分值
+//			User userIdldtx2 = new User();
+//			userIdldtx2.setUserId(userId);
+//			userIdldtx2.setName("通讯");
+//			User userIdldtx21 = new User();
+//			userIdldtx21.setUserId(userId);
+//			userIdldtx21.setName("社");
+//			if(re != null){
+//				if(re.getStatus() != 2){
+//					Integer userPhoneCount = fser.Userappt(userIdldtx2);//通讯社交类app安装个数
+//					Integer userPhoneCount2 = fser.Userappt(userIdldtx21);
+//					userPhoneCount = userPhoneCount + userPhoneCount2;
+//					if(userPhoneCount != null){
+//						if(userPhoneCount < Integer.valueOf(re.getThresholdValue())){
+//							count = count-Integer.valueOf(re.getValue_at_risk());
+//							ru.setUserid(userId);
+//							ru.setValue_at_risk(re.getValue_at_risk());
+//							ru.setRid(id);
+//							ru.setUsum(count);
+//							ru.setRtid(re.getTypeid());
+//							fser.AddCount(ru);
+//						}
+//					}
+//				}
+//			}
+//			
+//			
+//			
+//			
+//			
+//			id = 261;
+//			re = fser.RulelistFraction(id);//查询规则id为 261  的风险分值
+//			User userIdldtxg = new User();
+//			userIdldtxg.setUserId(userId);
+//			userIdldtxg.setName("淘宝");
+//			if(re != null){
+//				if(re.getStatus() != 2){
+//					Integer userPhoneCount = fser.Userappt(userIdldtxg);//是否安装网上购物类app
+//					if(userPhoneCount == null){
+//							count = count-Integer.valueOf(re.getValue_at_risk());
+//							ru.setUserid(userId);
+//							ru.setValue_at_risk(re.getValue_at_risk());
+//							ru.setRid(id);
+//							ru.setUsum(count);
+//							ru.setRtid(re.getTypeid());
+//							fser.AddCount(ru);
+//					}
+//				}
+//			}
+//			
+//			
+//			
+//			
+//			id = 262;
+//			re = fser.RulelistFraction(id);//查询规则id为 262  的风险分值
+//			User userIdldtxg1 = new User();
+//			userIdldtxg1.setUserId(userId);
+//			userIdldtxg1.setName("淘宝");
+//			User userIdldtxg2 = new User();
+//			userIdldtxg2.setUserId(userId);
+//			userIdldtxg2.setName("京东");
+//			User userIdldtxg3 = new User();
+//			userIdldtxg3.setUserId(userId);
+//			userIdldtxg3.setName("拼多多");
+//			User userIdldtxg4 = new User();
+//			userIdldtxg4.setUserId(userId);
+//			userIdldtxg4.setName("唯品会");
+//			if(re != null){
+//				if(re.getStatus() != 2){
+//					int userPhoneCount = fser.Userappt(userIdldtxg1);//通讯社交类app安装个数
+//					int userPhoneCount2 = fser.Userappt(userIdldtxg2);
+//					int userPhoneCount3 = fser.Userappt(userIdldtxg3);
+//					int userPhoneCount4 = fser.Userappt(userIdldtxg4);
+//					userPhoneCount = userPhoneCount + userPhoneCount2 + userPhoneCount3 + userPhoneCount4;
+//					if(userPhoneCount != 0){
+//						if(userPhoneCount < Integer.valueOf(re.getThresholdValue())){
+//							count = count-Integer.valueOf(re.getValue_at_risk());
+//							ru.setUserid(userId);
+//							ru.setValue_at_risk(re.getValue_at_risk());
+//							ru.setRid(id);
+//							ru.setUsum(count);
+//							ru.setRtid(re.getTypeid());
+//							fser.AddCount(ru);
+//						}
+//					}
+//				}
+//			}
+//			
+//			
+//			
+//			
+//			
+//			id = 263;
+//			re = fser.RulelistFraction(id);//查询规则id为 263  的风险分值
+//			User userIdldtxgq = new User();
+//			userIdldtxgq.setUserId(userId);
+//			if(re != null){
+//				if(re.getStatus() != 2){
+//					int userPhoneCount = fser.Userappt(userIdldtxgq);//未知类appp安装个数
+//					if(userPhoneCount != 0){
+//						if(userPhoneCount < Integer.valueOf(re.getThresholdValue())){
+//							count = count-Integer.valueOf(re.getValue_at_risk());
+//							ru.setUserid(userId);
+//							ru.setValue_at_risk(re.getValue_at_risk());
+//							ru.setRid(id);
+//							ru.setUsum(count);
+//							ru.setRtid(re.getTypeid());
+//							fser.AddCount(ru);
+//						}
+//					}
+//				}
+//			}
+//			
+//			
+//			
+//			
+//			id = 264;
+//			re = fser.RulelistFraction(id);//查询规则id为 264  的风险分值
+//			User userIdldtxw = new User();
+//			userIdldtxw.setUserId(userId);
+//			userIdldtxw.setName("新闻");
+//			User userIdldtyd = new User();
+//			userIdldtyd.setUserId(userId);
+//			userIdldtyd.setName("阅读");
+//			if(re != null){
+//				if(re.getStatus() != 2){
+//					int userPhoneCount = fser.Userappt(userIdldtxw);//是否安装新闻阅读类app
+//					int userPhoneCount1 = fser.Userappt(userIdldtxw);//是否安装新闻阅读类app
+//					userPhoneCount = userPhoneCount + userPhoneCount1;
+//					if(userPhoneCount == 0){
+//							count = count-Integer.valueOf(re.getValue_at_risk());
+//							ru.setUserid(userId);
+//							ru.setValue_at_risk(re.getValue_at_risk());
+//							ru.setRid(id);
+//							ru.setUsum(count);
+//							ru.setRtid(re.getTypeid());
+//							fser.AddCount(ru);
+//					}
+//				}
+//			}
+//			
+//			
+//			
+//			
+//			id = 265;
+//			re = fser.RulelistFraction(id);//查询规则id为 265  的风险分值
+//			User userIdldtsp = new User();
+//			userIdldtsp.setUserId(userId);
+//			userIdldtsp.setName("视频");
+//			User userIdldtyy = new User();
+//			userIdldtyy.setUserId(userId);
+//			userIdldtyy.setName("影音");
+//			if(re != null){
+//				if(re.getStatus() != 2){
+//					int userPhoneCount = fser.Userappt(userIdldtsp);//是否影音播放类app
+//					int userPhoneCount1 = fser.Userappt(userIdldtyy);
+//					userPhoneCount = userPhoneCount + userPhoneCount1;
+//					if(userPhoneCount == 0){
+//							count = count-Integer.valueOf(re.getValue_at_risk());
+//							ru.setUserid(userId);
+//							ru.setValue_at_risk(re.getValue_at_risk());
+//							ru.setRid(id);
+//							ru.setUsum(count);
+//							ru.setRtid(re.getTypeid());
+//							fser.AddCount(ru);
+//					}
+//				}
+//			}
+//			
+//			
+//			
+//			
+//			id = 266;
+//			re = fser.RulelistFraction(id);//查询规则id为 266  的风险分值
+//			User userIdldtspn = new User();
+//			userIdldtspn.setUserId(userId);
+//			userIdldtspn.setName("视频");
+//			User userIdldtyyn = new User();
+//			userIdldtyyn.setUserId(userId);
+//			userIdldtyyn.setName("影音");
+//			if(re != null){
+//				if(re.getStatus() != 2){
+//					int userPhoneCount = fser.Userappt(userIdldtspn);//是否影音播放类app
+//					int userPhoneCount1 = fser.Userappt(userIdldtyyn);
+//					userPhoneCount = userPhoneCount + userPhoneCount1;
+//					if(userPhoneCount == 0){
+//							count = count-Integer.valueOf(re.getValue_at_risk());
+//							ru.setUserid(userId);
+//							ru.setValue_at_risk(re.getValue_at_risk());
+//							ru.setRid(id);
+//							ru.setUsum(count);
+//							ru.setRtid(re.getTypeid());
+//							fser.AddCount(ru);
+//					}
+//				}
+//			}
+//			
+//			
+//			
+//			
+//			
+//			id = 267;
+//			re = fser.RulelistFraction(id);//查询规则id为 267  的风险分值
+//			User userIdldtzf = new User();
+//			userIdldtzf.setUserId(userId);
+//			userIdldtzf.setName("支付");
+//			if(re != null){
+//				if(re.getStatus() != 2){
+//					int userPhoneCount = fser.Userappt(userIdldtzf);//是否安装支付类app
+//					if(userPhoneCount == 0){
+//							count = count-Integer.valueOf(re.getValue_at_risk());
+//							ru.setUserid(userId);
+//							ru.setValue_at_risk(re.getValue_at_risk());
+//							ru.setRid(id);
+//							ru.setUsum(count);
+//							ru.setRtid(re.getTypeid());
+//							fser.AddCount(ru);
+//					}
+//				}
+//			}
+//			
+//			
+//			
+//			id = 268;
+//			re = fser.RulelistFraction(id);//查询规则id为 268  的风险分值
+//			User userIdldtzfn = new User();
+//			userIdldtzfn.setUserId(userId);
+//			userIdldtzfn.setName("支付");
+//			if(re != null){
+//				if(re.getStatus() != 2){
+//					int userPhoneCount = fser.Userappt(userIdldtzf);//支付类app安装个数
+//					if(userPhoneCount != 0){
+//						if(userPhoneCount < Integer.valueOf(re.getThresholdValue())){
+//							count = count-Integer.valueOf(re.getValue_at_risk());
+//							ru.setUserid(userId);
+//							ru.setValue_at_risk(re.getValue_at_risk());
+//							ru.setRid(id);
+//							ru.setUsum(count);
+//							ru.setRtid(re.getTypeid());
+//							fser.AddCount(ru);
+//						}
+//					}
+//				}
+//			}
+//			
+			
+			
+			
+			
+			id = 270;
+			re = fser.RulelistFraction(id);//查询规则id为 270  的风险分值
+			User userIdldjkph = new User();
+			userIdldjkph.setIdnumber(idNumber);
+			userIdldjkph.setPhone(phone);
+			if(re != null){
+				if(re.getStatus() != 2){
+					int userPhoneCount = fser.IDNumberCount(userIdldjkph);//借款人身份证绑定手机号码数量 
+					if(userPhoneCount == 0){
+						if(userPhoneCount > Integer.valueOf(re.getThresholdValue())){
+							System.out.println(count+"分数：");
+							count = count-Integer.valueOf(re.getValue_at_risk());
+							ru.setUserid(userId);
+							ru.setValue_at_risk(re.getValue_at_risk());
+							ru.setRid(id);
+							ru.setUsum(count);
+							ru.setRtid(re.getTypeid());
+							fser.AddCount(ru);
+						}
+					}
+				}
+			}
+			
+			
+			
+			
+			
 			
 			u.setFraction(count);
 			u.setIdnumber(idNumber);
-			
 			u.setUsername(name);
 			u.setPhone(phone);
 			u.setUserId(userId);
@@ -2356,7 +3212,6 @@ public class FractionController {
 				map.put("name", name);
 				map.put("userId", userId);
 				map.put("idNumber", idNumber);
-				map.put("msg", "请重新调用");
 				map.put("count", 0);
 				return map;
 			}
@@ -2365,8 +3220,7 @@ public class FractionController {
 			map.put("name", name);
 			map.put("userId", userId);
 			map.put("idNumber", idNumber);
-			map.put("msg", "请重新调用");
-			map.put("count", 0);
+			map.put("count", -10000);
 			System.out.println("报错");
 			return map;
 		}

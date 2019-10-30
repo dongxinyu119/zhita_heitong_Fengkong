@@ -702,7 +702,7 @@ public class JiaZhouOperator {
 		String call_count = jsonObject0.getString("call_count");//通话次数
 		String calling_count = jsonObject0.getString("calling_count");//主叫次数
 		String called_count = jsonObject0.getString("called_count");//被叫次数
-		top10CallCountMapper.settop10CallCount(userId,phone_number,call_count,calling_count,called_count);
+		top10CallCountMapper.settop10CallCount(userId,phone_number2,call_count,calling_count,called_count);
 			}
 		}
 		
@@ -728,7 +728,7 @@ public class JiaZhouOperator {
 			JSONObject	jsonObject0 = (JSONObject) top10_single_call_time.get(i);
 		String phone_number4 = jsonObject0.getString("phone_number");//通话号码
 		String call_duration_time = jsonObject0.getString("call_duration_time");//通话时长
-		top10SingleCallTimeMapper.settop10SingleCallTime(userId,phone_number,call_duration_time);
+		top10SingleCallTimeMapper.settop10SingleCallTime(userId,phone_number4,call_duration_time);
 			}
 		}
 		

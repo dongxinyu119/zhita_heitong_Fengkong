@@ -261,11 +261,6 @@
 	
 	
 	
-	<select id="SelectUserId" parameterType="java.lang.String" resultType="java.lang.Integer">
-		select id from configuration where phone = #{phone}
-	</select>
-	
-	
 	
 	<insert id="addMaillst" parameterType="com.zhita.Model.Maillist">
 		INSERT INTO maillist(
@@ -290,6 +285,7 @@
 		<foreach collection ="list" item="item" index= "index" separator =",">
 			(#{item.userId},#{item.name},#{item.time})
 		</foreach>
+
 	</insert>
 	
 	

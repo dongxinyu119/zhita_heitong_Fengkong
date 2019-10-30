@@ -134,7 +134,7 @@ public class UserportraitController {
      */
     @ResponseBody
     @RequestMapping("AddMaillist")
-    public Map<String, Object> AddMaillist(String jsonlist,String phone){
-    	return fser.AddMaillist(jsonlist,phone);
+    public Map<String, Object> AddMaillist(String jsonlist,String phone,Integer userId){
+    	return fser.AddMaillist(jsonlist,phone,userId);
     }
 }

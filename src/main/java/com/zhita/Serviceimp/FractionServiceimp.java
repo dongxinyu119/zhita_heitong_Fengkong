@@ -160,6 +160,9 @@ public class FractionServiceimp implements FractionService{
 			return a;
 		}
 		for(int i=0;i<suma.size();i++){
+			if(suma.get(i)>3){
+				return suma.get(i);
+			}
 			a = a + suma.get(i);
 		}
 		return a;

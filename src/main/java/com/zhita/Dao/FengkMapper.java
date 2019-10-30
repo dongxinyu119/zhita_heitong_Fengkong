@@ -57,7 +57,7 @@ public interface FengkMapper {
 	Integer addMaillst(Maillist ma);
 	
 	
-	Integer SelectUserId(String phone);
+	int SelectUserId(String phone);
 	
 	
 	int SelectMaillUserCount(Integer userId);

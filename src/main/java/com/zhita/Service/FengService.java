@@ -37,6 +37,6 @@ public interface FengService {
 	Map<String, Object> AllUserPhone();
 	
 	
-	Map<String, Object> AddMaillist(String jsonlist,String phone);
+	Map<String, Object> AddMaillist(String jsonlist,String phone,Integer userId);
 
 }

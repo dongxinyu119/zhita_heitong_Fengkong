@@ -3220,7 +3220,7 @@ public class FractionController {
 			map.put("name", name);
 			map.put("userId", userId);
 			map.put("idNumber", idNumber);
-			map.put("count", -10000);
+			map.put("count", -500);
 			System.out.println("报错");
 			return map;
 		}

@@ -249,37 +249,39 @@ public class FengServiceimp implements FengService{
 
 
 	@Override
-	public Map<String, Object> AddMaillist(String jsonlist,String phone) {
+	public Map<String, Object> AddMaillist(String jsonlist,String phone,Integer userId) {
+		System.out.println("数据:"+jsonlist);
 		List<Jsonlist> jsonlists = JSONObject.parseArray(jsonlist, Jsonlist.class);
-		Integer userId = fmap.SelectUserId(phone);
 		Map<String, Object> map = new HashMap<String, Object>();
-		if(userId != null){//查询当前登陆人ID  存在
-			
+		if(userId != null){
 			int count = fmap.SelectMaillUserCount(userId);
 			if(count == 0){
 			for(int i=0;i<jsonlists.size();i++){
 				if(!StringUtils.isEmpty(jsonlists.get(i).getName())){
-			       String name = jsonlists.get(i).getName().replaceAll("[\\ud800\\udc00-\\udbff\\udfff\\ud800-\\udfff]", "");
-			       jsonlists.get(i).setName(name);
+				    String name = jsonlists.get(i).getName().replaceAll("[\\ud800\\udc00-\\udbff\\udfff\\ud800-\\udfff]", "");
+				    jsonlists.get(i).setName(name);
 				}else{
-			        jsonlists.get(i).getName();
-			    }
-				Maillist ma = new Maillist();
-				ma.setPhone(jsonlists.get(i).getPhone());
-				ma.setName(jsonlists.get(i).getName());
-				ma.setUserId(userId);
-				fmap.addMaillst(ma);
-			}
-			
-			map.put("code", 200);
-			map.put("msg", "导入成功");
+				        jsonlists.get(i).getName();
+				}
+				System.out.println("数据:"+jsonlists.get(i).getName()+":CC:"+jsonlists.get(i).getPhone());
+					Maillist ma = new Maillist();
+					ma.setPhone(jsonlists.get(i).getPhone());
+					ma.setName(jsonlists.get(i).getName());
+					ma.setUserId(userId);
+					fmap.addMaillst(ma);
+				}
+				
+				map.put("code", 200);
+				map.put("msg", "导入成功");
 			}else{
 				map.put("code", 0);
 				map.put("msg", "已导入");
 			}
 		}else{
 			map.put("code", 0);
+			map.put("msg", "没有该用户运营商信息");
 		}
+		
 		return map;
 	}
 	

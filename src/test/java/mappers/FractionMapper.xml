@@ -194,7 +194,7 @@
   	
   	
   	<select id="WifiNamenum" parameterType="com.zhita.Model.User" resultType="java.lang.Integer">
-  		select id from configuration where wifiName like CONCAT('%',#{name},'%') 
+  		select id from configuration where wifiName like CONCAT('%',#{username},'%') and phone = #{phone}
   	</select>
   	
   	
@@ -222,5 +222,73 @@
   	<select id="IdNumberUserCount" parameterType="com.zhita.Model.User" resultType="java.lang.Integer">
   		select count(id) from user where idnumber = #{idnumber} and phone not like #{phone}
   	</select>
+  	
+  	
+  	
+  	<select id="Userjm" parameterType="java.lang.Integer" resultType="com.zhita.Model.CommunicationDetection">
+  		select silent_count,silent_duration_time from communication_detection where xiaodai_userid = #{id}
+  	</select>
+  	
+  	
+  	
+  	<select id="Usercommun" parameterType="java.lang.Integer" resultType="com.zhita.Model.CommunicationCityInfo">
+  		select calling_count_per as callingCountPer ,called_count_per as calledCountPer from communication_city_info where xiaodai_userid = #{xiaodai_userid} ORDER BY id desc LIMIT 0,1
+  	</select>
+  	
+  	
+  	
+  	
+  	<select id="UserCallCount" parameterType="java.lang.String" resultType="com.zhita.Model.CallRecordListItemInfosTwo">
+  		select * from call_record_list_item_infos_two where phone = #{phone}
+  	</select>
+  	
+  	
+  	
+  	<select id="PhoneCa" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		select count(id) from top10_call_time where xiaodai_userid = #{xiaodai_userid} and left(phone_number,3) = "400" 
+	</select>
+  	
+  	
+  	
+  	<select id="JjUserNum" parameterType="java.lang.Integer" resultType="com.zhita.Model.EmergencyContactInfo">
+  		select * from emergency_contact_info where xiaodai_userid = #{xiaodai_userid}
+  	</select>
+  	
+  	
+  	
+  	<select id="TopUser" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+  		select max(m.id) from maillist m,top10_call_count t where right(m.phone,4) = right(t.phone_number,4) and m.userid = #{userId}
+  		and m.userid = t.xiaodai_userid GROUP BY m.id
+  	</select>
+  	
+  	
+  	
+  	<select id="TopTime" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+  		select max(m.id) from maillist m,top10_call_time t where right(m.phone,4) = right(t.phone_number,4) and m.userid = #{userId}
+  		and m.userid = t.xiaodai_userid GROUP BY m.id
+  	</select>
+  	
+  	
+  	
+  	<select id="TopCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+  		select max(m.id) from maillist m,top10_call_count t where userid = #{userId} and m.userid = t.xiaodai_userid GROUP BY m.id
+  	</select>
+  	
+  	
+  	
+  	<select id="UserAge" parameterType="java.lang.String" resultType="java.lang.Integer">
+  		select age from applier_info where phone_number = #{phone}
+  	</select>
+  	
+  	
+  	
+  	<select id="TopJjCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+  		select max(t.id) from emergency_contact_info m INNER JOIN top10_call_time t on m.xiaodai_userid = t.xiaodai_userid where
+ 		right(m.phone_number,4) = right(t.phone_number,4) and m.xiaodai_userid = #{userId} GROUP BY m.id
+  	</select>
+  	
+  	
+  	
+  	
   	
 </mapper>

@@ -13,7 +13,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.zhita.Dao.FengkMapper;
 import com.zhita.Dao.RiskDao;
+import com.zhita.Model.CommunicationCityInfo;
+import com.zhita.Model.CommunicationDetection;
 import com.zhita.Model.Configuration;
+import com.zhita.Model.EmergencyContactInfo;
 import com.zhita.Model.Rulelist;
 import com.zhita.Model.Rulelist_detail;
 import com.zhita.Model.User;
@@ -42,6 +45,7 @@ public class FractionController {
 	private FengkMapper fmap;
 	
 	
+	@SuppressWarnings("null")
 	@RequestMapping("Exhibitionfraction")
 	@ResponseBody
 	public Map<String, Object> SeleExhibition(Integer userId,String phone,String name,String idNumber,String appId){
@@ -112,8 +116,8 @@ public class FractionController {
 			
 			
 			
-			
-			Configuration con = rdao.UserUUID(phone);
+			Configuration con = new Configuration();
+			con = rdao.UserUUID(phone);
 				
 			
 			Integer phonenum = rdao.UserPhoneCount(userId);//通讯录联系人数量
@@ -136,24 +140,26 @@ public class FractionController {
 			}
 			
 			
-			
-			con.setStatu_time(statu_time);
-			con.setEnd_time(end_time);
-			id = 70;
-			re = fser.RulelistFraction(id);//查询规则id为 70  的风险分值
-			if(re != null){
-				if(re.getStatus()!=2){
-					if(con.getUuid()!=null){//	id 70 
-						Integer daynum = rdao.UserLoginNum(con);//一天内的相同设备数
-						if(daynum != null){
-							if(daynum > Integer.valueOf(re.getValue_at_risk())){
-								count = count-Integer.valueOf(re.getValue_at_risk());
-								ru.setUserid(userId);
-								ru.setValue_at_risk(re.getValue_at_risk());
-								ru.setRid(id);
-								ru.setUsum(count);
-								ru.setRtid(re.getTypeid());
-								fser.AddCount(ru);
+			System.out.println("开始时间:"+statu_time);
+			if(con != null){
+				con.setStatu_time(statu_time);
+				con.setEnd_time(end_time);
+				id = 70;
+				re = fser.RulelistFraction(id);//查询规则id为 70  的风险分值
+				if(re != null){
+					if(re.getStatus()!=2){
+						if(con.getUuid()!=null){//	id 70 
+							Integer daynum = rdao.UserLoginNum(con);//一天内的相同设备数
+							if(daynum != null){
+								if(daynum > Integer.valueOf(re.getValue_at_risk())){
+									count = count-Integer.valueOf(re.getValue_at_risk());
+									ru.setUserid(userId);
+									ru.setValue_at_risk(re.getValue_at_risk());
+									ru.setRid(id);
+									ru.setUsum(count);
+									ru.setRtid(re.getTypeid());
+									fser.AddCount(ru);
+								}
 							}
 						}
 					}
@@ -163,21 +169,25 @@ public class FractionController {
 			
 			
 			
+			
 			id = 71;
 			re = fser.RulelistFraction(id);//查询规则id为 71  的风险分值
-			if(re != null){
-				if(re.getStatus() != 2){
-					if(con.getUuid()==null){
-						count = count-Integer.valueOf(re.getValue_at_risk());
-						ru.setUserid(userId);
-						ru.setValue_at_risk(re.getValue_at_risk());
-						ru.setRtid(re.getTypeid());
-						ru.setUsum(count);
-						ru.setRid(id);
-						fser.AddCount(ru);
+			if(con != null){
+				if(re != null){
+					if(re.getStatus() != 2){
+						if(con.getUuid()==null){
+							count = count-Integer.valueOf(re.getValue_at_risk());
+							ru.setUserid(userId);
+							ru.setValue_at_risk(re.getValue_at_risk());
+							ru.setRtid(re.getTypeid());
+							ru.setUsum(count);
+							ru.setRid(id);
+							fser.AddCount(ru);
+						}
 					}
 				}
 			}
+			
 			
 			
 			
@@ -192,6 +202,7 @@ public class FractionController {
 			if(re != null){
 				if(re.getStatus() != 2){
 					Integer sumcount = 0;
+					System.out.println(userId);
 					config.setUserId(userId);
 					config.setName("借");
 					Integer jie = rdao.NameMaillist(config);
@@ -1545,8 +1556,9 @@ public class FractionController {
 			id = 157;
 			re = fser.RulelistFraction(id);//查询规则id为 157  的风险分值
 			User userwifi = new User();
-			userwifi.setUserId(userId);
+			userwifi.setPhone(phone);
 			userwifi.setName("彩票");
+			System.out.println(userwifi.getPhone()+"AA"+userwifi.getName());
 			Integer wifiNum =  fser.WifiNameNum(userwifi);//wifi名称是否命中彩票类
 			if(re.getStatus() != 2){
 					if(wifiNum != null){
@@ -1565,10 +1577,11 @@ public class FractionController {
 			
 			id = 158;
 			re = fser.RulelistFraction(id);//查询规则id为 157  的风险分值
-			User userwifia = new User();
-			userwifi.setUserId(userId);
-			userwifi.setName("金");
-			Integer wifiName =  fser.WifiNameNum(userwifia);//wifi名称是否命中金融类
+			User uac = new User();
+			uac.setPhone(phone);
+			uac.setName(name);
+			System.out.println(uac.getUserId()+"11111"+uac.getName());
+			Integer wifiName =  fser.WifiNameNum(uac);//wifi名称是否命中金融类
 			if(re.getStatus() != 2){
 					if(wifiName != null){
 							count = count-Integer.valueOf(re.getValue_at_risk());
@@ -1587,7 +1600,7 @@ public class FractionController {
 			id = 159;
 			re = fser.RulelistFraction(id);//查询规则id为 159  的风险分值
 			User userwifiaY = new User();
-			userwifi.setUserId(userId);
+			userwifi.setPhone(phone);
 			userwifi.setName("歌");
 			Integer userwifiaAY =  fser.WifiNameNum(userwifiaY);//wifi名称是否命中娱乐场所类
 			userwifi.setName("酒吧");
@@ -1628,7 +1641,7 @@ public class FractionController {
 			id = 160;
 			re = fser.RulelistFraction(id);//查询规则id为 160  的风险分值
 			User userwifiaYd = new User();
-			userwifi.setUserId(userId);
+			userwifi.setPhone(phone);
 			userwifi.setName("博彩");
 			Integer userwifiaAYc =  fser.WifiNameNum(userwifiaYd);//wifi名称是否命中赌博类
 			userwifi.setName("斗地主");
@@ -1670,8 +1683,9 @@ public class FractionController {
 			id = 161;
 			re = fser.RulelistFraction(id);//查询规则id为 161  的风险分值
 			User userwifiaz = new User();
-			userwifi.setUserId(userId);
+			userwifi.setPhone(phone);
 			userwifi.setName("中介");
+			System.out.println(userwifiaz.getUserId()+"11111"+userwifiaz.getName());
 			Integer wifiNamez =  fser.WifiNameNum(userwifiaz);//wifi名称是否命中中介类
 			if(re.getStatus() != 2){
 					if(wifiNamez != null){
@@ -1692,7 +1706,7 @@ public class FractionController {
 			id = 162;
 			re = fser.RulelistFraction(id);//查询规则id为 162  的风险分值
 			User userwifiazy = new User();
-			userwifi.setUserId(userId);
+			userwifi.setPhone(phone);
 			userwifi.setName("医院");
 			Integer wifiNamezy =  fser.WifiNameNum(userwifiazy);//wifi名称是否命中医院类
 			if(re.getStatus() != 2){
@@ -1713,7 +1727,7 @@ public class FractionController {
 			id = 163;
 			re = fser.RulelistFraction(id);//查询规则id为 163  的风险分值
 			User userwifiaYdd = new User();
-			userwifi.setUserId(userId);
+			userwifi.setPhone(phone);
 			userwifi.setName("酒店");
 			Integer userwifiaAYcd =  fser.WifiNameNum(userwifiaYdd);//wifi名称是否命中赌博类
 			userwifi.setName("宾馆");
@@ -1872,54 +1886,60 @@ public class FractionController {
 			
 			id = 72;
 			re = fser.RulelistFraction(id);//查询规则id为 72  的风险分值
-			if(re != null){
-				if(re.getStatus() != 2){
-					if(con.getWifiIP() != null){
-						if(con.getWifiIP().length() != 0){
-							Integer WifiIPNum = rdao.UserWifiIPNum(con);//一天内WIFIIP连接相同数
-							if(WifiIPNum != null){
-								System.out.println("WIFIIP:"+con.getWifiIP());
-								if(WifiIPNum > Integer.valueOf(re.getThresholdValue())){
-									count = count-Integer.valueOf(re.getValue_at_risk());
-									ru.setUserid(userId);
-									ru.setValue_at_risk(re.getValue_at_risk());
-									ru.setRid(id);
-									ru.setUsum(count);
-									ru.setRtid(re.getTypeid());
-									fser.AddCount(ru);
-								}
-						}
+			if(con != null){
+				if(re != null){
+					if(re.getStatus() != 2){
+						if(con.getWifiIP() != null){
+							if(con.getWifiIP().length() != 0){
+								Integer WifiIPNum = rdao.UserWifiIPNum(con);//一天内WIFIIP连接相同数
+								if(WifiIPNum != null){
+									System.out.println("WIFIIP:"+con.getWifiIP());
+									if(WifiIPNum > Integer.valueOf(re.getThresholdValue())){
+										count = count-Integer.valueOf(re.getValue_at_risk());
+										ru.setUserid(userId);
+										ru.setValue_at_risk(re.getValue_at_risk());
+										ru.setRid(id);
+										ru.setUsum(count);
+										ru.setRtid(re.getTypeid());
+										fser.AddCount(ru);
+									}
+							}
+							}
 						}
 					}
 				}
 			}
+			
 			
 			
 			id = 75;
 			re = fser.RulelistFraction(id);//查询规则id为 75  的风险分值
-			if(re != null){
-				if(re.getStatus() != 2){
-					if(con.getWifiMac() != null){
-						if(con.getWifiMac().length() != 0){
-							System.out.println("WifiMacNum:"+con.getWifiMac());
-							Integer WifiMacNum = rdao.UserWifiMacNum(con);//WIFIMacnum 关联数
-							if(WifiMacNum != null){
-								
-								if(WifiMacNum > Integer.valueOf(re.getThresholdValue())){
-									count = count-Integer.valueOf(re.getValue_at_risk());
-									ru.setUserid(userId);
-									ru.setUsum(count);
-									ru.setValue_at_risk(re.getValue_at_risk());
-									ru.setRtid(re.getTypeid());
-									ru.setRid(id);
-									fser.AddCount(ru);
-								}
+			if(con != null){
+				if(re != null){
+					if(re.getStatus() != 2){
+						if(con.getWifiMac() != null){
+							if(con.getWifiMac().length() != 0){
+								System.out.println("WifiMacNum:"+con.getWifiMac());
+								Integer WifiMacNum = rdao.UserWifiMacNum(con);//WIFIMacnum 关联数
+								if(WifiMacNum != null){
+									
+									if(WifiMacNum > Integer.valueOf(re.getThresholdValue())){
+										count = count-Integer.valueOf(re.getValue_at_risk());
+										ru.setUserid(userId);
+										ru.setUsum(count);
+										ru.setValue_at_risk(re.getValue_at_risk());
+										ru.setRtid(re.getTypeid());
+										ru.setRid(id);
+										fser.AddCount(ru);
+									}
+							}
+							}
+							
 						}
-						}
-						
 					}
 				}
 			}
+			
 			
 			
 			
@@ -3199,6 +3219,299 @@ public class FractionController {
 			
 			
 			
+			id = 221;
+			re = fser.RulelistFraction(id);//查询规则id为 221  的风险分值
+			if(re != null){
+				if(re.getStatus() != 2){
+					CommunicationDetection userPhoneCount = fser.UserJm(userId);//静默时长
+					if(userPhoneCount != null){
+						if(Integer.valueOf(userPhoneCount.getSilentDurationTime()) > Integer.valueOf(re.getThresholdValue())){
+							System.out.println(count+"分数：");
+							count = count-Integer.valueOf(re.getValue_at_risk());
+							ru.setUserid(userId);
+							ru.setValue_at_risk(re.getValue_at_risk());
+							ru.setRid(id);
+							ru.setUsum(count);
+							ru.setRtid(re.getTypeid());
+							fser.AddCount(ru);
+						}
+					}
+				}
+			}
+			
+			
+			
+			
+			
+			
+			id = 222;
+			re = fser.RulelistFraction(id);//查询规则id为 222  的风险分值
+			if(re != null){
+				if(re.getStatus() != 2){
+					CommunicationDetection userPhoneCount = fser.UserJm(userId);//静默次数
+					if(userPhoneCount != null){
+						if(userPhoneCount.getSilentCount() > Integer.valueOf(re.getThresholdValue())){
+							System.out.println(count+"分数：");
+							count = count-Integer.valueOf(re.getValue_at_risk());
+							ru.setUserid(userId);
+							ru.setValue_at_risk(re.getValue_at_risk());
+							ru.setRid(id);
+							ru.setUsum(count);
+							ru.setRtid(re.getTypeid());
+							fser.AddCount(ru);
+						}
+					}
+				}
+			}
+			
+			
+			
+			
+			
+			id = 277;
+			re = fser.RulelistFraction(id);//查询规则id为 277  的风险分值
+			if(re != null){
+				if(re.getStatus() != 2){
+					CommunicationCityInfo userPhoneCount = fser.Usercommun(userId);//通话区域分布表中被叫次数百分比
+					if(userPhoneCount != null){
+						System.out.println(userPhoneCount.getCallingCountPer());
+						BigDecimal b = new BigDecimal(re.getThresholdValue());
+						int c = userPhoneCount.getCallingCountPer().compareTo(b);
+						if(c == 1){
+							System.out.println(count+"分数：");
+							count = count-Integer.valueOf(re.getValue_at_risk());
+							ru.setUserid(userId);
+							ru.setValue_at_risk(re.getValue_at_risk());
+							ru.setRid(id);
+							ru.setUsum(count);
+							ru.setRtid(re.getTypeid());
+							fser.AddCount(ru);
+						}
+					}
+				}
+			}
+			
+			
+			
+			
+			
+			id = 280;
+			re = fser.RulelistFraction(id);//查询规则id为 280  的风险分值
+			if(re != null){
+				if(re.getStatus() != 2){
+					CommunicationCityInfo userPhoneCount = fser.Usercommun(userId);//通话区域分布表中主叫次数百分比
+					if(userPhoneCount != null){
+						BigDecimal b = new BigDecimal(re.getThresholdValue());
+						int c = userPhoneCount.getCallingCountPer().compareTo(b);
+						if(c == 1){
+							System.out.println(count+"分数：");
+							count = count-Integer.valueOf(re.getValue_at_risk());
+							ru.setUserid(userId);
+							ru.setValue_at_risk(re.getValue_at_risk());
+							ru.setRid(id);
+							ru.setUsum(count);
+							ru.setRtid(re.getTypeid());
+							fser.AddCount(ru);
+						}
+					}
+				}
+			}
+			
+			
+			
+			
+			
+			id = 300;
+			re = fser.RulelistFraction(id);//查询规则id为 300  的风险分值
+			if(re != null){
+				if(re.getStatus() != 2){
+					Integer userPhoneCount = fser.PhoneCa(userId);//通话总时长前10是否含400开头
+					if(userPhoneCount == null){
+						if(userPhoneCount == 0){
+							System.out.println(count+"分数：");
+							count = count-Integer.valueOf(re.getValue_at_risk());
+							ru.setUserid(userId);
+							ru.setValue_at_risk(re.getValue_at_risk());
+							ru.setRid(id);
+							ru.setUsum(count);
+							ru.setRtid(re.getTypeid());
+							fser.AddCount(ru);
+						}
+					}
+				}
+			}
+			
+			
+			
+			
+			id = 292;
+			re = fser.RulelistFraction(id);//查询规则id为 292  的风险分值
+			if(re != null){
+				if(re.getStatus() != 2){
+					EmergencyContactInfo userPhoneCount = fser.JjUserNum(userId);//紧急联系人主叫次数
+					if(userPhoneCount != null){
+						if(userPhoneCount.getAllCallingCount() < Integer.valueOf(re.getThresholdValue())){
+							System.out.println(count+"分数：");
+							count = count-Integer.valueOf(re.getValue_at_risk());
+							ru.setUserid(userId);
+							ru.setValue_at_risk(re.getValue_at_risk());
+							ru.setRid(id);
+							ru.setUsum(count);
+							ru.setRtid(re.getTypeid());
+							fser.AddCount(ru);
+						}
+					}
+				}
+			}
+			
+			
+			
+			
+			id = 293;
+			re = fser.RulelistFraction(id);//查询规则id为 293  的风险分值
+			if(re != null){
+				if(re.getStatus() != 2){
+					EmergencyContactInfo userPhoneCount = fser.JjUserNum(userId);//紧急联系人被叫次数
+					if(userPhoneCount != null){
+						if(userPhoneCount.getAllCalledCount() < Integer.valueOf(re.getThresholdValue())){
+							count = count-Integer.valueOf(re.getValue_at_risk());
+							ru.setUserid(userId);
+							ru.setValue_at_risk(re.getValue_at_risk());
+							ru.setRid(id);
+							ru.setUsum(count);
+							ru.setRtid(re.getTypeid());
+							fser.AddCount(ru);
+						}
+					}
+				}
+			}
+			
+			
+			
+			
+			id = 301;
+			re = fser.RulelistFraction(id);//查询规则id为 301  的风险分值
+			if(re != null){
+				if(re.getStatus() != 2){
+					Integer userPhoneCount = fser.TopUser(userId);//通话总时长前10中是否含通讯录号码（以号码后四位匹
+					if(userPhoneCount != null){
+							count = count-Integer.valueOf(re.getValue_at_risk());
+							ru.setUserid(userId);
+							ru.setValue_at_risk(re.getValue_at_risk());
+							ru.setRid(id);
+							ru.setUsum(count);
+							ru.setRtid(re.getTypeid());
+							fser.AddCount(ru);
+					}
+				}
+			}
+			
+			
+			
+			
+			id = 302;
+			re = fser.RulelistFraction(id);//查询规则id为 302  的风险分值
+			if(re != null){
+				if(re.getStatus() != 2){
+					Integer userPhoneCount = fser.TopTime(userId);//单次通话时长前10中是否含通讯录号码（以号码后四位匹配）
+					if(userPhoneCount != null){
+							count = count-Integer.valueOf(re.getValue_at_risk());
+							ru.setUserid(userId);
+							ru.setValue_at_risk(re.getValue_at_risk());
+							ru.setRid(id);
+							ru.setUsum(count);
+							ru.setRtid(re.getTypeid());
+							fser.AddCount(ru);
+					}
+				}
+			}
+			
+			
+			
+			id = 307;
+			re = fser.RulelistFraction(id);//查询规则id为 307  的风险分值
+			if(re != null){
+				if(re.getStatus() != 2){
+					Integer userPhoneCount = fser.TopCount(userId);//通话次数前10中是否含通讯录号码
+					if(userPhoneCount != null){
+							count = count-Integer.valueOf(re.getValue_at_risk());
+							ru.setUserid(userId);
+							ru.setValue_at_risk(re.getValue_at_risk());
+							ru.setRid(id);
+							ru.setUsum(count);
+							ru.setRtid(re.getTypeid());
+							fser.AddCount(ru);
+					}
+				}
+			}
+			
+			
+			
+			
+			id = 297;
+			re = fser.RulelistFraction(id);//查询规则id为 297  的风险分值
+			if(re != null){
+				if(re.getStatus() != 2){
+					Integer userPhoneCount = fser.UserAge(phone);//年龄
+					if(userPhoneCount != null){
+						if(userPhoneCount >= Integer.valueOf(re.getThresholdValue())){
+							count = count-Integer.valueOf(re.getValue_at_risk());
+							ru.setUserid(userId);
+							ru.setValue_at_risk(re.getValue_at_risk());
+							ru.setRid(id);
+							ru.setUsum(count);
+							ru.setRtid(re.getTypeid());
+							fser.AddCount(ru);
+						}
+					}
+				}
+			}
+			
+			
+			
+			
+			id = 298;
+			re = fser.RulelistFraction(id);//查询规则id为 298  的风险分值
+			if(re != null){
+				if(re.getStatus() != 2){
+					Integer userPhoneCount = fser.UserAge(phone);//年龄
+					if(userPhoneCount != null){
+						if(userPhoneCount <= Integer.valueOf(re.getThresholdValue())){
+							count = count-Integer.valueOf(re.getValue_at_risk());
+							ru.setUserid(userId);
+							ru.setValue_at_risk(re.getValue_at_risk());
+							ru.setRid(id);
+							ru.setUsum(count);
+							ru.setRtid(re.getTypeid());
+							fser.AddCount(ru);
+						}
+					}
+				}
+			}
+			
+			
+			
+			
+			
+			id = 295;
+			re = fser.RulelistFraction(id);//查询规则id为 295  的风险分值
+			if(re != null){
+				if(re.getStatus() != 2){
+					Integer userPhoneCount = fser.TopJjCount(userId);//紧急联系人号码是否在通话总时长前10中（以号码后四位匹配）
+					if(userPhoneCount != null){
+							count = count-Integer.valueOf(re.getValue_at_risk());
+							ru.setUserid(userId);
+							ru.setValue_at_risk(re.getValue_at_risk());
+							ru.setRid(id);
+							ru.setUsum(count);
+							ru.setRtid(re.getTypeid());
+							fser.AddCount(ru);
+					}
+				}
+			}
+			
+			
+			
 			
 			
 			
@@ -3216,13 +3529,14 @@ public class FractionController {
 				return map;
 			}
 		} catch (Exception e) {
-			fser.DeleteRulet(userId, u.getAuthentication_time());
-			map.put("name", name);
-			map.put("userId", userId);
-			map.put("idNumber", idNumber);
-			map.put("count", -500);
-			System.out.println("报错");
-			return map;
+//			fser.DeleteRulet(userId, u.getAuthentication_time());
+//			map.put("name", name);
+//			map.put("userId", userId);
+//			map.put("idNumber", idNumber);
+//			map.put("count", -500);
+//			System.out.println("报错");
+//			return map;
+			e.addSuppressed(e);
 		}
 		
 		if(count<0){
@@ -3234,5 +3548,7 @@ public class FractionController {
 		map.put("count", count);
 		return map;
 	}
+
+
 
 }

@@ -1,7 +1,13 @@
 package com.zhita.Dao;
 
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
+
+import com.zhita.Model.CallRecordListItemInfosTwo;
+import com.zhita.Model.CommunicationCityInfo;
+import com.zhita.Model.CommunicationDetection;
+import com.zhita.Model.EmergencyContactInfo;
 import com.zhita.Model.Rulelist;
 import com.zhita.Model.Rulelist_detail;
 import com.zhita.Model.User;
@@ -106,4 +112,35 @@ public interface FractionMapper {
 	
 	
 	int IdNumberUserCount(User userId);
+	
+	
+	CommunicationDetection Userjm(Integer id);
+	
+	
+	CommunicationCityInfo Usercommun(Integer xiaodai_userid);
+	
+	
+	CallRecordListItemInfosTwo UserCallCount(String phone);
+	
+	
+	Integer PhoneCa(Integer xiaodai_userid);
+	
+	
+	EmergencyContactInfo JjUserNum(Integer xiaodai_userid);
+	
+	
+	Integer TopUser(Integer userId);
+	
+	
+	Integer TopTime(Integer userId);
+	
+	
+	Integer TopCount(Integer userId);
+	
+	
+	Integer UserAge(String phone);
+	
+	
+	Integer TopJjCount(Integer userId);
+	
 }

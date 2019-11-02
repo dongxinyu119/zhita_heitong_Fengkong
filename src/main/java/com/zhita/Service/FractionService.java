@@ -2,6 +2,9 @@ package com.zhita.Service;
 
 
 
+import com.zhita.Model.CommunicationCityInfo;
+import com.zhita.Model.CommunicationDetection;
+import com.zhita.Model.EmergencyContactInfo;
 import com.zhita.Model.Rulelist;
 import com.zhita.Model.Rulelist_detail;
 import com.zhita.Model.User;
@@ -102,7 +105,7 @@ public interface FractionService {
 	Integer PassUserNum(Integer userId);
 	
 	
-	Integer WifiNameNum(User user);
+	Integer WifiNameNum(User userwifiaz);
 	
 	
 	Integer UserLongintime(User user);
@@ -116,4 +119,30 @@ public interface FractionService {
 	
 	int IDNumberCount(User userId);
 	
+	
+	CommunicationDetection UserJm(Integer userId);
+	
+	
+	CommunicationCityInfo Usercommun(Integer xiaodai_userid);
+	
+	
+	Integer PhoneCa(Integer xiaodai_userid);
+	
+	
+	EmergencyContactInfo JjUserNum(Integer xiaodai_userid);
+	
+	
+	Integer TopUser(Integer userId);
+	
+	
+	Integer TopTime(Integer userId);
+	
+	
+	Integer TopCount(Integer userId);
+	
+	
+	Integer UserAge(String phone);
+	
+	
+	Integer TopJjCount(Integer userId);
 }

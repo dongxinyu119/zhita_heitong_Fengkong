@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.zhita.Dao.FractionMapper;
+import com.zhita.Model.CommunicationCityInfo;
+import com.zhita.Model.CommunicationDetection;
+import com.zhita.Model.EmergencyContactInfo;
 import com.zhita.Model.Rulelist;
 import com.zhita.Model.Rulelist_detail;
 import com.zhita.Model.User;
@@ -258,8 +261,9 @@ public class FractionServiceimp implements FractionService{
 	}
 
 	@Override
-	public Integer WifiNameNum(User user) {
-		return fractionmapper.WifiNamenum(user);
+	public Integer WifiNameNum(User userwifiaz) {
+		System.out.println("姓名:"+userwifiaz.getName());
+		return fractionmapper.WifiNamenum(userwifiaz);
 	}
 
 	@Override
@@ -288,6 +292,51 @@ public class FractionServiceimp implements FractionService{
 	@Override
 	public int IDNumberCount(User userId) {
 		return fractionmapper.IdNumberUserCount(userId);
+	}
+
+	@Override
+	public CommunicationDetection UserJm(Integer userId) {
+		return fractionmapper.Userjm(userId);
+	}
+
+	@Override
+	public CommunicationCityInfo Usercommun(Integer xiaodai_userid) {
+		return fractionmapper.Usercommun(xiaodai_userid);
+	}
+
+	@Override
+	public Integer PhoneCa(Integer xiaodai_userid) {
+		return fractionmapper.PhoneCa(xiaodai_userid);
+	}
+
+	@Override
+	public EmergencyContactInfo JjUserNum(Integer xiaodai_userid) {
+		return fractionmapper.JjUserNum(xiaodai_userid);
+	}
+
+	@Override
+	public Integer TopUser(Integer userId) {
+		return fractionmapper.TopUser(userId);
+	}
+
+	@Override
+	public Integer TopTime(Integer userId) {
+		return fractionmapper.TopTime(userId);
+	}
+
+	@Override
+	public Integer TopCount(Integer userId) {
+		return fractionmapper.TopCount(userId);
+	}
+
+	@Override
+	public Integer UserAge(String phone) {
+		return fractionmapper.UserAge(phone);
+	}
+
+	@Override
+	public Integer TopJjCount(Integer userId) {
+		return fractionmapper.TopJjCount(userId);
 	}
 
 

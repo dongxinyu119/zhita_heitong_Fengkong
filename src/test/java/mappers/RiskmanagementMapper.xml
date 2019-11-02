@@ -36,14 +36,14 @@
 	
 	
 	<!-- 查询通讯录名称 -->
-	<select id="NameMaillist" parameterType="java.lang.String" resultType="java.lang.Integer">
-		select count(id) from maillist where `name` LIKE  "%"#{name}"%" and userId = #{id}
+	<select id="NameMaillist" parameterType="com.zhita.Model.Configuration" resultType="java.lang.Integer">
+		select count(id) from maillist where `name` LIKE  "%"#{name}"%" and userId = #{userId}
 	</select>
 	
 	
 	<!-- 查询APP名称 -->
-	<select id="AppNum" parameterType="java.lang.String" resultType="java.lang.Integer">
-		select count(id) from userApp where `name` LIKE  "%"#{name}"%" and `name` not LIKE  "%小米%" and userId = #{id}
+	<select id="AppNum" parameterType="com.zhita.Model.Configuration" resultType="java.lang.Integer">
+		select count(id) from userApp where `name` LIKE  "%"#{name}"%" and `name` not LIKE  "%小米%" and userId = #{userId}
 	</select>
 	
 </mapper>

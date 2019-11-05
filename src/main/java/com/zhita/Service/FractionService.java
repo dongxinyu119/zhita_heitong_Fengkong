@@ -2,6 +2,8 @@ package com.zhita.Service;
 
 
 
+import java.math.BigDecimal;
+
 import com.zhita.Model.CommunicationCityInfo;
 import com.zhita.Model.CommunicationDetection;
 import com.zhita.Model.EmergencyContactInfo;
@@ -145,4 +147,19 @@ public interface FractionService {
 	
 	
 	Integer TopJjCount(Integer userId);
+	
+	
+	BigDecimal UserPhoneMoney(Integer userId);
+	
+	
+	Integer MinJUser(User userId);
+	
+	
+	Integer TongHUser(Integer userId);
+	
+	
+	Integer ChuxTimeDay(Integer userId);
+	
+	
+	BigDecimal YueFLv(Integer userId);
 }

@@ -126,8 +126,7 @@
   	
   	
   	<select id="PhoneNumA" parameterType="com.zhita.Model.User" resultType="java.lang.Integer" >
-  		select count(id) from maillist where userId = #{userId} and left(phone,#{id}) =
-  		 (select left(phone,#{id}) from user where userId = #{userId} group by left(phone,7) )
+  		 SELECT left(phone,#{id}),COUNT(1) AS RepeatData FROM maillist WHERE userId = #{userId} Group by left(phone,#{id}) having COUNT(1)>1
   	</select>
   	
   	
@@ -142,7 +141,7 @@
   	
   	
   	<select id="AppInFoUser" parameterType="com.zhita.Model.User" resultType="java.lang.Integer">
-  		select max(id) from applier_info 
+  		select max(id) from operator_info 
   		<where>
   			<if test="phone != null and phone != ''">
   				phone_number = #{phone}
@@ -158,7 +157,7 @@
   	
   	
   	<select id="MacNum" parameterType="com.zhita.Model.User" resultType="java.lang.Integer">
-  		select count(id) from configuration where phone = #{phone} group by wifiMac
+  		select count(id) from operator_info where phone = #{phone} group by wifiMac
   		having count(wifiMac) > 1 
   	</select>
   	
@@ -179,8 +178,9 @@
   	
   	
   	<select id="SmsUserNum" parameterType="java.lang.Integer" resultType="java.lang.Integer">
-  		select count(id) from sms_record_label where xiaodai_userid = #{userId}
+  		SELECT c.sms_count FROM communication_month_info c where xiaodai_userid = #{userId} ORDER BY c.month DESC limit 0,1
   	</select>
+  	
   	
   	
   	<select id="MonthUserphone" parameterType="java.lang.Integer" resultType="java.lang.Integer">
@@ -226,13 +226,14 @@
   	
   	
   	<select id="Userjm" parameterType="java.lang.Integer" resultType="com.zhita.Model.CommunicationDetection">
-  		select silent_count,silent_duration_time from communication_detection where xiaodai_userid = #{id}
+  		select silent_count as silentCount,silent_duration_time as silentDurationTime from communication_detection where xiaodai_userid = #{id}
   	</select>
   	
   	
   	
   	<select id="Usercommun" parameterType="java.lang.Integer" resultType="com.zhita.Model.CommunicationCityInfo">
-  		select calling_count_per as callingCountPer ,called_count_per as calledCountPer from communication_city_info where xiaodai_userid = #{xiaodai_userid} ORDER BY id desc LIMIT 0,1
+  		select calling_count_per as callingCountPer ,called_count_per as calledCountPer from contacts_city_infos 
+  		where xiaodai_userid = #{xiaodai_userid} ORDER BY id LIMIT 0,1
   	</select>
   	
   	
@@ -283,12 +284,47 @@
   	
   	
   	<select id="TopJjCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
-  		select max(t.id) from emergency_contact_info m INNER JOIN top10_call_time t on m.xiaodai_userid = t.xiaodai_userid where
- 		right(m.phone_number,4) = right(t.phone_number,4) and m.xiaodai_userid = #{userId} GROUP BY m.id
+  		select max(t.id) from emergency_contact_info m INNER JOIN top10_call_time t on m.xiaodai_userid = t.xiaodai_userid 
+  		<where>
+  		<if test="list!=null and list!='' and list.size()>0">
+	  		t.phone_number in
+	  		 <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+	  		 #{item}
+	         </foreach>
+         </if>
+  		and m.xiaodai_userid = #{userId} 
+  		</where>
+  		GROUP BY m.id
   	</select>
   	
   	
   	
+  	<select id="UserPhoneMoney" parameterType="java.lang.Integer" resultType="com.zhita.Model.RechargeInfo">
+  		select * from recharge_info where xiaodai_userid = #{userId}
+  	</select>
   	
+  	
+  	
+  	<select id="MinJUser" parameterType="com.zhita.Model.User" resultType="java.lang.Integer">
+  		select count(se.id) from call_record_list_infos cal,sensitive_info_newupa se where se.xiaodai_userid =
+  		 #{userId} and cal.name LIKE  "%"#{name}"%"
+  	</select>
+  	
+  	
+  	<select id="SelectUserPhones" parameterType="java.lang.Integer" resultType="java.lang.String">
+  		select phone_number from emergency_contact_info where xiaodai_userid = #{userId}
+  	</select>
+  	
+  	
+  	
+  	<select id="TongHUser" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+  		select call_count from communication_time_bucket_info where xiaodai_userid = #{userId} and time_bucket = "0:00-3:00" limit 0,1
+  	</select>
+  	
+  	
+  	
+  	<select id="ChuxTimeDay" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+  		select sum(duration_days) from travel_info where xiaodai_userid = #{userId}
+  	</select>
   	
 </mapper>

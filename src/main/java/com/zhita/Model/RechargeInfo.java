@@ -15,8 +15,58 @@ public class RechargeInfo {
     private BigDecimal rechargeAmount;//充值总金额
 
     private BigDecimal rechargeMax;//最大单笔充值金额
+    
+    private Integer xiaodai_userid;//用户id
 
-    public Integer getId() {
+    private String recharge_time;//充值时间
+
+    private Integer recharge_count;//充值次数
+
+    private BigDecimal recharge_amount;//充值总金额
+
+    private BigDecimal recharge_max;//最大单笔充值金额
+    
+    public Integer getXiaodai_userid() {
+		return xiaodai_userid;
+	}
+
+	public void setXiaodai_userid(Integer xiaodai_userid) {
+		this.xiaodai_userid = xiaodai_userid;
+	}
+
+	public String getRecharge_time() {
+		return recharge_time;
+	}
+
+	public void setRecharge_time(String recharge_time) {
+		this.recharge_time = recharge_time;
+	}
+
+	public Integer getRecharge_count() {
+		return recharge_count;
+	}
+
+	public void setRecharge_count(Integer recharge_count) {
+		this.recharge_count = recharge_count;
+	}
+
+	public BigDecimal getRecharge_amount() {
+		return recharge_amount;
+	}
+
+	public void setRecharge_amount(BigDecimal recharge_amount) {
+		this.recharge_amount = recharge_amount;
+	}
+
+	public BigDecimal getRecharge_max() {
+		return recharge_max;
+	}
+
+	public void setRecharge_max(BigDecimal recharge_max) {
+		this.recharge_max = recharge_max;
+	}
+
+	public Integer getId() {
         return id;
     }
 

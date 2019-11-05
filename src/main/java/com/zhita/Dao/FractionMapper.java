@@ -1,5 +1,6 @@
 package com.zhita.Dao;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -8,6 +9,7 @@ import com.zhita.Model.CallRecordListItemInfosTwo;
 import com.zhita.Model.CommunicationCityInfo;
 import com.zhita.Model.CommunicationDetection;
 import com.zhita.Model.EmergencyContactInfo;
+import com.zhita.Model.RechargeInfo;
 import com.zhita.Model.Rulelist;
 import com.zhita.Model.Rulelist_detail;
 import com.zhita.Model.User;
@@ -141,6 +143,23 @@ public interface FractionMapper {
 	Integer UserAge(String phone);
 	
 	
-	Integer TopJjCount(Integer userId);
+	Integer TopJjCount(@Param("userId")Integer userId,@Param("list")List<String> list);
 	
+	
+	RechargeInfo UserPhoneMoney(Integer userId);
+	
+	
+	Integer MinJUser(User user);
+	
+	
+	List<String> SelectUserPhones(Integer userId);
+	
+	
+	Integer TongHUser(Integer userId);
+	
+	
+	Integer ChuxTimeDay(Integer userId);
+	
+	
+	//BigDecimal YueFLv(Integer userId);
 }

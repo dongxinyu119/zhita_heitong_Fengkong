@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.alibaba.fastjson.JSON;
 import com.zhita.Collection.beoverdue.MapUtil;
 import com.zhita.Model.Userportrait;
@@ -35,6 +34,8 @@ public class UserportraitController {
     
     @Autowired
     private FengService fser;
+    
+    
 
     
     
@@ -137,4 +138,7 @@ public class UserportraitController {
     public Map<String, Object> AddMaillist(String jsonlist,String phone,Integer userId){
     	return fser.AddMaillist(jsonlist,phone,userId);
     }
+    
+    
+    
 }

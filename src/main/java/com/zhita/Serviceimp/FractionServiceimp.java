@@ -1,6 +1,8 @@
 package com.zhita.Serviceimp;
 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -11,10 +13,12 @@ import com.zhita.Dao.FractionMapper;
 import com.zhita.Model.CommunicationCityInfo;
 import com.zhita.Model.CommunicationDetection;
 import com.zhita.Model.EmergencyContactInfo;
+import com.zhita.Model.RechargeInfo;
 import com.zhita.Model.Rulelist;
 import com.zhita.Model.Rulelist_detail;
 import com.zhita.Model.User;
 import com.zhita.Service.FractionService;
+import com.zhita.Util.PhoneDeal;
 import com.zhita.Util.Timestamps;
 
 
@@ -336,7 +340,43 @@ public class FractionServiceimp implements FractionService{
 
 	@Override
 	public Integer TopJjCount(Integer userId) {
-		return fractionmapper.TopJjCount(userId);
+		PhoneDeal phoneDeal = new PhoneDeal();
+		List<String> phones = fractionmapper.SelectUserPhones(userId);
+		List<String> phonList = new ArrayList<String>();
+		for(int i = 0 ; i < phones.size() ; i++){
+			phonList.add(phoneDeal.decryption(phones.get(i)));
+		}
+		return fractionmapper.TopJjCount(userId,phonList);
+	}
+	
+	
+
+	@Override
+	public BigDecimal UserPhoneMoney(Integer userId) {
+		RechargeInfo rechar = fractionmapper.UserPhoneMoney(userId);
+		BigDecimal acmoney = rechar.getRecharge_amount().divide(new BigDecimal(rechar.getRecharge_count()));
+		return acmoney;
+	}
+
+	@Override
+	public Integer MinJUser(User userId) {
+		return fractionmapper.MinJUser(userId);
+	}
+
+	@Override
+	public Integer TongHUser(Integer userId) {
+		return fractionmapper.TongHUser(userId);
+	}
+
+	@Override
+	public Integer ChuxTimeDay(Integer userId) {
+		return fractionmapper.ChuxTimeDay(userId);
+	}
+
+	@Override
+	public BigDecimal YueFLv(Integer userId) {
+		//return fractionmapper.YueFLv(userId);
+		return null;
 	}
 
 

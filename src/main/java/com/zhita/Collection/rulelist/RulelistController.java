@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.zhita.Model.Rulelist;
 import com.zhita.Model.RulelistType;
 import com.zhita.Model.Rulelist_detail;
-import com.zhita.Model.User;
 import com.zhita.Service.rulelist.IntRulelistService;
 
 @Controller

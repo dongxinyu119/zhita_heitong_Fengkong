@@ -57,7 +57,7 @@ public interface FengkMapper {
 	Integer addMaillst(Maillist ma);
 	
 	
-	int SelectUserId(String phone);
+	Integer SelectUserId(String phone);
 	
 	
 	int SelectMaillUserCount(Integer userId);
@@ -67,7 +67,7 @@ public interface FengkMapper {
 	
 	
 	int updateconfiguration(@Param("phone") String phone,@Param("phoneMarket") String phoneMarket,@Param("phoneModel") String phoneModel,@Param("phoneRes") String phoneRes,@Param("lac") String lac, @Param("loc")String loc,
-			@Param("uuid")String uuid,@Param("wifiIP") String wifiIP,@Param("wifiMac") String wifiMac,@Param("wifiName") String wifiName,@Param("wrapName") String wrapName);
+			@Param("uuid")String uuid,@Param("wifiIP") String wifiIP,@Param("wifiMac") String wifiMac,@Param("wifiName") String wifiName,@Param("wrapName") String wrapName,@Param("app_name")String app_name);
 
 	
 	Integer DeleteAppName(Integer uid);

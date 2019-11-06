@@ -133,7 +133,7 @@ public class JiaZhouOperator {
 		JSONObject jObject = JSONObject.parseObject(jsonString);
 		int userId = (int) jsonObject.get("userId");
 		JSONObject data = (JSONObject) jObject.get("data");
-		
+		System.out.println("进状态");
 		JSONObject jsonObject2 = null;
 		// applier_info
 		JSONObject applier_info = (JSONObject) data.get("applier_info");// 申请人基本信息

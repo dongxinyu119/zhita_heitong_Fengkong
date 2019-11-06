@@ -354,7 +354,13 @@ public class FractionServiceimp implements FractionService{
 	@Override
 	public BigDecimal UserPhoneMoney(Integer userId) {
 		RechargeInfo rechar = fractionmapper.UserPhoneMoney(userId);
-		BigDecimal acmoney = rechar.getRecharge_amount().divide(new BigDecimal(rechar.getRecharge_count()));
+		BigDecimal acmoney = null;
+		if(rechar != null){
+			acmoney = rechar.getRecharge_amount().divide(new BigDecimal(rechar.getRecharge_count()));
+		}else{
+			acmoney = new BigDecimal(0);
+		}
+		
 		return acmoney;
 	}
 

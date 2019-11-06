@@ -5,12 +5,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.zhita.Dao.FengkMapper;
 import com.zhita.Dao.RiskDao;
 import com.zhita.Model.CommunicationCityInfo;
@@ -2038,7 +2036,8 @@ public class FractionController {
 			re = fser.RulelistFraction(id);//查询规则id为 197  的风险分值
 			Integer smsNum = fser.SmsUserMoney(userId);//短信发送次数
 			if(re.getStatus() != 2){
-				if(smsNum < Integer.valueOf(re.getThresholdValue())){
+				if(smsNum != null){
+					if(smsNum < Integer.valueOf(re.getThresholdValue())){
 						count = count-Integer.valueOf(re.getValue_at_risk());
 						ru.setUserid(userId);
 						ru.setValue_at_risk(re.getValue_at_risk());
@@ -2046,7 +2045,17 @@ public class FractionController {
 						ru.setRid(id);
 						ru.setUsum(count);
 						fser.AddCount(ru);
+					}
+				}else{
+					count = count-Integer.valueOf(re.getValue_at_risk());
+					ru.setUserid(userId);
+					ru.setValue_at_risk(re.getValue_at_risk());
+					ru.setRtid(re.getTypeid());
+					ru.setRid(id);
+					ru.setUsum(count);
+					fser.AddCount(ru);
 				}
+				
 			}
 			
 			
@@ -2056,7 +2065,8 @@ public class FractionController {
 			re = fser.RulelistFraction(id);//查询规则id为 197  的风险分值
 			Integer smsCNum = fser.SmsUserMoney(userId);//短信发送次数
 			if(re.getStatus() != 2){
-				if(smsCNum > Integer.valueOf(re.getThresholdValue())){
+				if(smsCNum != null){
+					if(smsCNum > Integer.valueOf(re.getThresholdValue())){
 						count = count-Integer.valueOf(re.getValue_at_risk());
 						ru.setUserid(userId);
 						ru.setValue_at_risk(re.getValue_at_risk());
@@ -2064,6 +2074,7 @@ public class FractionController {
 						ru.setRid(id);
 						ru.setUsum(count);
 						fser.AddCount(ru);
+					}
 				}
 			}
 			
@@ -2108,7 +2119,8 @@ public class FractionController {
 			re = fser.RulelistFraction(id);//查询规则id为 199  的风险分值
 			Integer usernum = fser.UserNum(userId);//通讯录联系人数量
 			if(re.getStatus() != 2){
-				if(usernum < Integer.valueOf(re.getThresholdValue())){
+				if(usernum != null){
+					if(usernum < Integer.valueOf(re.getThresholdValue())){
 						count = count-Integer.valueOf(re.getValue_at_risk());
 						ru.setUserid(userId);
 						ru.setValue_at_risk(re.getValue_at_risk());
@@ -2116,6 +2128,15 @@ public class FractionController {
 						ru.setRid(id);
 						ru.setUsum(count);
 						fser.AddCount(ru);
+				}
+				}else{
+					count = count-Integer.valueOf(re.getValue_at_risk());
+					ru.setUserid(userId);
+					ru.setValue_at_risk(re.getValue_at_risk());
+					ru.setRtid(re.getTypeid());
+					ru.setRid(id);
+					ru.setUsum(count);
+					fser.AddCount(ru);
 				}
 			}
 			
@@ -3453,16 +3474,18 @@ public class FractionController {
 			re = fser.RulelistFraction(id);//查询规则id为 297  的风险分值
 			if(re != null){
 				if(re.getStatus() != 2){
-					Integer userPhoneCount = fser.UserAge(phone);//年龄
+					Integer userPhoneCount = fser.UserAge(phone);//借款人年龄是否大于22 小于等于2
 					if(userPhoneCount != null){
-						if(userPhoneCount >= Integer.valueOf(re.getThresholdValue())){
-							count = count-Integer.valueOf(re.getValue_at_risk());
-							ru.setUserid(userId);
-							ru.setValue_at_risk(re.getValue_at_risk());
-							ru.setRid(id);
-							ru.setUsum(count);
-							ru.setRtid(re.getTypeid());
-							fser.AddCount(ru);
+						if(userPhoneCount > 22){
+							if(userPhoneCount <= 25){
+								count = count-Integer.valueOf(re.getValue_at_risk());
+								ru.setUserid(userId);
+								ru.setValue_at_risk(re.getValue_at_risk());
+								ru.setRid(id);
+								ru.setUsum(count);
+								ru.setRtid(re.getTypeid());
+								fser.AddCount(ru);
+							}
 						}
 					}
 				}
@@ -3477,7 +3500,7 @@ public class FractionController {
 				if(re.getStatus() != 2){
 					Integer userPhoneCount = fser.UserAge(phone);//年龄
 					if(userPhoneCount != null){
-						if(userPhoneCount <= Integer.valueOf(re.getThresholdValue())){
+						if(userPhoneCount >= 43){
 							count = count-Integer.valueOf(re.getValue_at_risk());
 							ru.setUserid(userId);
 							ru.setValue_at_risk(re.getValue_at_risk());
@@ -3776,7 +3799,8 @@ public class FractionController {
 			if(re != null){
 				if(re.getStatus() != 2){
 					Integer userPhoneCount = fser.TongHUser(userId);//0:00-3:00通话次数
-					if(userPhoneCount > Integer.valueOf(re.getThresholdValue())){
+					if(userPhoneCount != null){
+						if(userPhoneCount > Integer.valueOf(re.getThresholdValue())){
 							count = count-Integer.valueOf(re.getValue_at_risk());
 							ru.setUserid(userId);
 							ru.setValue_at_risk(re.getValue_at_risk());
@@ -3784,7 +3808,17 @@ public class FractionController {
 							ru.setUsum(count);
 							ru.setRtid(re.getTypeid());
 							fser.AddCount(ru);
+						}
+					}else{
+						count = count-Integer.valueOf(re.getValue_at_risk());
+						ru.setUserid(userId);
+						ru.setValue_at_risk(re.getValue_at_risk());
+						ru.setRid(id);
+						ru.setUsum(count);
+						ru.setRtid(re.getTypeid());
+						fser.AddCount(ru);
 					}
+					
 				}
 			}
 			
@@ -3797,7 +3831,8 @@ public class FractionController {
 			if(re != null){
 				if(re.getStatus() != 2){
 					Integer userPhoneCount = fser.ChuxTimeDay(userId);//出行分析表中行程时间（天）
-					if(userPhoneCount > Integer.valueOf(re.getThresholdValue())){
+					if(userPhoneCount != null){
+						if(userPhoneCount > Integer.valueOf(re.getThresholdValue())){
 							count = count-Integer.valueOf(re.getValue_at_risk());
 							ru.setUserid(userId);
 							ru.setValue_at_risk(re.getValue_at_risk());
@@ -3805,6 +3840,7 @@ public class FractionController {
 							ru.setUsum(count);
 							ru.setRtid(re.getTypeid());
 							fser.AddCount(ru);
+						}
 					}
 				}
 			}
@@ -3817,15 +3853,17 @@ public class FractionController {
 			if(re != null){
 				if(re.getStatus() != 2){
 					BigDecimal yuefData = fser.YueFLv(userId);//通话月份分布表中是否含互通占比>0.3
-					Integer userPhoneCount = yuefData.compareTo(new BigDecimal(0.3));
-					if(userPhoneCount == 1){
-							count = count-Integer.valueOf(re.getValue_at_risk());
-							ru.setUserid(userId);
-							ru.setValue_at_risk(re.getValue_at_risk());
-							ru.setRid(id);
-							ru.setUsum(count);
-							ru.setRtid(re.getTypeid());
-							fser.AddCount(ru);
+					if(yuefData != null){
+						Integer userPhoneCount = yuefData.compareTo(new BigDecimal(0.3));
+						if(userPhoneCount == 1){
+								count = count-Integer.valueOf(re.getValue_at_risk());
+								ru.setUserid(userId);
+								ru.setValue_at_risk(re.getValue_at_risk());
+								ru.setRid(id);
+								ru.setUsum(count);
+								ru.setRtid(re.getTypeid());
+								fser.AddCount(ru);
+						}
 					}
 				}
 			}
@@ -3838,15 +3876,25 @@ public class FractionController {
 			if(re != null){
 				if(re.getStatus() != 2){
 					BigDecimal yuefData = fser.YueFLv(userId);//通话月份分布表中是否含互通占比<0.01
-					Integer userPhoneCount = yuefData.compareTo(new BigDecimal(0.3));
-					if(userPhoneCount == 1){
-							count = count-Integer.valueOf(re.getValue_at_risk());
-							ru.setUserid(userId);
-							ru.setValue_at_risk(re.getValue_at_risk());
-							ru.setRid(id);
-							ru.setUsum(count);
-							ru.setRtid(re.getTypeid());
-							fser.AddCount(ru);
+					if(yuefData != null){
+						Integer userPhoneCount = yuefData.compareTo(new BigDecimal(0.3));
+						if(userPhoneCount == 1){
+								count = count-Integer.valueOf(re.getValue_at_risk());
+								ru.setUserid(userId);
+								ru.setValue_at_risk(re.getValue_at_risk());
+								ru.setRid(id);
+								ru.setUsum(count);
+								ru.setRtid(re.getTypeid());
+								fser.AddCount(ru);
+						}
+					}else{
+						count = count-Integer.valueOf(re.getValue_at_risk());
+						ru.setUserid(userId);
+						ru.setValue_at_risk(re.getValue_at_risk());
+						ru.setRid(id);
+						ru.setUsum(count);
+						ru.setRtid(re.getTypeid());
+						fser.AddCount(ru);
 					}
 				}
 			}
@@ -3855,24 +3903,24 @@ public class FractionController {
 			
 			
 			
-			id = 297;
-			re = fser.RulelistFraction(id);//查询规则id为 297  的风险分值
-			if(re != null){
-				if(re.getStatus() != 2){
-					BigDecimal yuefData = fser.YueFLv(userId);//通话月份分布表中是否含互通占比<0.01
-					Integer userPhoneCount = yuefData.compareTo(new BigDecimal(0.3));
-					if(userPhoneCount == 1){
-							count = count-Integer.valueOf(re.getValue_at_risk());
-							ru.setUserid(userId);
-							ru.setValue_at_risk(re.getValue_at_risk());
-							ru.setRid(id);
-							ru.setUsum(count);
-							ru.setRtid(re.getTypeid());
-							fser.AddCount(ru);
-					}
-				}
-			}
-			
+//			id = 297;
+//			re = fser.RulelistFraction(id);//查询规则id为 297  的风险分值
+//			if(re != null){
+//				if(re.getStatus() != 2){
+//					BigDecimal yuefData = fser.YueFLv(userId);//通话月份分布表中是否含互通占比<0.01
+//					Integer userPhoneCount = yuefData.compareTo(new BigDecimal(0.3));
+//					if(userPhoneCount == 1){
+//							count = count-Integer.valueOf(re.getValue_at_risk());
+//							ru.setUserid(userId);
+//							ru.setValue_at_risk(re.getValue_at_risk());
+//							ru.setRid(id);
+//							ru.setUsum(count);
+//							ru.setRtid(re.getTypeid());
+//							fser.AddCount(ru);
+//					}
+//				}
+//			}
+//			
 			
 			
 			
@@ -3897,14 +3945,14 @@ public class FractionController {
 			
 			
 		} catch (Exception e) {
-//			fser.DeleteRulet(userId, u.getAuthentication_time());
-//			map.put("name", name);
-//			map.put("userId", userId);
-//			map.put("idNumber", idNumber);
-//			map.put("count", -500);
-//			System.out.println("报错");
-//			return map;
-			e.addSuppressed(e);
+			fser.DeleteRulet(userId, u.getAuthentication_time());
+			map.put("name", name);
+			map.put("userId", userId);
+			map.put("idNumber", idNumber);
+			map.put("count", -500);
+			System.out.println("报错");
+			return map;
+//			e.addSuppressed(e);
 		}
 		
 		if(count<0){

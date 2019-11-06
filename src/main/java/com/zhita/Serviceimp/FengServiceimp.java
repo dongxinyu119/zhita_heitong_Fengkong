@@ -146,6 +146,8 @@ public class FengServiceimp implements FengService{
 		Configuration conf = new Configuration();
 		conf = JSONObject.parseObject(com.getJsonString(), Configuration.class);
 		SimpleDateFormat sim = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		conf.setUserId(com.getUserId());
+		conf.setApp_name(com.getApp_name());
 		  try {
 			  conf.setSend_time(Timestamps.dateToStamp1(sim.format(new Date())));
 		} catch (Exception e) {
@@ -175,7 +177,7 @@ public class FengServiceimp implements FengService{
 			
 			if(userId != null){//根据手机号查询用户是否存在  存在  更新
 				int num = fmap.updateconfiguration(com.getPhone(),conf.getPhoneMarket(),conf.getPhoneModel(),conf.getPhoneRes(),
-						conf.getLac(),conf.getLoc(),conf.getUuid(),conf.getWifiIP(),conf.getWifiMac(),conf.getWifiName(),conf.getWrapName());
+						conf.getLac(),conf.getLoc(),conf.getUuid(),conf.getWifiIP(),conf.getWifiMac(),conf.getWifiName(),conf.getWrapName(),conf.getApp_name());
 				if (num==1) {
 					Integer deleteId = fmap.DeleteAppName(userId);
 					System.out.println(deleteId);

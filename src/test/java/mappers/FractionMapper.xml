@@ -157,8 +157,8 @@
   	
   	
   	<select id="MacNum" parameterType="com.zhita.Model.User" resultType="java.lang.Integer">
-  		select count(id) from operator_info where phone = #{phone} group by wifiMac
-  		having count(wifiMac) > 1 
+  		select count(id) from configuration where phone = #{phone} group by wifiMac
+  		having count(wifiMac) > 1 limit 0,1
   	</select>
   	
   	
@@ -194,7 +194,7 @@
   	
   	
   	<select id="WifiNamenum" parameterType="com.zhita.Model.User" resultType="java.lang.Integer">
-  		select id from configuration where wifiName like CONCAT('%',#{username},'%') and phone = #{phone}
+  		select id from configuration where wifiName like CONCAT('%',#{name},'%') and phone = #{phone}
   	</select>
   	
   	

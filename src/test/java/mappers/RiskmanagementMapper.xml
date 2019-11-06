@@ -18,7 +18,7 @@
 	</select>
 	
 	<select id="UserUUID" parameterType="java.lang.String" resultType="com.zhita.Model.Configuration">
-		select uuid,wifiIP,wifiMac from configuration where phone = #{phone}
+		select uuid,wifiIP,wifiMac from configuration where phone = #{phone} limit 0,1
 	</select>
 	
 	

@@ -234,6 +234,7 @@
 	
 	<insert id="addUserPhone" parameterType="com.zhita.Model.Configuration">
 		INSERT INTO configuration (
+			userId,
 			idNumber,
 			name,
 			phone,
@@ -250,7 +251,7 @@
 			send_time,
 			app_name
 		)VALUES
-		(#{idNumber},#{name},#{phone},#{wifiName},#{wifiIP},#{wifiMac},#{phoneMarket},#{phoneModel},#{phoneRes},#{lac},#{loc},#{wrapName},#{uuid},#{send_time},#{app_name})
+		(#{userId},#{idNumber},#{name},#{phone},#{wifiName},#{wifiIP},#{wifiMac},#{phoneMarket},#{phoneModel},#{phoneRes},#{lac},#{loc},#{wrapName},#{uuid},#{send_time},#{app_name})
 	</insert>
 	
 	
@@ -302,6 +303,7 @@
 		wifiMac = #{wifiMac},
 		wifiName = #{wifiName},
 		wrapName = #{wrapName}
+		app_name = #{app_name}
 		where phone = #{phone}
 	</update>
 	
@@ -310,5 +312,11 @@
 	<delete id="DeleteAppName" parameterType="java.lang.Integer">
 		delete from userapp where userId = #{uid}
 	</delete>
+	
+	
+	
+	<select id="SelectUserId" parameterType="java.lang.String" resultType="java.lang.Integer">
+		select userId from configuration where phone = #{phone} limit 0,1
+	</select>
 	
 </mapper>

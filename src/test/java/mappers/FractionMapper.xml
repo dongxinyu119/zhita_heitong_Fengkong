@@ -2,6 +2,39 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zhita.Dao.FractionMapper" >
 
+<resultMap id="BaseResultMap" type="com.zhita.Model.SensitiveInfoNewupa" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+     <result column="xiaodai_userid" property="xiaodaiUserid" jdbcType="INTEGER" />
+    <result column="check_result" property="checkResult" jdbcType="VARCHAR" />
+    <result column="item_id" property="itemId" jdbcType="VARCHAR" />
+    <result column="item_name" property="itemName" jdbcType="VARCHAR" />
+    <result column="risk_level" property="riskLevel" jdbcType="VARCHAR" />
+    <result column="idcard_matching" property="idcardMatching" jdbcType="VARCHAR" />
+    <result column="name_matching" property="nameMatching" jdbcType="VARCHAR" />
+    <result column="network_length_check" property="networkLengthCheck" jdbcType="VARCHAR" />
+    <result column="idcard" property="idcard" jdbcType="VARCHAR" />
+    <result column="phone_number" property="phoneNumber" jdbcType="VARCHAR" />
+    <result column="result" property="result" jdbcType="VARCHAR" />
+    <collection property="listc"  ofType="com.zhita.Model.CallRecordListInfos" column="id">
+        <id column="id1" property="id"  jdbcType="INTEGER"/>
+        <result  column="sentivid"  property="sentivid" jdbcType="INTEGER"/>
+		<result  column="name"  property="name" jdbcType="VARCHAR"/>
+		<collection property="listct"  ofType="com.zhita.Model.CallRecordListItemInfosTwo" column="id">
+        	<id column="id2" property="id"  jdbcType="INTEGER"/>
+        	<result  column="crlid"  property="crlid" jdbcType="INTEGER"/>
+        	<result  column="called_count"  property="calledCount" jdbcType="VARCHAR"/>
+			<result  column="calling_count"  property="callingCount" jdbcType="VARCHAR"/>
+			<result  column="phonenumber"  property="phoneNumber" jdbcType="VARCHAR"/>
+			<collection property="listcs"  ofType="com.zhita.Model.CallStatistics" column="id">
+        		<id column="id3" property="id"  jdbcType="INTEGER"/>
+        		<result  column="crtwoid"  property="crtwoid" jdbcType="INTEGER"/>
+        		<result  column="total_call_count"  property="totalCallCount" jdbcType="INTEGER"/>
+				<result  column="total_call_duration_time"  property="totalCallDurationTime" jdbcType="INTEGER"/>
+    		</collection>
+    	</collection>
+    </collection>
+  </resultMap>
+
 	<select id="AppCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
 		select count(id) from userapp where userId = #{userId}
 	</select>
@@ -46,7 +79,7 @@
 					and left(phone,3) = #{phone} 
 				</if> 
 				<if test="name != null and name != ''">
-					and `name` LIKE  "%"#{name}"%"
+					and `name` like CONCAT('%',#{name},'%')
 				</if>
 			</where>
   	</select>
@@ -77,7 +110,7 @@
   		<where>
   			userId = #{userId}
   			<if test="name != null and name != ''">
-  				and name LIKE  "%"#{name}"%"
+  				and name like CONCAT('%',#{name},'%')
   			</if>
   		</where>
   	</select>
@@ -89,7 +122,7 @@
   	
   	
   	<select id="UserAppCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
-  		select count(id) from userapp where `name` LIKE  "%"#{name}"%"
+  		select count(id) from userapp where `name` like CONCAT('%',#{name},'%')
   	</select>
   	
   	
@@ -300,14 +333,20 @@
   	
   	
   	<select id="UserPhoneMoney" parameterType="java.lang.Integer" resultType="com.zhita.Model.RechargeInfo">
-  		select * from recharge_info where xiaodai_userid = #{userId}
+  		select * from recharge_info where xiaodai_userid = #{userId} limit 0,1
   	</select>
   	
   	
   	
-  	<select id="MinJUser" parameterType="com.zhita.Model.User" resultType="java.lang.Integer">
-  		select count(se.id) from call_record_list_infos cal,sensitive_info_newupa se where se.xiaodai_userid =
-  		 #{userId} and cal.name LIKE  "%"#{name}"%"
+  	<select id="MinJUser" parameterType="com.zhita.Model.User" resultType="BaseResultMap">
+  	select DISTINCT s.*,
+  	c.id id1,c.sentivid,c.name,
+	ct.id id2,ct.crlid,ct.called_count,ct.calling_count,ct.phone_number phonenumber,
+	cs.id id3,cs.crtwoid,cs.total_call_count,cs.total_call_duration_time
+	from sensitive_info_newupa s left join call_record_list_infos c on s.id=c.sentivid
+	left join call_record_list_item_infos_two ct on c.id=ct.crlid
+	left join call_statistics cs on ct.id=cs.crtwoid 
+	where s.xiaodai_userid=#{userId} and s.item_name = #{name}
   	</select>
   	
   	
@@ -326,5 +365,146 @@
   	<select id="ChuxTimeDay" parameterType="java.lang.Integer" resultType="java.lang.Integer">
   		select sum(duration_days) from travel_info where xiaodai_userid = #{userId}
   	</select>
+  	
+  	
+  	<select id="UserphoneRes" parameterType="java.lang.String" resultType="java.lang.String">
+  		select phoneRes from configuration where phone = #{phone}
+  	</select>
+  	
+  	
+  	<select id="PhoneUser" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+  		select count(id) from maillist where userId = #{userId} and name is null
+  	</select>
+  	
+  	
+  	
+  	<select id="PhoneCountData" parameterType="java.util.Map" resultType="java.lang.Integer">
+  		select count(id) from callrecords where userid = #{userId} and type = #{type} group by number 
+  	</select>
+  	
+  	
+  	
+  	<select id="PhoneCUser" parameterType="java.util.Map" resultType="java.lang.Integer">
+  		select count(id) from callrecords where userid = #{userId} and type = #{type} 
+  	</select>
+  	
+  	
+  	
+  	<select id="PhoneCUserData" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+  		select count(id) from callrecords where userid = #{userId}
+  	</select>
+  	
+  	
+  	
+  	<select id="SelectPhone" parameterType="java.lang.Integer" resultType="java.lang.String">
+  		select number from callrecords where userid = #{userId} limit 0,3
+  	</select>
+  	
+  	
+  	
+  	<select id="SelectPhoneTop" parameterType="java.lang.Integer" resultType="java.lang.String">
+  		select number from callrecords where userid = #{userId} limit 0,10
+  	</select>
+  	
+  	
+  	
+  	
+  	<select id="SelectUserCou" parameterType="java.util.Map" resultType="java.lang.Integer">
+  		select count(id) from maillist 
+  		<where>
+  		userId = #{userId} 
+  		and phome in
+  		<foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+  			#{item}
+  		</foreach>
+  		</where>
+  	</select>
+  	
+  	
+  	
+  	<select id="SelectUserCoulX" parameterType="java.util.Map" resultType="java.lang.Integer">
+  		select count(id) from emergency_contact_info 
+  		<where>
+  		xiaodai_userid = #{userId} 
+  		and phone_number in
+  		<foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+  			#{item}
+  		</foreach>
+  		</where>
+  	</select>
+  	
+  	
+  	<select id="SelectUserCoul" parameterType="java.util.Map" resultType="java.lang.Integer">
+  		select count(id) from maillist 
+  		<where>
+  		userId = #{userId} 
+  		and phone in
+  		<foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+  			#{item}
+  		</foreach>
+  		</where>
+  		group by phone
+  	</select>
+  	
+  	
+  	<select id="SelectUserCoulA" parameterType="java.util.Map" resultType="java.lang.Integer">
+  		select count(id) from emergency_contact_info 
+  		<where>
+  		xiaodai_userid = #{userId} 
+  		and phone_number in
+  		<foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+  			#{item}
+  		</foreach>
+  		</where>
+  		group by phone_number
+  	</select>
+  	
+  	
+  	
+  	<select id="User12560Count" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+  		select count(id) from callrecords where number = #{phone} and userId = #{userId}
+  	</select>
+  	
+  	
+  	
+  	<select id="UserHR" parameterType="java.util.Map" resultType="java.lang.Integer">
+  		select number from callrecords where userid = #{userId} and type = #{type} group by number
+  	</select>
+  	
+  	
+  	
+  	<select id="SelectUserMaillst" parameterType="java.util.Map" resultType="java.lang.Integer">
+  		select count(id) from maillist where
+  		 phone in
+  		 <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+  			#{item}
+  		</foreach>
+  		and userId = #{userId}
+  	</select>
+  	
+  	
+  	
+  	<select id="UserOne" parameterType="java.util.Map" resultType="java.lang.Integer">
+  		select count(id) from callrecords where userId = #{userId} and left(number,3) = #{type} 
+  	</select>
+  	
+  	
+  	
+  	<select id="UserAllPhone" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+  		select count(id) from callrecords where userId = #{userId} group by number
+  	</select>
+  	
+  	
+  	
+  	<select id="SelectUserApp" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+  		select count(id) from userapp where userId = #{userId}
+  	</select>
+  	
+  	
+  	
+  	<select id="OperatorID" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+  		select id from operator_info where xiaodai_userid = #{userId} limit 0,1
+  	</select>
+  	
   	
 </mapper>

@@ -1,6 +1,5 @@
 package com.zhita.Dao;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -12,6 +11,7 @@ import com.zhita.Model.EmergencyContactInfo;
 import com.zhita.Model.RechargeInfo;
 import com.zhita.Model.Rulelist;
 import com.zhita.Model.Rulelist_detail;
+import com.zhita.Model.SensitiveInfoNewupa;
 import com.zhita.Model.User;
 
 public interface FractionMapper {
@@ -149,7 +149,7 @@ public interface FractionMapper {
 	RechargeInfo UserPhoneMoney(Integer userId);
 	
 	
-	Integer MinJUser(User user);
+	List<SensitiveInfoNewupa> MinJUser(User user);
 	
 	
 	List<String> SelectUserPhones(Integer userId);
@@ -162,4 +162,58 @@ public interface FractionMapper {
 	
 	
 	//BigDecimal YueFLv(Integer userId);
+	
+	
+	String UserphoneRes(String phone);
+	
+	
+	Integer PhoneUser(Integer userId);
+	
+	
+	List<Integer> PhoneCountData(@Param("userId")Integer userId,@Param("type")String type);
+	
+	
+	Integer PhoneCUser(@Param("userId")Integer userId,@Param("type")String type);
+	
+	
+	Integer PhoneCUserData(Integer userId);
+	
+	
+	List<String> SelectPhone(Integer userId);
+	
+	
+	Integer SelectUserCou(@Param("list")List<String> list,@Param("userId")Integer userId);
+	
+	
+	Integer SelectUserCoulX(@Param("list")List<String> list,@Param("userId")Integer userId);
+	
+	
+	List<Integer> SelectUserCoul(@Param("list")List<String> list,@Param("userId")Integer userId);
+	
+	
+	List<String> SelectPhoneTop(Integer userId);
+	
+	
+	List<Integer> SelectUserCoulA(@Param("list")List<String> list,@Param("userId")Integer userId);
+	
+	
+	Integer User12560Count(@Param("userId")Integer userId,@Param("phone")String phone);
+	
+	
+	List<String> UserHR(@Param("userId")Integer userId,@Param("type")String type);
+	
+	
+	Integer SelectUserMaillst(@Param("list")List<String> list,@Param("userId")Integer userId);
+	
+	
+	Integer UserOne(@Param("type")String type,@Param("userId")Integer userId);
+	
+	
+	Integer UserAllPhone(Integer userId);
+	
+	
+	Integer SelectUserApp(Integer userId);
+	
+	
+	Integer OperatorID(Integer userId);
 }

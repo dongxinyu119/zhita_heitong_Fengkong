@@ -16,6 +16,7 @@ import com.zhita.Model.EmergencyContactInfo;
 import com.zhita.Model.RechargeInfo;
 import com.zhita.Model.Rulelist;
 import com.zhita.Model.Rulelist_detail;
+import com.zhita.Model.SensitiveInfoNewupa;
 import com.zhita.Model.User;
 import com.zhita.Service.FractionService;
 import com.zhita.Util.PhoneDeal;
@@ -221,7 +222,12 @@ public class FractionServiceimp implements FractionService{
 
 	@Override
 	public Integer AppInfoUser(User user) {
-		return fractionmapper.AppInFoUser(user);
+		Integer id = fractionmapper.OperatorID(user.getUserId());
+		Integer a = 0;
+		if(id != null){
+			a=fractionmapper.AppInFoUser(user);
+		}
+		return a;
 	}
 
 	@Override
@@ -366,7 +372,20 @@ public class FractionServiceimp implements FractionService{
 
 	@Override
 	public Integer MinJUser(User userId) {
-		return fractionmapper.MinJUser(userId);
+		 List<SensitiveInfoNewupa> sens = fractionmapper.MinJUser(userId);
+		 Integer a = 0;
+		 if(sens.size()!=0){
+			 for(int i=0;i<sens.size();i++){
+				 if(sens.get(i).getListc() != null){
+					 if(sens.get(i).getListc().get(i).getListct() != null){
+						 a = a + Integer.valueOf(sens.get(i).getListc().get(i).getListct().get(i).getCallingCount());
+					 }
+					
+				 }
+				
+			 }
+		 }
+		 return null;
 	}
 
 	@Override
@@ -381,9 +400,236 @@ public class FractionServiceimp implements FractionService{
 
 	@Override
 	public BigDecimal YueFLv(Integer userId) {
-		//return fractionmapper.YueFLv(userId);
 		return null;
 	}
+
+	@Override
+	public Integer PhoneUser(Integer userId, String phone) {
+		String phoneRes = fractionmapper.UserphoneRes(phone);//判断是不是安卓
+		Integer aIn = 0;
+		if(phoneRes != null){
+			aIn=fractionmapper.PhoneUser(userId);
+		}
+		return aIn;
+	}
+
+	@Override
+	public Integer PhoneUserData(Integer userId, String phone) {
+		String phoneRes = fractionmapper.UserphoneRes(phone);//判断是不是安卓
+		Integer aIn = 0;
+		if(phoneRes != null){
+			String type = "呼出";
+			List<Integer> a=fractionmapper.PhoneCountData(userId,type);
+			aIn = a.size();
+		}
+		return aIn;
+	}
+
+	@Override
+	public Integer PhoneCUser(Integer userId, String phone) {
+		String phoneRes = fractionmapper.UserphoneRes(phone);//判断是不是安卓
+		Integer aIn = 0;
+		if(phoneRes != null){
+			String type = "呼出";
+			aIn=fractionmapper.PhoneCUser(userId,type);
+		}
+		return aIn;
+	}
+
+	@Override
+	public Integer PhonehrUser(Integer userId, String phone) {
+		String phoneRes = fractionmapper.UserphoneRes(phone);//判断是不是安卓
+		Integer aIn = 0;
+		if(phoneRes != null){
+			String type = "呼入";
+			List<Integer> a=fractionmapper.PhoneCountData(userId,type);
+			aIn = a.size();
+		}
+		return aIn;
+	}
+
+	@Override
+	public Integer PhoneHrCUser(Integer userId, String phone) {
+		String phoneRes = fractionmapper.UserphoneRes(phone);//判断是不是安卓
+		Integer aIn = 0;
+		if(phoneRes != null){
+			String type = "呼入";
+			aIn=fractionmapper.PhoneCUser(userId,type);
+		}
+		return aIn;
+	}
+
+	@Override
+	public Double PhoneCUserData(Integer userId, String phone) {
+		String phoneRes = fractionmapper.UserphoneRes(phone);//判断是不是安卓
+		Integer aIn = 0;
+		Double f1 = new Double(0);
+		if(phoneRes != null){
+			Integer a = fractionmapper.PhoneCUserData(userId);
+			if(a != null){
+				String type = "呼出";
+				System.out.println("总数:"+a);
+				if(a != 0){
+					aIn=fractionmapper.PhoneCUser(userId,type);
+					System.out.println("命中数:"+aIn);
+					f1 = new BigDecimal((float)aIn/a).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+					f1 = f1*100;
+				}
+				
+			}
+			
+		}
+		return f1;
+	}
+
+	@Override
+	public Double PhoneCuUserData(Integer userId, String phone) {
+		String phoneRes = fractionmapper.UserphoneRes(phone);//判断是不是安卓
+		Integer aIn = 0;
+		Double f1 = new Double(0);
+		if(phoneRes != null){
+			Integer a = fractionmapper.PhoneCUserData(userId);
+			if(a != null){
+				
+				if(a != 0){
+					String type = "呼入";
+					aIn=fractionmapper.PhoneCUser(userId,type);
+					f1 = new BigDecimal((float)aIn/a).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+					f1 = f1*100;
+				}
+				
+			}
+			
+		}
+		return f1;
+	}
+
+	@Override
+	public Integer AndroidTop(Integer userId, String phone) {
+		String phoneRes = fractionmapper.UserphoneRes(phone);//判断是不是安卓
+		Integer aIn = 0;
+		if(phoneRes != null){
+			List<String> phones = fractionmapper.SelectPhone(userId);
+			if(phones != null){
+				if(phones.size()!=0){
+					aIn = fractionmapper.SelectUserCou(phones, userId);
+				}
+			}
+		}
+		return aIn;
+	}
+
+	@Override
+	public Integer AndroidTopJj(Integer userId, String phone) {
+		String phoneRes = fractionmapper.UserphoneRes(phone);//判断是不是安卓
+		Integer aIn = 0;
+		if(phoneRes != null){
+			List<String> phones = fractionmapper.SelectPhone(userId);
+			if(phones != null){
+				if(phones.size()!=0){
+					aIn = fractionmapper.SelectUserCoulX(phones, userId);
+				}
+			}
+		}
+		return aIn;
+	}
+
+	@Override
+	public Integer AndroidTopCount(Integer userId, String phone) {
+		String phoneRes = fractionmapper.UserphoneRes(phone);//判断是不是安卓
+		Integer aIn = 0;
+		if(phoneRes != null){
+			List<String> phones = fractionmapper.SelectPhoneTop(userId);
+			if(phones != null){
+				System.out.println("电话长度:"+phones.size());
+				if(phones.size()!=0){
+				List<Integer> mailsList = fractionmapper.SelectUserCoul(phones, userId);
+				aIn = mailsList.size();
+				}
+			}
+		}
+		return aIn;
+	}
+
+	@Override
+	public Integer AndroidTopJJCount(Integer userId, String phone) {
+		String phoneRes = fractionmapper.UserphoneRes(phone);//判断是不是安卓
+		Integer aIn = 0;
+		if(phoneRes != null){
+			List<String> phones = fractionmapper.SelectPhoneTop(userId);
+			if(phones != null){
+				if(phones.size() != 0){
+					List<Integer> mailsList = fractionmapper.SelectUserCoulA(phones, userId);
+					Rulelist reRulelist = fractionmapper.FractionUser(325);
+					for(int i=0;i<mailsList.size();i++){
+						if(mailsList.get(i)<Integer.valueOf(reRulelist.getThresholdValue())){
+							aIn = aIn+1;
+						}
+					}
+				}
+			}
+		}
+		return aIn;
+	}
+
+	@Override
+	public Integer AndroidTop10(Integer userId, String phone) {
+		String phoneRes = fractionmapper.UserphoneRes(phone);//判断是不是安卓
+		Integer aIn = 0;
+		if(phoneRes != null){
+			List<String> phones = fractionmapper.SelectPhoneTop(userId);
+			if(phones != null){
+				if(phones.size()!=0){
+				List<Integer> mailsList = fractionmapper.SelectUserCoul(phones, userId);
+				aIn = mailsList.size();
+				}
+			}
+		}
+		return aIn;
+	}
+
+	@Override
+	public Integer AndroidTop12560(Integer userId, String phone,String type) {
+		String phoneRes = fractionmapper.UserphoneRes(phone);//判断是不是安卓
+		Integer aIn = 0;
+		if(phoneRes != null){
+			aIn = fractionmapper.User12560Count(userId,type);
+		}
+		return aIn;
+	}
+
+	@Override
+	public Integer UserHR(Integer userId, String phone,String type) {
+		String phoneRes = fractionmapper.UserphoneRes(phone);//判断是不是安卓
+		Integer aIn = 0;
+		if(phoneRes != null){
+			List<String> numbers = fractionmapper.UserHR(userId,type);//获取通话记录中的手机号
+			if(numbers != null){
+				if(numbers.size()!=0){
+				aIn = fractionmapper.SelectUserMaillst(numbers,userId);
+				}
+			}
+		}
+		return aIn;
+	}
+
+	@Override
+	public Integer UserHROne(Integer userId, String phone,String type) {
+		String phoneRes = fractionmapper.UserphoneRes(phone);//判断是不是安卓
+		Integer aIn = 0;
+		if(phoneRes != null){
+			aIn = fractionmapper.UserOne(type,userId);//是否为安卓机且与400开头号码通话次数
+		}
+		return aIn;
+	}
+
+	@Override
+	public Integer SelectUserApp(Integer userId) {
+		return fractionmapper.SelectUserApp(userId);
+	}
+
+
+
 
 
 	

@@ -34,6 +34,10 @@ public class Rulelist_detail {
 	
 	private Integer usum;
 
+	public void setAuthentication_time(String authentication_time) {
+		this.authentication_time = authentication_time;
+	}
+
 	public Integer getUsum() {
 		return usum;
 	}
@@ -100,10 +104,6 @@ public class Rulelist_detail {
 
 	public String getAuthentication_time() {
 		return authentication_time;
-	}
-
-	public void setAuthentication_time(String authentication_time) {
-		this.authentication_time = authentication_time;
 	}
 
 	public String getUsername() {

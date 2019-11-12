@@ -1,12 +1,10 @@
 package com.zhita.Dao;
 
 import java.util.List;
-
-import org.apache.ibatis.annotations.Param;
-
 import com.zhita.Model.SensitiveInfoNewupa;
 
 public interface SensitiveInfoNewupaMapper {
+	
     int deleteByPrimaryKey(Integer id);
 
     int insert(SensitiveInfoNewupa record);

@@ -162,4 +162,53 @@ public interface FractionService {
 	
 	
 	BigDecimal YueFLv(Integer userId);
+	
+	
+	Integer PhoneUser(Integer userId,String phone);
+	
+	
+	Integer PhoneUserData(Integer userId,String phone);
+	
+	
+	Integer PhoneCUser(Integer userId,String phone);
+	
+	
+	Integer PhonehrUser(Integer userId,String phone);
+	
+	
+	Integer PhoneHrCUser(Integer userId,String phone);
+	
+	
+	Double PhoneCUserData(Integer userId,String phone);
+	
+	
+	Double PhoneCuUserData(Integer userId,String phone);
+	
+	
+	Integer AndroidTop(Integer userId,String phone);
+	
+	
+	Integer AndroidTopJj(Integer userId,String phone);
+	
+	
+	Integer AndroidTopCount(Integer userId,String phone);
+	
+	
+	Integer AndroidTopJJCount(Integer userId,String phone);
+	
+	
+	Integer AndroidTop10(Integer userId,String phone);
+	
+	
+	Integer AndroidTop12560(Integer userId,String phone,String type);
+	
+	
+	Integer UserHR(Integer userId,String phone,String type);
+	
+	
+	Integer UserHROne(Integer userId,String phone,String type);
+	
+	
+	Integer SelectUserApp(Integer userId);
+	
 }

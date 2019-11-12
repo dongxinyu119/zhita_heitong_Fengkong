@@ -152,7 +152,7 @@ public class PhoneDeal {
 		String phone = phoneDeal.encryption("15835996762");
 		System.out.println(phone);
 
-		phone = phoneDeal.decryption("8452472xx72");
+		phone = phoneDeal.decryption("84840324420");
 
 		System.out.println(phone);
 

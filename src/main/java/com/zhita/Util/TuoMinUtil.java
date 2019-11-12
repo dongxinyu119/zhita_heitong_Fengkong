@@ -74,8 +74,10 @@ public class TuoMinUtil {
     }
     public static void main(String[] args) {
 		TuoMinUtil to = new TuoMinUtil();
-		String aString = to.mobileEncrypt("13487139655");
+		String aString = to.mobileEncrypt("13310273730");
 		System.out.println("手机号:"+aString);
+		String bString = to.nameEncrypt("134****0402");
+		System.out.println(bString);
 	}
 
     

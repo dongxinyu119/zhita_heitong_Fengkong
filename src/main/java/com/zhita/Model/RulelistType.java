@@ -5,6 +5,8 @@ public class RulelistType {
     private Integer id;
 
     private String type;//规则分类
+    
+    private String bigtype;//规则大分类
 
     private String deleted;//假删除（1：删除；0：没删除）
 
@@ -31,4 +33,13 @@ public class RulelistType {
     public void setDeleted(String deleted) {
         this.deleted = deleted == null ? null : deleted.trim();
     }
+
+	public String getBigtype() {
+		return bigtype;
+	}
+
+	public void setBigtype(String bigtype) {
+		this.bigtype = bigtype;
+	}
+    
 }

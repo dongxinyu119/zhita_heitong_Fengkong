@@ -413,7 +413,7 @@
   		select count(id) from maillist 
   		<where>
   		userId = #{userId} 
-  		and phome in
+  		and phone in
   		<foreach collection="list" item="item" index="index" open="(" separator="," close=")">
   			#{item}
   		</foreach>
@@ -509,7 +509,7 @@
   	
   	
   	<select id="MailstNum" parameterType="java.lang.Integer" resultType="java.lang.Integer">
-		select count(id) from maillist where userId = 16190
+		select count(id) from maillist where userId = #{userId}
   	</select>
   	
   	

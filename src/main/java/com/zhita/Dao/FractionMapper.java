@@ -216,4 +216,13 @@ public interface FractionMapper {
 	
 	
 	Integer OperatorID(Integer userId);
+	
+	
+	Integer MailstNum(Integer userId);
+	
+	
+	Integer ConfigUser(String phone);
+	
+	
+	Integer UserTonghua(Integer userId);
 }

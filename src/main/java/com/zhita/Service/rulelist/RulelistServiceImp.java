@@ -81,10 +81,10 @@ public class RulelistServiceImp implements IntRulelistService{
     	User user=rulelistMapper.queryuser(userid);
     	List<Rulelist_detail> list=new ArrayList<>();
     	if(user==null||"".equals(user)){
-    		List<RulelistType> listtype=rulelistMapper.queryAllType();
+    		List<RulelistType> listtype=rulelistMapper.queryAllTypebig();
     		for (int i = 0; i < listtype.size(); i++) {
 				Rulelist_detail rd=new Rulelist_detail();
-				rd.setType(listtype.get(i).getType());
+				rd.setBigtype(listtype.get(i).getBigtype());
 				rd.setSum("0");
 				list.add(rd);
 			}
@@ -99,6 +99,7 @@ public class RulelistServiceImp implements IntRulelistService{
     	
     	Map<String,Object> map=new HashMap<>();
     	map.put("list", list);
+    	map.put("newestAuthentime", user.getAuthentication_time());
     	return map;
     }
     

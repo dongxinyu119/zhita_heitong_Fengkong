@@ -24,6 +24,8 @@ public class Rulelist {
     
     private String type;//规则分类
     
+    private String bigtype;//规则大分类
+    
 	public Integer getId() {
 		return id;
 	}
@@ -111,6 +113,14 @@ public class Rulelist {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public String getBigtype() {
+		return bigtype;
+	}
+
+	public void setBigtype(String bigtype) {
+		this.bigtype = bigtype;
 	}
 
 }

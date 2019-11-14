@@ -211,4 +211,12 @@ public interface FractionService {
 	
 	Integer SelectUserApp(Integer userId);
 	
+	
+	Integer MailstNum(Integer userId);
+	
+	
+	Integer ConfigUser(String phone);
+	
+	
+	Integer UserTonghua(Integer userId);
 }

@@ -34,7 +34,7 @@
 	</select>
 	
 	
-	
+
 	<!-- 查询通讯录名称 -->
 	<select id="NameMaillist" parameterType="com.zhita.Model.Configuration" resultType="java.lang.Integer">
 		select count(id) from maillist where `name` LIKE  "%"#{name}"%" and userId = #{userId}

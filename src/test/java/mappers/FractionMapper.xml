@@ -169,7 +169,7 @@
   	
   	
   	<select id="ReportID" parameterType="com.zhita.Model.User" resultType="java.lang.Integer">
-  		select max(id) from report_info where xiaodai_userid = #{userId}
+  		select max(id) from operator_info where xiaodai_userid = #{userId}
   	</select>
   	
   	
@@ -338,7 +338,7 @@
   	
   	
   	
-  	<select id="MinJUser" parameterType="com.zhita.Model.User" resultType="BaseResultMap">
+  	<select id="MinJUser" parameterType="com.zhita.Model.User" resultType="com.zhita.Model.SensitiveInfoNewupa">
   	select DISTINCT s.*,
   	c.id id1,c.sentivid,c.name,
 	ct.id id2,ct.crlid,ct.called_count,ct.calling_count,ct.phone_number phonenumber,
@@ -507,4 +507,21 @@
   	</select>
   	
   	
+  	
+  	<select id="MailstNum" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		select count(id) from maillist where userId = 16190
+  	</select>
+  	
+  	
+  	
+  	
+  	<select id="ConfigUser" parameterType="java.lang.String" resultType="java.lang.Integer">
+  		select id from configuration where phone = #{phone}
+  	</select>
+  	
+  	
+  	
+  	<select id="UserTonghua" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+  		select count(id) from callrecords where userid = #{userId}
+  	</select>
 </mapper>

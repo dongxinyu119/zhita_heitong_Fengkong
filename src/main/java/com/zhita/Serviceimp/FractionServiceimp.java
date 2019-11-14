@@ -385,7 +385,7 @@ public class FractionServiceimp implements FractionService{
 				
 			 }
 		 }
-		 return null;
+		 return a;
 	}
 
 	@Override
@@ -626,6 +626,21 @@ public class FractionServiceimp implements FractionService{
 	@Override
 	public Integer SelectUserApp(Integer userId) {
 		return fractionmapper.SelectUserApp(userId);
+	}
+
+	@Override
+	public Integer MailstNum(Integer userId) {
+		return fractionmapper.MailstNum(userId);
+	}
+
+	@Override
+	public Integer ConfigUser(String phone) {
+		return fractionmapper.ConfigUser(phone);
+	}
+
+	@Override
+	public Integer UserTonghua(Integer userId) {
+		return fractionmapper.UserTonghua(userId);
 	}
 
 

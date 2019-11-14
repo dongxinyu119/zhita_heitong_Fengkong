@@ -15,6 +15,9 @@ public interface RulelistMapper {
     //后台管理——添加功能（先查询出规则分类表所有信息）
     List<RulelistType> queryAllType();
     
+    //后台管理——查询出所有的大规则分类
+    List<RulelistType> queryAllTypebig();
+    
     //后台管理——添加功能
     int insert(Rulelist record);
 

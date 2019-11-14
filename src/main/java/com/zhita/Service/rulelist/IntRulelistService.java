@@ -6,7 +6,6 @@ import java.util.Map;
 import com.zhita.Model.Rulelist;
 import com.zhita.Model.RulelistType;
 import com.zhita.Model.Rulelist_detail;
-import com.zhita.Model.User;
 
 public interface IntRulelistService {
 	

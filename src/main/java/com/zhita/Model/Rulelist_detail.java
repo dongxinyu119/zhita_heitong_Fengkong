@@ -16,6 +16,8 @@ public class Rulelist_detail {
 	
 	private String sum;//该规则分类的总扣分
 	
+	private String bigtype;//大规则分类名
+	
 	private String type;//规则分类名
 
 	private Integer userid;//用户id
@@ -138,4 +140,12 @@ public class Rulelist_detail {
 		this.rulelist = rulelist;
 	}
 
+	public String getBigtype() {
+		return bigtype;
+	}
+
+	public void setBigtype(String bigtype) {
+		this.bigtype = bigtype;
+	}
+	
 }

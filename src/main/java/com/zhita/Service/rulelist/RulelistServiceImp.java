@@ -78,6 +78,7 @@ public class RulelistServiceImp implements IntRulelistService{
     
     //后台管理——各个规则分类的命中分数
     public Map<String,Object> typeifhit(Integer userid){
+    	Map<String,Object> map=new HashMap<>();
     	User user=rulelistMapper.queryuser(userid);
     	List<Rulelist_detail> list=new ArrayList<>();
     	if(user==null||"".equals(user)){
@@ -88,6 +89,9 @@ public class RulelistServiceImp implements IntRulelistService{
 				rd.setSum("0");
 				list.add(rd);
 			}
+    		
+    		map.put("list", list);
+        	map.put("newestAuthentime", "暂无");
     	}else{
     		list=rulelistMapper.queryifhit(user.getUserId(), user.getAuthentication_time());
         	List<Rulelist_detail> listype=rulelistMapper.queryType(user.getUserId(), user.getAuthentication_time());
@@ -95,11 +99,13 @@ public class RulelistServiceImp implements IntRulelistService{
         		listype.get(i).setSum("0");
     		}
         	list.addAll(listype);
+        	
+        	map.put("list", list);
+        	map.put("newestAuthentime", Timestamps.stampToDate(user.getAuthentication_time()));
     	}
     	
-    	Map<String,Object> map=new HashMap<>();
-    	map.put("list", list);
-    	map.put("newestAuthentime", user.getAuthentication_time());
+    	
+    	
     	return map;
     }
     
